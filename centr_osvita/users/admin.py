@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import, unicode_literals
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from django import forms
 from django.contrib import admin
@@ -8,6 +9,27 @@ from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
 from .models import User
+
+
+class AuthUserPhoneAdmin(AuthUserAdmin):
+    fieldsets = (
+        (None, {'fields': ('phone', 'password')}),
+        (_('Personal info'), {'fields': ('username', 'email')}),
+        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+                                       'groups', 'user_permissions')}),
+        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('phone', 'username', 'password1', 'password2'),
+        }),
+    )
+    list_display = ('phone', 'is_staff')
+    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
+    search_fields = ('phone', 'profile__full_name', 'email')
+    ordering = ('id',)
+    filter_horizontal = ('groups', 'user_permissions',)
 
 
 class MyUserChangeForm(UserChangeForm):
@@ -34,6 +56,6 @@ class MyUserCreationForm(UserCreationForm):
 
 
 @admin.register(User)
-class UserAdmin(AuthUserAdmin):
+class UserAdmin(AuthUserPhoneAdmin):
     form = MyUserChangeForm
     add_form = MyUserCreationForm

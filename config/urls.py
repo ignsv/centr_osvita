@@ -14,7 +14,6 @@ urlpatterns = [
     url(settings.ADMIN_URL, include(admin.site.urls)),
     url(r'^users/', include("centr_osvita.users.urls", namespace="users")),
     url(r'^common/', include("centr_osvita.common.urls", namespace="common")),
-    url(r'^accounts/', include('allauth.urls')),
     # Your stuff: custom urls includes go here
 ]
 
