@@ -8,29 +8,47 @@
           <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         
-        
+        <link rel="shortcut icon" href="{% static 'images/COT_Logo_Title.png' %}" type="image/png">
         {% block css %}
             <link href="{% static 'css/project.css' %}" rel="stylesheet">
+            <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+            <link rel="stylesheet" media="(min-width: @screen-md-min)" href="{% static 'css/project.css' %}" />
+            <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
         {% endblock %}
     </head>
     <body>
-    <div>
+    <div class="main">
         {% if messages %}
             {% for message in messages %}
             <div class="alert {% if message.tags %}alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
             {% endfor %}
         {% endif %}
+        {% include "includes/header.html" %}
         {% block content %}
-            <p>Use this document as a way to quick start any new project.</p>
         {% endblock content %}
+        {% include "includes/footer.html" %}
     </div>
 
     {% block modal %}{% endblock modal %}
 
     {% block javascript %}
+        <script src="{% static 'js/jquery-2.2.0.js' %}"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
         <script src="{% static 'js/project.js' %}"></script>
+        <script type="text/javascript">
+          WebFontConfig = {
+            google: { families: [ 'Roboto+Slab::cyrillic' ] }
+          };
+          (function() {
+            var wf = document.createElement('script');
+            wf.src = "{% static 'js/webfont.js'%}";
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+          })();
+        </script>
     {% endblock javascript %}
 
     </body>
 </html>
-

@@ -36,3 +36,386 @@
 [hidden][style="display: block;"] {
   display: block !important;
 }
+
+html body{
+    font-family: 'Roboto Slab', serif;
+    background: #F6F4F1;
+    height: 100%;
+    width: 100%;
+    font-weight: 400;
+}
+
+.hideMobile{
+    display: none;
+}
+
+.main{
+    background: #fff;
+}
+
+/*Main Page*/
+
+.main header{
+    height: 200px;
+}
+
+.row .welcomeMessage, .row .logo{
+    padding: 3% 3%;
+    background: #fff;
+    height: 300px
+}
+
+.logo{
+    height: 100%
+}
+
+.logo img{
+    margin: 0px auto;
+    width: 100%;
+}
+
+body .row{
+    text-align: center;
+    width: 100%;
+    margin: 0;
+}
+
+.welcomeMessage{
+    height: 200px;
+    display: none;
+}
+
+.welcomeMessage h4{
+    color: #2f4155;
+    font-family: 'Roboto Slab', serif;
+    text-align: left;
+    margin-left: 70px;
+}
+
+.welcomeMessage p{
+    color: #61b6db;
+    font-family: 'Roboto Slab', serif;
+    text-align: left;
+    font-size: 1em;
+    width: 70%;
+    margin-left: 70px;
+}
+
+html body .main .menu{
+    background: #2f4155;
+}
+
+.menu a:hover{
+    text-decoration: none;
+}
+
+.menu .nav{
+    margin-top: -100px;
+}
+
+.menu .nav li a{
+  color: #fff;
+  font-weight: 600;
+  font-size: 30px;
+  height: 110px;
+  border-radius: 0;
+  box-shadow: 0 6px 5px 0px rgba(0, 0, 0, 0.09),
+              0 -6px 5px 0px rgba(0, 0, 0, 0.09);
+}
+
+.menu .nav li a:hover{
+  color: #2f4155;
+}
+
+.menu .nav li ul li a{
+  height: 55px;
+}
+
+.main .menu .nav .dropdown{
+    background: #2f4155;
+    color: #fff;
+}
+
+.main .menu .nav .dropdown:hover{
+    color: #2f4155;
+    background: #eee;
+}
+
+.col-xs-8 div div a{
+    width: 100%;
+    height: 50%;
+    color: #fff;
+}
+
+.main .menu .nav .dropdown .dropdown-menu li a{
+    box-shadow: none;
+    color: #2f4155;
+}
+
+.main .menu .nav .dropdown .dropdown-menu{
+    border-radius: 0;
+}
+
+.col-xs-8 div div a h3{
+    margin-top: 30px;
+}
+
+.col-xs-8 div div a p{
+    margin-left: 50px;
+    text-decoration: underline;
+}
+
+footer .col-xs-4, .col-xs-8{
+    height: 200px;
+    background: #fff;
+    padding-top: 30px;
+}
+
+footer .col-xs-4 img{
+    height: 100px;
+}
+
+.row .col-xs-6 p{
+    font-family: 'Roboto Slab', serif;
+    background: none;
+    text-align: left;
+    color: #73777a;
+    border-radius: 0;
+    font-size: 77%;
+}
+
+.information{
+    height: 100%;
+    padding: 20px 40px;;
+    color:  #2f4155;
+    margin-top: -1px;
+}
+
+.information h1, .information h3{
+    text-align: center;
+}
+
+.information p{
+    text-align: left;
+    padding: 10px 20px;
+}
+
+.information img{
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.carousel{
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    margin-bottom: 10px;
+}
+
+.col-md-4 .carousel .carousel-inner .item{
+    height: 355px;
+}
+
+.col-md-4 .carousel .carousel-inner .item img{
+    width: 100%;
+}
+
+.table div{
+    padding: 0;
+    margin: 0;
+    height: 80px;
+    border-bottom: 2px solid #2f4155;
+}
+
+.art div{
+    padding: 0;
+    margin: 0;
+    margin-top: 50px;
+    text-align: left;
+}
+
+.art .col-md-4{
+    padding: 10px 10px;
+}
+
+.art img{
+    width: 100%;;
+    margin-top: 5px;
+}
+
+.art i{
+    color: #2f4155;
+    font-size: 20px;
+}
+
+.artAddress{
+    margin-top: 150px;
+    padding: 10px 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.artAddress h3, .artAddress p, .artAddress h4{
+    text-align: center;
+}
+
+.artAddress h3{
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.artAddress p, .artAddress h4{
+  font-size: 24px;
+}
+
+#carousel{
+    box-shadow: 0 6px 5px 0px rgba(0, 0, 0, 0.09);
+}
+
+#carousel .carousel-inner .item{
+    width: 100%;
+    height: 500px;
+}
+
+#carousel .carousel-inner .item img{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+/*Our Achievements*/
+
+.row .col-sm-4 .carousel .carousel-control{
+    width: 10%;
+    height: 100%;
+    background: none;
+    color: #2f4155;
+}
+
+.carousel .carousel-inner .item img{
+    margin: auto auto;
+}
+
+.information ul li h4{
+    text-align: left;
+}
+
+/*Contatcs*/
+
+iframe{
+    width: 600px;
+    height: 250px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.fa-4x{
+    color: #2f4155;
+    margin: 0 20px;
+    font-size: 30px;
+}
+
+.item #top{
+    vertical-align: top;
+}
+
+.contacts p{
+  font-size: 30px;
+}
+
+.contacts h3{
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.adress .col-md-4, .adress .col-md-8{
+    height: 275px;
+}
+
+.information p{
+  font-size: 18px;
+}
+
+@media (min-width: 992px){
+
+    body{
+        padding: auto auto;
+        text-align: center;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .hideMobile{
+      display: inline;
+    }
+
+    .contacts p{
+      font-size: 16px;
+    }
+
+    .contacts h3{
+      font-size: 20px;
+    }
+
+    .main{
+        max-width: 975px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .row .welcomeMessage, .row .logo{
+      height: 200px;
+    }
+
+    .welcomeMessage{
+        display: inline;
+    }
+
+    html body.main header{
+        height: 200px;
+    }
+
+    .logo{
+        padding: 30px 0;
+    }
+
+    .main .menu{
+        padding: 0 0px;
+    }
+
+    .artAddress h3{
+      font-size: 20px;
+    }
+
+    .artAddress p, .artAddress h4{
+      font-size: 16px;
+    }
+
+    footer .col-md-6{
+        padding-top: 30px;
+    }
+
+    footer .col-md-6 img{
+        margin-top: 20px;
+    }
+
+    .informationMenu .drop{
+        margin-left: 244px;
+    }
+
+    iframe{
+        width: 600px;
+    }
+
+    .information p{
+      font-size: 16px;
+    }
+
+    .menu .nav li a{
+      font-size: 18px;
+      height: 45px;
+    }
+
+    .menu .nav li ul li a{
+      height: 30px;
+    }
+}

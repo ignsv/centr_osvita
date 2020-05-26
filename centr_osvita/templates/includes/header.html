@@ -1,0 +1,28 @@
+{% load staticfiles i18n %}
+<header class="row">
+        <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6 logo">
+            <a href="{% url 'common:home' %}"><img src="{% static 'images/COT_MainLogo.png' %}" alt=""></a>
+        </div>
+        <div class="welcomeMessage col-md-6 col-sm-12 col-xs-12 col-lg-6">
+
+            <h4>Привіт, друже!</h4>
+            <p>Ми раді бачити тебе на сторінках нашого веб-сайту! Сподіваємося, що ти знайдеш для себе якомога багато корисної інформації. Вдалого серфінгу!</p>
+        </div>
+</header>
+<div class="menu">
+        <ul class="nav nav-pills nav-justified">
+            <li><a href="{% url 'common:home' %}">Головна</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Наші досягнення <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'common:teachers' %}">Наші викладачі</a></li>
+                <li><a href="{% url 'common:statistics' %}">Статистика</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="{% url 'common:nice_moment' %}">Студія «Чудесна мить»</a></li>
+                <li><a href="{% url 'common:center_alisa' %}">Центр розвитку «Аліса»</a></li>
+              </ul>
+            </li>
+            <li><a href="{% url 'common:zno_advices' %}">Підготовка до ЗНО</a></li>
+            <li><a href="{% url 'common:contacts' %}">Наші контакти</a></li>
+        </ul>
+    </div>
