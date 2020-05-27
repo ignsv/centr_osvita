@@ -9,11 +9,10 @@ from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='base.html'), name="home"),
-    # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, include(admin.site.urls)),
+    url(r'^', include("centr_osvita.common.urls", namespace="common")),
     url(r'^users/', include("centr_osvita.users.urls", namespace="users")),
-    url(r'^common/', include("centr_osvita.common.urls", namespace="common")),
+    # url(r'^accounts/', include('allauth.urls')),
     # Your stuff: custom urls includes go here
 ]
 
