@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Profile(TimeStampedModel):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_('Profile'), on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_('User'), on_delete=models.CASCADE)
     full_name = models.CharField(_('full name'), max_length=255, help_text=_('Maximum length is 255 symbols'))
     mother_full_name = models.CharField(_('Mother fullname'), max_length=255, null=True, blank=True,
                                         help_text=_('Maximum length is 255 symbols'))

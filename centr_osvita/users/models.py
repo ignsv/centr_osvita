@@ -5,9 +5,10 @@ from __future__ import unicode_literals, absolute_import
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import BaseUserManager
+from centr_osvita.profiles.models import Profile
 
 
-class PhoneUserManager(BaseUserManager):
+class ProfileUserManager(BaseUserManager):
     def create_user(self, phone, password):
         if not phone:
             raise ValueError('Users must have a phone number')
@@ -24,7 +25,7 @@ class PhoneUserManager(BaseUserManager):
 
     def create_superuser(self, username, email, password):
         """
-        create superuser with dumpy password
+        create superuser with dumpy phone and profile
         """
         user = self.model(
             phone='+380971111111',  # dumpy phone number
@@ -35,13 +36,15 @@ class PhoneUserManager(BaseUserManager):
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
+
+        Profile.objects.create(user=user, full_name='Admin Admin', school_name='Admin')
         return user
 
 
 class User(AbstractUser):
     phone = PhoneNumberField(unique=True)
 
-    objects = PhoneUserManager()
+    objects = ProfileUserManager()
 
     def __str__(self):
         return self.phone.as_e164
