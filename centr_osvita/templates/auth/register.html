@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}Реєстрація{% endblock %}
+
+
+{% block content %}
+
+    <form action="{% url 'users:register' %}" method="post">
+        {% csrf_token %}
+        {{ user_form.non_field_errors }}
+        {{ profile_form.non_field_errors }}
+
+        <div>
+            {{ user_form.phone.errors }}
+            <label for="{{ user_form.phone.id_for_label }}">Телефон</label>
+            {{ user_form.phone }}
+        </div>
+        <div>
+            {{ profile_form.full_name.errors }}
+            <label for="{{ profile_form.full_name.id_for_label }}">Прізвище та ім'я</label>
+            {{ profile_form.full_name }}
+        </div>
+        <div>
+            {{ profile_form.mother_full_name.errors }}
+            <label for="{{ profile_form.mother_full_name.id_for_label }}">Мама: ім'я та по батькові</label>
+            {{ profile_form.mother_full_name }}
+        </div>
+        <div>
+            {{ profile_form.mother_phone.errors }}
+            <label for="{{ profile_form.mother_phone.id_for_label }}">Телефон мами</label>
+            {{ profile_form.mother_phone }}
+        </div>
+        <div>
+            {{ profile_form.father_full_name.errors }}
+            <label for="{{ profile_form.father_full_name.id_for_label }}">Тато: ім'я та по батькові</label>
+            {{ profile_form.father_full_name }}
+        </div>
+        <div>
+            {{ profile_form.father_phone.errors }}
+            <label for="{{ profile_form.father_phone.id_for_label }}">Телефон тата</label>
+            {{ profile_form.father_phone }}
+        </div>
+        <div>
+            {{ profile_form.school_name.errors }}
+            <label for="{{ profile_form.school_name.id_for_label }}">Школа</label>
+            {{ profile_form.school_name }}
+        </div>
+            <div>
+            {{ user_form.password.errors }}
+            <label for="{{ user_form.password.id_for_label }}">Пароль</label>
+            {{ user_form.password }}
+        </div>
+
+
+        <input type="submit" value="OK">
+    </form>
+
+
+{% endblock %}
