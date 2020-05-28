@@ -5,8 +5,14 @@
         </div>
         <div class="welcomeMessage col-md-6 col-sm-12 col-xs-12 col-lg-6">
 
-            <h4>Привіт, друже!</h4>
+{#            <h4>Привіт, друже!</h4>#}
+            {% if not user.is_authenticated %}
+            <h4>Привіт, друже! <a href="{% url 'users:register' %}">Реєстрація</a> <a href="{% url 'users:login' %}">Увійти</a></h4>
+            {% else %}
+            <h4>Привіт, {{ user.profile.full_name }}! <a href="{% url 'users:logout' %}">Вийти</a> </h4>
+            {% endif %}
             <p>Ми раді бачити тебе на сторінках нашого веб-сайту! Сподіваємося, що ти знайдеш для себе якомога багато корисної інформації. Вдалого серфінгу!</p>
+
         </div>
 </header>
 <div class="menu">
