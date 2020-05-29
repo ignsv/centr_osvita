@@ -71,10 +71,8 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'django_extensions',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
     'phonenumber_field',
+    'polymorphic',
 )
 
 LOCAL_APPS = (
