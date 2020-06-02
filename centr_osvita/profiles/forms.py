@@ -16,9 +16,10 @@ class ProfileRegisterForm(ModelForm):
         cleaned_data = super().clean()
         if not (cleaned_data['mother_full_name'] or cleaned_data['father_full_name']):
             raise ValidationError(_("You should enter at least one parent name"))
-        if cleaned_data['mother_full_name'] and not cleaned_data['mother_phone'] \
-                or cleaned_data['father_full_name'] and not cleaned_data['father_phone']:
-            raise ValidationError(_("You should enter full parent credentials"))
+        if 'mother_phone' in cleaned_data and 'father_phone' in cleaned_data:
+            if cleaned_data['mother_full_name'] and not cleaned_data['mother_phone'] \
+                    or cleaned_data['father_full_name'] and not cleaned_data['father_phone']:
+                raise ValidationError(_("You should enter full parent credentials"))
 
         return cleaned_data
 

@@ -13,7 +13,7 @@
 
         <div>
             {{ user_form.phone.errors }}
-            <label for="{{ user_form.phone.id_for_label }}">Телефон</label>
+            <label for="{{ user_form.phone.id_for_label }}">Телефон(у форматі +380XXXXXXXXX)</label>
             {{ user_form.phone }}
         </div>
         <div>
@@ -28,7 +28,7 @@
         </div>
         <div>
             {{ profile_form.mother_phone.errors }}
-            <label for="{{ profile_form.mother_phone.id_for_label }}">Телефон мами</label>
+            <label for="{{ profile_form.mother_phone.id_for_label }}">Телефон мами(у форматі +380XXXXXXXXX)</label>
             {{ profile_form.mother_phone }}
         </div>
         <div>
@@ -38,7 +38,7 @@
         </div>
         <div>
             {{ profile_form.father_phone.errors }}
-            <label for="{{ profile_form.father_phone.id_for_label }}">Телефон тата</label>
+            <label for="{{ profile_form.father_phone.id_for_label }}">Телефон тата(у форматі +380XXXXXXXXX)</label>
             {{ profile_form.father_phone }}
         </div>
         <div>
