@@ -64,7 +64,14 @@ class Answer(PolymorphicModel, TimeStampedModel):
 
 
 class CommonAnswer(Answer):
+    ORDER_COMMON = Choices(
+        (1, 'first', 'A'),
+        (2, 'second', 'B'),
+        (3, 'third', 'C'),
+        (4, 'fourth', 'D'),
+    )
     text = models.CharField(_('Text'), max_length=255)
+    number = models.IntegerField(_("Answer Order"), choices=ORDER_COMMON)
     correct = models.BooleanField(_('Correct answer'))
 
     class Meta:
