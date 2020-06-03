@@ -71,16 +71,15 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'django_extensions',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
     'phonenumber_field',
+    'polymorphic',
 )
 
 LOCAL_APPS = (
     'centr_osvita.common.apps.CommonConfig',
     'centr_osvita.users.apps.UsersConfig',
     'centr_osvita.profiles.apps.ProfilesConfig',
+    'centr_osvita.quiz.apps.QuizConfig',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
