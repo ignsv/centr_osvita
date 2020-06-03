@@ -5,6 +5,8 @@ from polymorphic.models import PolymorphicModel
 from model_utils.choices import Choices
 import time
 
+from centr_osvita.profiles.models import Profile
+
 
 def question_image_path(instance, filename):
     dot_position = filename.find('.')
@@ -135,3 +137,83 @@ class MappingAnswer(Answer):
 
     def __str__(self):
         return '{}:{}_{}'.format(self.question.id, self.number_1, self.number_2)
+
+
+class Quiz(TimeStampedModel):
+    QUIZ_STATUS_TYPES = Choices(
+        (0, 'progress', 'In Progress'),
+        (1, 'done', 'Done'),
+        (2, 'suspend', 'Suspend'),
+    )
+    subject = models.ForeignKey(Subject, verbose_name=_('Subject'), on_delete=models.CASCADE, related_name='quizzes')
+    status = models.IntegerField(_("Status"), choices=QUIZ_STATUS_TYPES, default=QUIZ_STATUS_TYPES.progress)
+    student = models.ForeignKey(Profile, verbose_name=_('Student'), on_delete=models.CASCADE, related_name='quizzes')
+
+    class Meta:
+        verbose_name = _('Quiz')
+        verbose_name_plural = _('Quizzes')
+
+    def __str__(self):
+        return '{}_{}'.format(self.subject.name, self.student.full_name)
+
+
+class QuizQuestion(TimeStampedModel):
+    QUIZ_QUESTION_STATUS_TYPES = Choices(
+        (0, 'active', 'Active'),
+        (1, 'done', 'Done'),
+        (2, 'suspend', 'Suspend'),
+    )
+
+    quiz = models.ForeignKey(Quiz, verbose_name=_('Quiz'), on_delete=models.CASCADE, related_name='quiz_questions')
+    question = models.ForeignKey(Question, verbose_name=_('Question'), on_delete=models.CASCADE,
+                                 related_name='quiz_questions')
+    status = models.IntegerField(_("Status"), choices=QUIZ_QUESTION_STATUS_TYPES,
+                                 default=QUIZ_QUESTION_STATUS_TYPES.active)
+
+    class Meta:
+        verbose_name = _('Quiz Question')
+        verbose_name_plural = _('Quiz Questions')
+
+    def __str__(self):
+        return '{}_{}'.format(self.quiz.student.full_name, self.question.id)
+
+
+class QuizAnswer(PolymorphicModel, TimeStampedModel):
+    quiz_question = models.ForeignKey(QuizQuestion, verbose_name=_('Quiz Question'), related_name='quiz_answers',
+                                      on_delete=NON_POLYMORPHIC_CASCADE)
+    answer = models.ForeignKey(Answer, verbose_name=_('Answer'), related_name='quiz_answers',
+                               on_delete=NON_POLYMORPHIC_CASCADE)
+
+    class Meta:
+        verbose_name = _('Quiz Answer')
+        verbose_name_plural = _('Quiz Answers')
+
+    @property
+    def type(self):
+        return self._meta.object_name
+
+
+class QuizCommonAnswer(QuizAnswer):
+    number = models.IntegerField(_("Answer Order"), choices=CommonAnswer.ORDER_COMMON)
+
+    class Meta:
+        verbose_name = _('Quiz Common Answer')
+        verbose_name_plural = _('Quiz Common Answers')
+
+
+class QuizOrderAnswer(QuizAnswer):
+    number_1 = models.IntegerField(_("Answer FIRST Position"), choices=OrderAnswer.ORDER_FIRST_CHAIN)
+    number_2 = models.IntegerField(_("Answer SECOND Position"), choices=OrderAnswer.ORDER_SECOND_CHAIN)
+
+    class Meta:
+        verbose_name = _('Quiz Order Answer')
+        verbose_name_plural = _('Quiz Order Answers')
+
+
+class QuizMappingAnswer(QuizAnswer):
+    number_1 = models.IntegerField(_("First chain"), choices=MappingAnswer.FIRST_CHAIN_TYPES)
+    number_2 = models.IntegerField(_("Second chain"), choices=MappingAnswer.SECOND_CHAIN_TYPES)
+
+    class Meta:
+        verbose_name = _('Quiz Mapping Answer')
+        verbose_name_plural = _('Quiz Mapping Answers')
