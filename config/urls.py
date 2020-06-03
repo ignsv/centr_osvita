@@ -10,7 +10,7 @@ urlpatterns = [
     url(settings.ADMIN_URL, include(admin.site.urls)),
     url(r'^', include("centr_osvita.common.urls", namespace="common")),
     url(r'^users/', include("centr_osvita.users.urls", namespace="users")),
-    # Your stuff: custom urls includes go here
+    url(r'^quiz/', include("centr_osvita.quiz.urls", namespace="quiz")),
 ]
 
 if settings.USE_SILK:
