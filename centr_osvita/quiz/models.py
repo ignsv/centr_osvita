@@ -187,18 +187,21 @@ class Quiz(TimeStampedModel):
                     result_mark += 1
 
         for order_quiz_question in self.order_quiz_questions:
-            row_appearance = False
+            in_row = True
             for index, quiz_answer in enumerate(order_quiz_question.ordered_quizanswers_by_position_one):
-                if (index == 0 or index == order_quiz_question.quizanswer_set.count()-1) \
+                if not in_row and index == order_quiz_question.quizanswer_set.count()-1 \
                         and quiz_answer.answer.number_1 == quiz_answer.number_1 \
                         and quiz_answer.answer.number_2 == quiz_answer.number_2:
                     result_mark += 1
-                    row_appearance = True
-                elif row_appearance and quiz_answer.answer.number_1 == quiz_answer.number_1 \
+                elif in_row and index == order_quiz_question.quizanswer_set.count()-1 \
+                        and quiz_answer.answer.number_1 == quiz_answer.number_1 \
+                        and quiz_answer.answer.number_2 == quiz_answer.number_2:
+                    pass
+                elif in_row and quiz_answer.answer.number_1 == quiz_answer.number_1 \
                         and quiz_answer.answer.number_2 == quiz_answer.number_2:
                     result_mark += 1
                 else:
-                    row_appearance = False
+                    in_row = False
 
         for mapping_quiz_question in self.mapping_quiz_questions:
             for quiz_answer in mapping_quiz_question.ordered_quizanswers_by_position_one:
