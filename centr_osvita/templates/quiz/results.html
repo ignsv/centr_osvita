@@ -48,14 +48,14 @@
                 <table border="1">
                 <tr>
                 <td> </td>
-                {% for quiz_answer in order_quiz_question.ordered_quizanswers_by_position.all %}
+                {% for quiz_answer in order_quiz_question.ordered_quizanswers_by_position_two.all %}
                     <td>{{quiz_answer.get_number_2_display}}</td>
                     {% endfor %}
                 </tr>
                     {% for answer in order_quiz_question.question.ordered_answers_by_position.all%}
                   <tr>
                   <td>{{ answer.get_number_1_display }}</td>
-                    {% for quiz_answer in order_quiz_question.ordered_quizanswers_by_position.all%}
+                    {% for quiz_answer in order_quiz_question.ordered_quizanswers_by_position_two.all%}
                       {% if quiz_answer.number_1 == answer.number_1 and quiz_answer.number_2 == answer.number_2 %}
                         <td>Yes</td>
                       {% elif quiz_answer.number_1 == answer.number_1 and quiz_answer.number_2 != answer.number_2 %}
@@ -74,7 +74,7 @@
                 <table border="1">
                 <tr>
                 <td> </td>
-                {% for quiz_answer in mapping_quiz_question.ordered_quizanswers_by_position.all %}
+                {% for quiz_answer in mapping_quiz_question.ordered_quizanswers_by_position_two.all %}
                     <td>{{quiz_answer.get_number_2_display}}</td>
                     {% endfor %}
                 </tr>
@@ -82,7 +82,7 @@
                     {% if answer.number_1 != 0 %}
                       <tr>
                       <td>{{ answer.get_number_1_display }}</td>
-                        {% for quiz_answer in mapping_quiz_question.ordered_quizanswers_by_position.all%}
+                        {% for quiz_answer in mapping_quiz_question.ordered_quizanswers_by_position_two.all%}
                           {% if quiz_answer.number_1 == answer.number_1 and quiz_answer.number_2 == answer.number_2 %}
                             <td>Yes</td>
                           {% elif quiz_answer.number_1 == answer.number_1 and quiz_answer.number_2 != answer.number_2 %}
@@ -96,6 +96,8 @@
                   {% endfor %}
                 </table>
             {% endfor %}
+            <br>
+            <p>Mark: {{ object.current_mark }}/{{ object.max_available_mark }}</p>
 
         {% endblock content %}
     </div>

@@ -174,6 +174,41 @@ class Quiz(TimeStampedModel):
         return self.common_quiz_questions.count() + self.order_quiz_questions.count()
 
     @property
+    def max_available_mark(self):
+        return self.common_quiz_questions.count() + self.order_quiz_questions.count()*3 \
+               + self.mapping_quiz_questions.count()*4
+
+    @property
+    def current_mark(self):
+        result_mark = 0
+        for common_quiz_question in self.common_quiz_questions:
+            for quiz_answer in common_quiz_question.quizanswer_set.all():
+                if quiz_answer.answer.correct and quiz_answer.answer.number == quiz_answer.number:
+                    result_mark += 1
+
+        for order_quiz_question in self.order_quiz_questions:
+            row_appearance = False
+            for index, quiz_answer in enumerate(order_quiz_question.ordered_quizanswers_by_position_one):
+                if (index == 0 or index == order_quiz_question.quizanswer_set.count()-1) \
+                        and quiz_answer.answer.number_1 == quiz_answer.number_1 \
+                        and quiz_answer.answer.number_2 == quiz_answer.number_2:
+                    result_mark += 1
+                    row_appearance = True
+                elif row_appearance and quiz_answer.answer.number_1 == quiz_answer.number_1 \
+                        and quiz_answer.answer.number_2 == quiz_answer.number_2:
+                    result_mark += 1
+                else:
+                    row_appearance = False
+
+        for mapping_quiz_question in self.mapping_quiz_questions:
+            for quiz_answer in mapping_quiz_question.ordered_quizanswers_by_position_one:
+                if quiz_answer.answer.number_1 == quiz_answer.number_1 \
+                        and quiz_answer.answer.number_2 == quiz_answer.number_2:
+                    result_mark += 1
+
+        return result_mark
+
+    @property
     def common_quiz_questions(self):
         """
         Returns only common quiz questions
@@ -216,7 +251,7 @@ class QuizQuestion(TimeStampedModel):
         return '{}_{}'.format(self.quiz.student.full_name, self.question.id)
 
     @property
-    def ordered_quizanswers_by_position(self):
+    def ordered_quizanswers_by_position_two(self):
         quizanswers_ids = self.quizanswer_set.values_list('id', flat=True)
         if self.question.type == QUESTION_TYPES.common:
             return QuizCommonAnswer.objects.filter(id__in=quizanswers_ids).order_by('number')
@@ -224,6 +259,17 @@ class QuizQuestion(TimeStampedModel):
             return QuizOrderAnswer.objects.filter(id__in=quizanswers_ids).order_by('number_2')
         if self.question.type == QUESTION_TYPES.mapping:
             return QuizMappingAnswer.objects.filter(id__in=quizanswers_ids).order_by('number_2')
+        return self.quizanswer_set
+
+    @property
+    def ordered_quizanswers_by_position_one(self):
+        quizanswers_id_list = self.quizanswer_set.values_list('id', flat=True)
+        if self.question.type == QUESTION_TYPES.common:
+            return QuizCommonAnswer.objects.filter(id__in=quizanswers_id_list).order_by('number')
+        elif self.question.type == QUESTION_TYPES.order:
+            return QuizOrderAnswer.objects.filter(id__in=quizanswers_id_list).order_by('number_1')
+        if self.question.type == QUESTION_TYPES.mapping:
+            return QuizMappingAnswer.objects.filter(id__in=quizanswers_id_list).order_by('number_1')
         return self.quizanswer_set
 
 
