@@ -1,0 +1,127 @@
+{% load staticfiles i18n %}<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Результати{% endblock title %}</title>
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link rel="shortcut icon" href="{% static 'images/COT_Logo_Title.png' %}" type="image/png">
+        {% block css %}
+{#            <link href="{% static 'css/project.css' %}" rel="stylesheet">#}
+            <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+            <link rel="stylesheet" media="(min-width: @screen-md-min)" href="{% static 'css/project.css' %}" />
+            <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+        {% endblock %}
+    </head>
+    <body>
+    <div class="results">
+        {% block content %}
+            {% for common_quiz_question in object.common_quiz_questions%}
+                <p>{{ forloop.counter }}</p>
+                <table border="1">
+                <tr>
+                {% for answer in common_quiz_question.question.ordered_answers_by_position.all %}
+                    <td>{{answer.get_number_display}}</td>
+                    {% endfor %}
+                </tr>
+                  {% for quiz_answer in common_quiz_question.quizanswer_set.all%}
+                  <tr>
+                  {% for answer in common_quiz_question.question.answer_set.all%}
+                      {% if quiz_answer.number == answer.number and quiz_answer.answer.correct == True %}
+                        <td>Yes</td>
+                      {% elif quiz_answer.number == answer.number and quiz_answer.answer.correct == False %}
+                        <td>No</td>
+                      {% else %}
+                        <td>EMPTY</td>
+                      {% endif %}
+                  {% endfor %}
+                  </tr>
+                  {% endfor %}
+                </table>
+            {% endfor %}
+
+            {% for order_quiz_question in object.order_quiz_questions%}
+                <p>{{ object.common_quiz_questions.all|length|add:forloop.counter}}</p>
+                <table border="1">
+                <tr>
+                <td> </td>
+                {% for quiz_answer in order_quiz_question.ordered_quizanswers_by_position_two.all %}
+                    <td>{{quiz_answer.get_number_2_display}}</td>
+                    {% endfor %}
+                </tr>
+                    {% for answer in order_quiz_question.question.ordered_answers_by_position.all%}
+                  <tr>
+                  <td>{{ answer.get_number_1_display }}</td>
+                    {% for quiz_answer in order_quiz_question.ordered_quizanswers_by_position_two.all%}
+                      {% if quiz_answer.number_1 == answer.number_1 and quiz_answer.number_2 == answer.number_2 %}
+                        <td>Yes</td>
+                      {% elif quiz_answer.number_1 == answer.number_1 and quiz_answer.number_2 != answer.number_2 %}
+                        <td>No</td>
+                      {% else %}
+                        <td>EMPTY</td>
+                      {% endif %}
+                  {% endfor %}
+                  </tr>
+                  {% endfor %}
+                </table>
+            {% endfor %}
+
+            {% for mapping_quiz_question in object.mapping_quiz_questions%}
+                <p>{{ forloop.counter|add:object.question_sum_common_order }}</p>
+                <table border="1">
+                <tr>
+                <td> </td>
+                {% for quiz_answer in mapping_quiz_question.ordered_quizanswers_by_position_two.all %}
+                    <td>{{quiz_answer.get_number_2_display}}</td>
+                    {% endfor %}
+                </tr>
+                    {% for answer in mapping_quiz_question.question.ordered_answers_by_position.all%}
+                    {% if answer.number_1 != 0 %}
+                      <tr>
+                      <td>{{ answer.get_number_1_display }}</td>
+                        {% for quiz_answer in mapping_quiz_question.ordered_quizanswers_by_position_two.all%}
+                          {% if quiz_answer.number_1 == answer.number_1 and quiz_answer.number_2 == answer.number_2 %}
+                            <td>Yes</td>
+                          {% elif quiz_answer.number_1 == answer.number_1 and quiz_answer.number_2 != answer.number_2 %}
+                            <td>No</td>
+                          {% else %}
+                            <td>EMPTY</td>
+                          {% endif %}
+                      {% endfor %}
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </table>
+            {% endfor %}
+            <br>
+            <p>Mark: {{ object.current_mark }}/{{ object.max_available_mark }}</p>
+
+        {% endblock content %}
+    </div>
+
+    {% block modal %}{% endblock modal %}
+
+    {% block javascript %}
+        <script src="{% static 'js/jquery-2.2.0.js' %}"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+        <script src="{% static 'js/project.js' %}"></script>
+        <script type="text/javascript">
+          WebFontConfig = {
+            google: { families: [ 'Roboto+Slab::cyrillic' ] }
+          };
+          (function() {
+            var wf = document.createElement('script');
+            wf.src = "{% static 'js/webfont.js'%}";
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+          })();
+        </script>
+    {% endblock javascript %}
+
+    </body>
+</html>

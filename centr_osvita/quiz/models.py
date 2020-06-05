@@ -7,6 +7,12 @@ import time
 
 from centr_osvita.profiles.models import Profile
 
+QUESTION_TYPES = Choices(
+    (0, 'common', 'common'),
+    (1, 'order', 'order'),
+    (2, 'mapping', 'mapping'),
+)
+
 
 def question_image_path(instance, filename):
     dot_position = filename.find('.')
@@ -27,12 +33,6 @@ class Subject(TimeStampedModel):
 
 
 class Question(TimeStampedModel):
-    QUESTION_TYPES = Choices(
-        (0, 'common', 'common'),
-        (1, 'order', 'order'),
-        (2, 'mapping', 'mapping'),
-    )
-
     subject = models.ForeignKey(Subject, verbose_name=_('Subject'), on_delete=models.CASCADE, related_name='questions')
     text = models.TextField(_('Text'))
     image = models.ImageField(_("Image"), upload_to=question_image_path, null=True, blank=True)
@@ -45,6 +45,17 @@ class Question(TimeStampedModel):
     def __str__(self):
         return self.text[:20]
 
+    @property
+    def ordered_answers_by_position(self):
+        answers_ids = self.answer_set.values_list('id', flat=True)
+        if self.type == QUESTION_TYPES.common:
+            return CommonAnswer.objects.filter(id__in=answers_ids).order_by('number')
+        elif self.type == QUESTION_TYPES.order:
+            return OrderAnswer.objects.filter(id__in=answers_ids).order_by('number_1')
+        if self.type == QUESTION_TYPES.mapping:
+            return MappingAnswer.objects.filter(id__in=answers_ids).order_by('number_1')
+        return self.answer_set
+
 
 # Needs to correct deletion
 # Workaround https://github.com/django-polymorphic/django-polymorphic/issues/229#issuecomment-398434412
@@ -53,8 +64,7 @@ def NON_POLYMORPHIC_CASCADE(collector, field, sub_objs, using):
 
 
 class Answer(PolymorphicModel, TimeStampedModel):
-    question = models.ForeignKey(Question, verbose_name=_('Question'), related_name='answers',
-                                 on_delete=NON_POLYMORPHIC_CASCADE)
+    question = models.ForeignKey(Question, verbose_name=_('Question'), on_delete=NON_POLYMORPHIC_CASCADE)
 
     class Meta:
         verbose_name = _('Answer')
@@ -63,6 +73,9 @@ class Answer(PolymorphicModel, TimeStampedModel):
     @property
     def type(self):
         return self._meta.object_name
+
+    def __str__(self):
+        return str(self.id)
 
 
 class CommonAnswer(Answer):
@@ -81,7 +94,7 @@ class CommonAnswer(Answer):
         verbose_name_plural = _('Common Answers')
 
     def __str__(self):
-        return self.text[:20]
+        return '{}__{}:{}'.format(self.question.id, self.id, self.number)
 
 
 class OrderAnswer(Answer):
@@ -107,7 +120,7 @@ class OrderAnswer(Answer):
         verbose_name_plural = _('Order Answers')
 
     def __str__(self):
-        return self.text[:20]
+        return '{}__{}:{}_{}'.format(self.question.id, self.id, self.number_1, self.number_2)
 
 
 class MappingAnswer(Answer):
@@ -136,7 +149,7 @@ class MappingAnswer(Answer):
         verbose_name_plural = _('Mapping Answers')
 
     def __str__(self):
-        return '{}:{}_{}'.format(self.question.id, self.number_1, self.number_2)
+        return '{}__{}:{}_{}'.format(self.question.id, self.id, self.number_1, self.number_2)
 
 
 class Quiz(TimeStampedModel):
@@ -155,6 +168,69 @@ class Quiz(TimeStampedModel):
 
     def __str__(self):
         return '{}_{}'.format(self.subject.name, self.student.full_name)
+
+    @property
+    def question_sum_common_order(self):
+        return self.common_quiz_questions.count() + self.order_quiz_questions.count()
+
+    @property
+    def max_available_mark(self):
+        return self.common_quiz_questions.count() + self.order_quiz_questions.count()*3 \
+               + self.mapping_quiz_questions.count()*4
+
+    @property
+    def current_mark(self):
+        result_mark = 0
+        for common_quiz_question in self.common_quiz_questions:
+            for quiz_answer in common_quiz_question.quizanswer_set.all():
+                if quiz_answer.answer.correct and quiz_answer.answer.number == quiz_answer.number:
+                    result_mark += 1
+
+        for order_quiz_question in self.order_quiz_questions:
+            in_row = True
+            for index, quiz_answer in enumerate(order_quiz_question.ordered_quizanswers_by_position_one):
+                if not in_row and index == order_quiz_question.quizanswer_set.count()-1 \
+                        and quiz_answer.answer.number_1 == quiz_answer.number_1 \
+                        and quiz_answer.answer.number_2 == quiz_answer.number_2:
+                    result_mark += 1
+                elif in_row and index == order_quiz_question.quizanswer_set.count()-1 \
+                        and quiz_answer.answer.number_1 == quiz_answer.number_1 \
+                        and quiz_answer.answer.number_2 == quiz_answer.number_2:
+                    pass
+                elif in_row and quiz_answer.answer.number_1 == quiz_answer.number_1 \
+                        and quiz_answer.answer.number_2 == quiz_answer.number_2:
+                    result_mark += 1
+                else:
+                    in_row = False
+
+        for mapping_quiz_question in self.mapping_quiz_questions:
+            for quiz_answer in mapping_quiz_question.ordered_quizanswers_by_position_one:
+                if quiz_answer.answer.number_1 == quiz_answer.number_1 \
+                        and quiz_answer.answer.number_2 == quiz_answer.number_2:
+                    result_mark += 1
+
+        return result_mark
+
+    @property
+    def common_quiz_questions(self):
+        """
+        Returns only common quiz questions
+        """
+        return self.quiz_questions.filter(question__type=QUESTION_TYPES.common)
+
+    @property
+    def order_quiz_questions(self):
+        """
+        Returns only order quiz questions
+        """
+        return self.quiz_questions.filter(question__type=QUESTION_TYPES.order)
+
+    @property
+    def mapping_quiz_questions(self):
+        """
+        Returns only mapping quiz questions
+        """
+        return self.quiz_questions.filter(question__type=QUESTION_TYPES.mapping)
 
 
 class QuizQuestion(TimeStampedModel):
@@ -177,10 +253,31 @@ class QuizQuestion(TimeStampedModel):
     def __str__(self):
         return '{}_{}'.format(self.quiz.student.full_name, self.question.id)
 
+    @property
+    def ordered_quizanswers_by_position_two(self):
+        quizanswers_ids = self.quizanswer_set.values_list('id', flat=True)
+        if self.question.type == QUESTION_TYPES.common:
+            return QuizCommonAnswer.objects.filter(id__in=quizanswers_ids).order_by('number')
+        elif self.question.type == QUESTION_TYPES.order:
+            return QuizOrderAnswer.objects.filter(id__in=quizanswers_ids).order_by('number_2')
+        if self.question.type == QUESTION_TYPES.mapping:
+            return QuizMappingAnswer.objects.filter(id__in=quizanswers_ids).order_by('number_2')
+        return self.quizanswer_set
+
+    @property
+    def ordered_quizanswers_by_position_one(self):
+        quizanswers_id_list = self.quizanswer_set.values_list('id', flat=True)
+        if self.question.type == QUESTION_TYPES.common:
+            return QuizCommonAnswer.objects.filter(id__in=quizanswers_id_list).order_by('number')
+        elif self.question.type == QUESTION_TYPES.order:
+            return QuizOrderAnswer.objects.filter(id__in=quizanswers_id_list).order_by('number_1')
+        if self.question.type == QUESTION_TYPES.mapping:
+            return QuizMappingAnswer.objects.filter(id__in=quizanswers_id_list).order_by('number_1')
+        return self.quizanswer_set
+
 
 class QuizAnswer(PolymorphicModel, TimeStampedModel):
-    quiz_question = models.ForeignKey(QuizQuestion, verbose_name=_('Quiz Question'), related_name='quiz_answers',
-                                      on_delete=NON_POLYMORPHIC_CASCADE)
+    quiz_question = models.ForeignKey(QuizQuestion, verbose_name=_('Quiz Question'), on_delete=NON_POLYMORPHIC_CASCADE)
     answer = models.ForeignKey(Answer, verbose_name=_('Answer'), related_name='quiz_answers',
                                on_delete=NON_POLYMORPHIC_CASCADE)
 
@@ -191,6 +288,9 @@ class QuizAnswer(PolymorphicModel, TimeStampedModel):
     @property
     def type(self):
         return self._meta.object_name
+
+    def __str__(self):
+        return str(self.id)
 
 
 class QuizCommonAnswer(QuizAnswer):

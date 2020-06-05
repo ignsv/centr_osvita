@@ -1,0 +1,901 @@
+[
+{
+    "model": "sites.site",
+    "pk": 1,
+    "fields": {
+        "domain": "example.com",
+        "name": "example.com"
+    }
+},
+{
+    "model": "quiz.subject",
+    "pk": 1,
+    "fields": {
+        "created": "2020-05-29T01:22:22.918Z",
+        "modified": "2020-05-29T01:22:22.920Z",
+        "name": "Math",
+        "status": true
+    }
+},
+{
+    "model": "quiz.question",
+    "pk": 2,
+    "fields": {
+        "created": "2020-05-29T01:45:08.716Z",
+        "modified": "2020-06-03T21:15:49.308Z",
+        "subject": 1,
+        "text": "Order 1",
+        "image": "",
+        "type": 1
+    }
+},
+{
+    "model": "quiz.question",
+    "pk": 3,
+    "fields": {
+        "created": "2020-05-29T02:12:33.050Z",
+        "modified": "2020-06-03T21:19:16.336Z",
+        "subject": 1,
+        "text": "MAPPING 1",
+        "image": "subject_1/2020-04-13_211590719330.42.24.jpg",
+        "type": 2
+    }
+},
+{
+    "model": "quiz.question",
+    "pk": 4,
+    "fields": {
+        "created": "2020-06-02T19:16:23.889Z",
+        "modified": "2020-06-03T21:09:47.527Z",
+        "subject": 1,
+        "text": "COMMON_1",
+        "image": "",
+        "type": 0
+    }
+},
+{
+    "model": "quiz.question",
+    "pk": 5,
+    "fields": {
+        "created": "2020-06-03T21:12:42.444Z",
+        "modified": "2020-06-03T21:12:42.465Z",
+        "subject": 1,
+        "text": "common_2",
+        "image": "",
+        "type": 0
+    }
+},
+{
+    "model": "quiz.question",
+    "pk": 6,
+    "fields": {
+        "created": "2020-06-03T21:17:20.675Z",
+        "modified": "2020-06-03T21:17:20.699Z",
+        "subject": 1,
+        "text": "ORDER 2",
+        "image": "",
+        "type": 1
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 5,
+    "fields": {
+        "polymorphic_ctype": 20,
+        "created": "2020-05-29T02:10:56.010Z",
+        "modified": "2020-06-03T21:15:49.311Z",
+        "question": 2
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 6,
+    "fields": {
+        "polymorphic_ctype": 20,
+        "created": "2020-05-29T02:10:56.011Z",
+        "modified": "2020-06-03T21:15:49.318Z",
+        "question": 2
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 7,
+    "fields": {
+        "polymorphic_ctype": 20,
+        "created": "2020-05-29T02:10:56.012Z",
+        "modified": "2020-06-03T21:15:49.321Z",
+        "question": 2
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 8,
+    "fields": {
+        "polymorphic_ctype": 20,
+        "created": "2020-05-29T02:11:37.847Z",
+        "modified": "2020-06-03T21:15:49.325Z",
+        "question": 2
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 9,
+    "fields": {
+        "polymorphic_ctype": 23,
+        "created": "2020-05-29T02:12:33.064Z",
+        "modified": "2020-06-03T21:19:16.338Z",
+        "question": 3
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 10,
+    "fields": {
+        "polymorphic_ctype": 23,
+        "created": "2020-05-29T02:12:33.066Z",
+        "modified": "2020-06-03T21:19:16.340Z",
+        "question": 3
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 11,
+    "fields": {
+        "polymorphic_ctype": 23,
+        "created": "2020-05-29T02:14:40.237Z",
+        "modified": "2020-06-03T21:19:16.342Z",
+        "question": 3
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 12,
+    "fields": {
+        "polymorphic_ctype": 23,
+        "created": "2020-05-29T02:14:40.238Z",
+        "modified": "2020-06-03T21:19:16.344Z",
+        "question": 3
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 13,
+    "fields": {
+        "polymorphic_ctype": 23,
+        "created": "2020-05-29T02:14:40.239Z",
+        "modified": "2020-06-03T21:19:16.347Z",
+        "question": 3
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 14,
+    "fields": {
+        "polymorphic_ctype": 19,
+        "created": "2020-06-02T19:16:23.904Z",
+        "modified": "2020-06-03T21:09:47.532Z",
+        "question": 4
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 15,
+    "fields": {
+        "polymorphic_ctype": 19,
+        "created": "2020-06-02T19:16:23.905Z",
+        "modified": "2020-06-03T21:09:47.535Z",
+        "question": 4
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 16,
+    "fields": {
+        "polymorphic_ctype": 19,
+        "created": "2020-06-02T19:16:23.906Z",
+        "modified": "2020-06-03T21:09:47.537Z",
+        "question": 4
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 17,
+    "fields": {
+        "polymorphic_ctype": 19,
+        "created": "2020-06-02T19:16:23.907Z",
+        "modified": "2020-06-03T21:09:47.539Z",
+        "question": 4
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 18,
+    "fields": {
+        "polymorphic_ctype": 19,
+        "created": "2020-06-03T21:12:42.458Z",
+        "modified": "2020-06-03T21:12:42.473Z",
+        "question": 5
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 19,
+    "fields": {
+        "polymorphic_ctype": 19,
+        "created": "2020-06-03T21:12:42.459Z",
+        "modified": "2020-06-03T21:12:42.477Z",
+        "question": 5
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 20,
+    "fields": {
+        "polymorphic_ctype": 19,
+        "created": "2020-06-03T21:12:42.460Z",
+        "modified": "2020-06-03T21:12:42.480Z",
+        "question": 5
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 21,
+    "fields": {
+        "polymorphic_ctype": 19,
+        "created": "2020-06-03T21:12:42.461Z",
+        "modified": "2020-06-03T21:12:42.482Z",
+        "question": 5
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 22,
+    "fields": {
+        "polymorphic_ctype": 20,
+        "created": "2020-06-03T21:17:20.690Z",
+        "modified": "2020-06-03T21:17:20.700Z",
+        "question": 6
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 23,
+    "fields": {
+        "polymorphic_ctype": 20,
+        "created": "2020-06-03T21:17:20.691Z",
+        "modified": "2020-06-03T21:17:20.703Z",
+        "question": 6
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 24,
+    "fields": {
+        "polymorphic_ctype": 20,
+        "created": "2020-06-03T21:17:20.692Z",
+        "modified": "2020-06-03T21:17:20.706Z",
+        "question": 6
+    }
+},
+{
+    "model": "quiz.answer",
+    "pk": 25,
+    "fields": {
+        "polymorphic_ctype": 20,
+        "created": "2020-06-03T21:17:20.694Z",
+        "modified": "2020-06-03T21:17:20.708Z",
+        "question": 6
+    }
+},
+{
+    "model": "quiz.commonanswer",
+    "pk": 14,
+    "fields": {
+        "text": "common_sho",
+        "number": 1,
+        "correct": false
+    }
+},
+{
+    "model": "quiz.commonanswer",
+    "pk": 15,
+    "fields": {
+        "text": "common_pre",
+        "number": 2,
+        "correct": false
+    }
+},
+{
+    "model": "quiz.commonanswer",
+    "pk": 16,
+    "fields": {
+        "text": "common_way",
+        "number": 3,
+        "correct": true
+    }
+},
+{
+    "model": "quiz.commonanswer",
+    "pk": 17,
+    "fields": {
+        "text": "common_side",
+        "number": 4,
+        "correct": false
+    }
+},
+{
+    "model": "quiz.commonanswer",
+    "pk": 18,
+    "fields": {
+        "text": "commom",
+        "number": 1,
+        "correct": true
+    }
+},
+{
+    "model": "quiz.commonanswer",
+    "pk": 19,
+    "fields": {
+        "text": "B",
+        "number": 2,
+        "correct": false
+    }
+},
+{
+    "model": "quiz.commonanswer",
+    "pk": 20,
+    "fields": {
+        "text": "C",
+        "number": 3,
+        "correct": false
+    }
+},
+{
+    "model": "quiz.commonanswer",
+    "pk": 21,
+    "fields": {
+        "text": "D",
+        "number": 4,
+        "correct": false
+    }
+},
+{
+    "model": "quiz.orderanswer",
+    "pk": 5,
+    "fields": {
+        "text": "FIRST",
+        "number_1": 1,
+        "number_2": 2
+    }
+},
+{
+    "model": "quiz.orderanswer",
+    "pk": 6,
+    "fields": {
+        "text": "SECOND",
+        "number_1": 2,
+        "number_2": 1
+    }
+},
+{
+    "model": "quiz.orderanswer",
+    "pk": 7,
+    "fields": {
+        "text": "THIRD",
+        "number_1": 3,
+        "number_2": 3
+    }
+},
+{
+    "model": "quiz.orderanswer",
+    "pk": 8,
+    "fields": {
+        "text": "FIFTH",
+        "number_1": 4,
+        "number_2": 4
+    }
+},
+{
+    "model": "quiz.orderanswer",
+    "pk": 22,
+    "fields": {
+        "text": "FIRST",
+        "number_1": 1,
+        "number_2": 1
+    }
+},
+{
+    "model": "quiz.orderanswer",
+    "pk": 23,
+    "fields": {
+        "text": "SECOND",
+        "number_1": 2,
+        "number_2": 2
+    }
+},
+{
+    "model": "quiz.orderanswer",
+    "pk": 24,
+    "fields": {
+        "text": "THIRD",
+        "number_1": 3,
+        "number_2": 3
+    }
+},
+{
+    "model": "quiz.orderanswer",
+    "pk": 25,
+    "fields": {
+        "text": "FOURTH",
+        "number_1": 4,
+        "number_2": 4
+    }
+},
+{
+    "model": "quiz.mappinganswer",
+    "pk": 9,
+    "fields": {
+        "number_1": 1,
+        "number_2": 1,
+        "text_1": "SHOTO",
+        "text_2": "FIRST"
+    }
+},
+{
+    "model": "quiz.mappinganswer",
+    "pk": 10,
+    "fields": {
+        "number_1": 2,
+        "number_2": 4,
+        "text_1": "ferfre",
+        "text_2": "SECOND"
+    }
+},
+{
+    "model": "quiz.mappinganswer",
+    "pk": 11,
+    "fields": {
+        "number_1": 3,
+        "number_2": 2,
+        "text_1": "SHOTO",
+        "text_2": "THIRD"
+    }
+},
+{
+    "model": "quiz.mappinganswer",
+    "pk": 12,
+    "fields": {
+        "number_1": 4,
+        "number_2": 5,
+        "text_1": "123123",
+        "text_2": "12312312"
+    }
+},
+{
+    "model": "quiz.mappinganswer",
+    "pk": 13,
+    "fields": {
+        "number_1": 0,
+        "number_2": 3,
+        "text_1": null,
+        "text_2": "ZERO"
+    }
+},
+{
+    "model": "quiz.quiz",
+    "pk": 1,
+    "fields": {
+        "created": "2020-06-02T23:53:01.143Z",
+        "modified": "2020-06-03T01:38:32.458Z",
+        "subject": 1,
+        "status": 1,
+        "student": 6
+    }
+},
+{
+    "model": "quiz.quizquestion",
+    "pk": 2,
+    "fields": {
+        "created": "2020-06-03T21:32:10.746Z",
+        "modified": "2020-06-03T21:44:47.141Z",
+        "quiz": 1,
+        "question": 4,
+        "status": 1
+    }
+},
+{
+    "model": "quiz.quizquestion",
+    "pk": 3,
+    "fields": {
+        "created": "2020-06-03T21:44:37.240Z",
+        "modified": "2020-06-03T21:44:37.263Z",
+        "quiz": 1,
+        "question": 5,
+        "status": 1
+    }
+},
+{
+    "model": "quiz.quizquestion",
+    "pk": 4,
+    "fields": {
+        "created": "2020-06-03T21:53:11.889Z",
+        "modified": "2020-06-05T01:31:40.298Z",
+        "quiz": 1,
+        "question": 2,
+        "status": 1
+    }
+},
+{
+    "model": "quiz.quizquestion",
+    "pk": 5,
+    "fields": {
+        "created": "2020-06-03T21:55:14.119Z",
+        "modified": "2020-06-03T21:55:14.162Z",
+        "quiz": 1,
+        "question": 6,
+        "status": 1
+    }
+},
+{
+    "model": "quiz.quizquestion",
+    "pk": 6,
+    "fields": {
+        "created": "2020-06-03T22:04:25.996Z",
+        "modified": "2020-06-03T22:04:26.048Z",
+        "quiz": 1,
+        "question": 3,
+        "status": 1
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 2,
+    "fields": {
+        "polymorphic_ctype": 25,
+        "created": "2020-06-03T21:32:10.763Z",
+        "modified": "2020-06-03T21:44:47.142Z",
+        "quiz_question": 2,
+        "answer": 15
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 3,
+    "fields": {
+        "polymorphic_ctype": 25,
+        "created": "2020-06-03T21:44:37.254Z",
+        "modified": "2020-06-03T21:44:37.264Z",
+        "quiz_question": 3,
+        "answer": 18
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 4,
+    "fields": {
+        "polymorphic_ctype": 28,
+        "created": "2020-06-03T21:53:11.904Z",
+        "modified": "2020-06-05T01:31:40.299Z",
+        "quiz_question": 4,
+        "answer": 5
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 5,
+    "fields": {
+        "polymorphic_ctype": 28,
+        "created": "2020-06-03T21:53:11.906Z",
+        "modified": "2020-06-05T01:31:40.301Z",
+        "quiz_question": 4,
+        "answer": 6
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 6,
+    "fields": {
+        "polymorphic_ctype": 28,
+        "created": "2020-06-03T21:53:11.907Z",
+        "modified": "2020-06-05T01:31:40.303Z",
+        "quiz_question": 4,
+        "answer": 7
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 7,
+    "fields": {
+        "polymorphic_ctype": 28,
+        "created": "2020-06-03T21:53:11.908Z",
+        "modified": "2020-06-05T01:31:40.305Z",
+        "quiz_question": 4,
+        "answer": 8
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 8,
+    "fields": {
+        "polymorphic_ctype": 28,
+        "created": "2020-06-03T21:55:14.134Z",
+        "modified": "2020-06-03T21:55:14.163Z",
+        "quiz_question": 5,
+        "answer": 22
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 9,
+    "fields": {
+        "polymorphic_ctype": 28,
+        "created": "2020-06-03T21:55:14.136Z",
+        "modified": "2020-06-03T21:55:14.165Z",
+        "quiz_question": 5,
+        "answer": 23
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 10,
+    "fields": {
+        "polymorphic_ctype": 28,
+        "created": "2020-06-03T21:55:14.137Z",
+        "modified": "2020-06-03T21:55:14.167Z",
+        "quiz_question": 5,
+        "answer": 24
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 11,
+    "fields": {
+        "polymorphic_ctype": 28,
+        "created": "2020-06-03T21:55:14.139Z",
+        "modified": "2020-06-03T21:55:14.170Z",
+        "quiz_question": 5,
+        "answer": 25
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 12,
+    "fields": {
+        "polymorphic_ctype": 29,
+        "created": "2020-06-03T22:04:26.012Z",
+        "modified": "2020-06-03T22:04:26.050Z",
+        "quiz_question": 6,
+        "answer": 9
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 13,
+    "fields": {
+        "polymorphic_ctype": 29,
+        "created": "2020-06-03T22:04:26.014Z",
+        "modified": "2020-06-03T22:04:26.052Z",
+        "quiz_question": 6,
+        "answer": 10
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 14,
+    "fields": {
+        "polymorphic_ctype": 29,
+        "created": "2020-06-03T22:04:26.015Z",
+        "modified": "2020-06-03T22:04:26.055Z",
+        "quiz_question": 6,
+        "answer": 11
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 15,
+    "fields": {
+        "polymorphic_ctype": 29,
+        "created": "2020-06-03T22:04:26.016Z",
+        "modified": "2020-06-03T22:04:26.057Z",
+        "quiz_question": 6,
+        "answer": 12
+    }
+},
+{
+    "model": "quiz.quizanswer",
+    "pk": 16,
+    "fields": {
+        "polymorphic_ctype": 29,
+        "created": "2020-06-03T22:04:26.017Z",
+        "modified": "2020-06-03T22:04:26.060Z",
+        "quiz_question": 6,
+        "answer": 13
+    }
+},
+{
+    "model": "quiz.quizcommonanswer",
+    "pk": 2,
+    "fields": {
+        "number": 2
+    }
+},
+{
+    "model": "quiz.quizcommonanswer",
+    "pk": 3,
+    "fields": {
+        "number": 1
+    }
+},
+{
+    "model": "quiz.quizorderanswer",
+    "pk": 4,
+    "fields": {
+        "number_1": 1,
+        "number_2": 1
+    }
+},
+{
+    "model": "quiz.quizorderanswer",
+    "pk": 5,
+    "fields": {
+        "number_1": 2,
+        "number_2": 3
+    }
+},
+{
+    "model": "quiz.quizorderanswer",
+    "pk": 6,
+    "fields": {
+        "number_1": 3,
+        "number_2": 2
+    }
+},
+{
+    "model": "quiz.quizorderanswer",
+    "pk": 7,
+    "fields": {
+        "number_1": 4,
+        "number_2": 4
+    }
+},
+{
+    "model": "quiz.quizorderanswer",
+    "pk": 8,
+    "fields": {
+        "number_1": 1,
+        "number_2": 1
+    }
+},
+{
+    "model": "quiz.quizorderanswer",
+    "pk": 9,
+    "fields": {
+        "number_1": 2,
+        "number_2": 2
+    }
+},
+{
+    "model": "quiz.quizorderanswer",
+    "pk": 10,
+    "fields": {
+        "number_1": 3,
+        "number_2": 3
+    }
+},
+{
+    "model": "quiz.quizorderanswer",
+    "pk": 11,
+    "fields": {
+        "number_1": 4,
+        "number_2": 4
+    }
+},
+{
+    "model": "quiz.quizmappinganswer",
+    "pk": 12,
+    "fields": {
+        "number_1": 1,
+        "number_2": 3
+    }
+},
+{
+    "model": "quiz.quizmappinganswer",
+    "pk": 13,
+    "fields": {
+        "number_1": 2,
+        "number_2": 4
+    }
+},
+{
+    "model": "quiz.quizmappinganswer",
+    "pk": 14,
+    "fields": {
+        "number_1": 3,
+        "number_2": 1
+    }
+},
+{
+    "model": "quiz.quizmappinganswer",
+    "pk": 15,
+    "fields": {
+        "number_1": 4,
+        "number_2": 5
+    }
+},
+{
+    "model": "quiz.quizmappinganswer",
+    "pk": 16,
+    "fields": {
+        "number_1": 0,
+        "number_2": 2
+    }
+},
+{
+    "model": "users.user",
+    "pk": 11,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$GGeb49ZShItL$ioCyAk8ealVQ4/ttCEQ8eo9YpIBqNYpQTd4JyGPQQN0=",
+        "last_login": "2020-06-05T01:52:26.353Z",
+        "is_superuser": true,
+        "username": "+380971111111",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@admin.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2020-05-27T19:20:14Z",
+        "phone": "+380971111111",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 17,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$40hedClR1fdF$bMJg2KYd6JevT7pRaFdFWhUWR2OZARHVSocT+/5C1gQ=",
+        "last_login": "2020-06-01T19:56:00.254Z",
+        "is_superuser": false,
+        "username": "+380974862854",
+        "first_name": "",
+        "last_name": "",
+        "email": "+380974862854@dumpy.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-05-28T21:59:05.033Z",
+        "phone": "+380974862854",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "profiles.profile",
+    "pk": 1,
+    "fields": {
+        "created": "2020-05-27T19:20:14.614Z",
+        "modified": "2020-05-27T19:20:14.614Z",
+        "user": 11,
+        "full_name": "Admin Admin",
+        "mother_full_name": null,
+        "mother_phone": null,
+        "father_full_name": null,
+        "father_phone": null,
+        "school_name": "Admin"
+    }
+},
+{
+    "model": "profiles.profile",
+    "pk": 6,
+    "fields": {
+        "created": "2020-05-28T21:59:05.034Z",
+        "modified": "2020-05-28T21:59:05.088Z",
+        "user": 17,
+        "full_name": "\u0421\u0430\u0448\u0430 \u0406\u0433\u043d\u0430\u0442\u0435\u043d\u043a\u043e",
+        "mother_full_name": "\u041c\u0430\u043c\u0430 \u0412\u043e\u043b\u043e\u0434",
+        "mother_phone": "+380974862854",
+        "father_full_name": null,
+        "father_phone": "",
+        "school_name": "123"
+    }
+}
+]
