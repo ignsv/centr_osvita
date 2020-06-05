@@ -30,7 +30,6 @@ class AnswerInline(StackedPolymorphicInline):
 
 @admin.register(Question)
 class QuestionAdmin(PolymorphicInlineSupportMixin, admin.ModelAdmin):
-    list_display = ('type',)
     inlines = (AnswerInline,)
     search_fields = ('subject__name', 'text')
 
