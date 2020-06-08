@@ -1,7 +1,8 @@
 {% load staticfiles i18n %}
 <footer class="row">
             <div class="col-xs-4 col-sm-4 col-md-6 col-lg-6">
-                <img src="{% static 'images/COT_Logo_Title.png' %}" alt="">
+{#                <img src="{% static 'images/COT_Logo_Title.png' %}" alt="">#}
+                <a href="{% url 'quiz:subject-list' %}"><img src="{% static 'images/COT_Logo_Title.png' %}" alt=""></a>
             </div>
             <div class="col-xs-8 col-sm-8 col-md-6 col-lg-6">
                <div class="row">

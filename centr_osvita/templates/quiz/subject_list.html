@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}Список тестів{% endblock %}
+
+
+{% block content %}
+
+    <form action="{% url 'quiz:subject-list' %}" method="get">
+        <input name="q" type="text" placeholder="Search...">
+    </form>
+
+    {% for subject in object_list %}
+        <a href="{% url 'quiz:subject-detail' subject.id %}">{{ subject.name }}</a>
+        <br>
+    {% endfor %}
+
+
+{% endblock %}
