@@ -6,7 +6,102 @@
 
 {% block content %}
 
-    <p>{{ object.name }}</p>
+    <p data-question-id="{{ question.id }}">{{ question.text }}</p>
+    {% if question.image %}
+    <img src="{{ question.image.url }}" alt="Image"/>
+    {% endif %}
+
+    {% if question.type == 0 %}
+        {% for answer in question.ordered_answers_by_position.all %}
+            <p data-answer-id="{{ answer.id }}">{{answer.get_number_display}} {{answer.text}}</p>
+        {% endfor %}
+    {% elif question.type == 1 %}
+        {% for answer in question.ordered_answers_by_position.all %}
+            <p data-answer-id="{{ answer.id }}">{{answer.get_number_1_display}} {{answer.text}}</p>
+        {% endfor %}
+    {% else %}
+        <table border="1">
+        {% for answer in question.ordered_answers_by_position.all %}
+            {% if answer.number_1 != 0 %}
+            <tr>
+                <td data-answer-id="{{ answer.id }}">{{answer.get_number_1_display}}</td>
+                <td>{{answer.text_1}}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+
+        <table border="1">
+            {% for answer in question.ordered_answers_by_position_two.all %}
+                <tr>
+                    <td>{{answer.get_number_2_display}}</td>
+                    <td>{{answer.text_2}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+
+    {% endif %}
+
+        <br/>
+        <table border="1">
+        {% if question.type == 2 %}
+        <tr>
+            <td> </td>
+            {% for answer in question.ordered_answers_by_position_two.all %}
+            <td>{{answer.get_number_2_display}}</td>
+            {% endfor %}
+        </tr>
+            {% for answer in question.ordered_answers_by_position.all%}
+                {% if answer.number_1 != 0 %}
+                <tr>
+                <td>{{answer.get_number_1_display}}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        {% elif question.type == 1 %}
+            <tr>
+            <td> </td>
+            {% for answer in question.ordered_answers_by_position_two.all %}
+            <td>{{answer.get_number_2_display}}</td>
+            {% endfor %}
+        </tr>
+            {% for answer in question.ordered_answers_by_position.all%}
+                <tr>
+                <td>{{answer.get_number_1_display}}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+            <td> </td>
+            {% for answer in question.ordered_answers_by_position_two.all %}
+            <td>{{answer.get_number_display}}</td>
+            {% endfor %}
+        </tr>
+                <tr>
+                <td>1</td>
+                </tr>
+
+        {% endif %}
+        </table>
+
+        <form action="{% url 'quiz:subject-detail' object.id%}" method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+        {{ field.errors }}
+        {% for radio in field %}
+        <div class="myradio">
+            <label for="{{ radio.id_for_label }}" class="order-wrapper">
+            {{ radio.tag }}
+            </label>
+        </div>
+        {% endfor %}
+        {% endfor %}
+
+        <input type="submit" value="Надіслати">
+        </form>
 
 
 {% endblock %}
+
