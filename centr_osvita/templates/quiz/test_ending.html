@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}Список тестів{% endblock %}
+
+
+{% block content %}
+
+    <p>Ви пройшли тест!<a href="{% url 'common:home' %}"> Повернутись на головну</a></p>
+
+{% endblock %}
