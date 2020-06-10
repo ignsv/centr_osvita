@@ -69,7 +69,7 @@ class SubjectView(LoginRequiredMixin, View):
         if not self.current_question:
             self.current_quiz.status = Quiz.QUIZ_STATUS_TYPES.done
             self.current_quiz.save()
-            return redirect('common:home')
+            return redirect('quiz:quiz-finish')
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -151,3 +151,11 @@ class SubjectView(LoginRequiredMixin, View):
             context['object'] = self.instance
             context['question'] = self.current_question
             return render(request, self.template_name, context)
+
+
+class EndQuizView(LoginRequiredMixin, View):
+    model = Subject
+    template_name = 'quiz/test_ending.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
