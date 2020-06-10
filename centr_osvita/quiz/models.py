@@ -56,6 +56,17 @@ class Question(TimeStampedModel):
             return MappingAnswer.objects.filter(id__in=answers_ids).order_by('number_1')
         return self.answer_set
 
+    @property
+    def ordered_answers_by_position_two(self):
+        answers_ids = self.answer_set.values_list('id', flat=True)
+        if self.type == QUESTION_TYPES.common:
+            return CommonAnswer.objects.filter(id__in=answers_ids).order_by('number')
+        elif self.type == QUESTION_TYPES.order:
+            return OrderAnswer.objects.filter(id__in=answers_ids).order_by('number_2')
+        if self.type == QUESTION_TYPES.mapping:
+            return MappingAnswer.objects.filter(id__in=answers_ids).order_by('number_2')
+        return self.answer_set
+
 
 # Needs to correct deletion
 # Workaround https://github.com/django-polymorphic/django-polymorphic/issues/229#issuecomment-398434412
@@ -167,7 +178,7 @@ class Quiz(TimeStampedModel):
         verbose_name_plural = _('Quizzes')
 
     def __str__(self):
-        return '{}_{}'.format(self.subject.name, self.student.full_name)
+        return '{}:{}_{}'.format(self.id, self.subject.name, self.student.full_name)
 
     @property
     def question_sum_common_order(self):
@@ -251,7 +262,7 @@ class QuizQuestion(TimeStampedModel):
         verbose_name_plural = _('Quiz Questions')
 
     def __str__(self):
-        return '{}_{}'.format(self.quiz.student.full_name, self.question.id)
+        return '{}:{}_{}'.format(self.id, self.quiz.student.full_name, self.question.id)
 
     @property
     def ordered_quizanswers_by_position_two(self):

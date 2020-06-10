@@ -5,7 +5,7 @@
         <a href="{% url opts|admin_urlname:'history' original.pk|admin_urlquote %}" class="historylink">{% trans "History" %}</a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" href="{% url 'quiz:quiz-detail' original.pk %}" class="historylink">Results</a>
+        <a target="_blank" rel="noopener noreferrer" href="{% url 'quiz:quiz-result' original.pk %}" class="historylink">Results</a>
     </li>
     {% if has_absolute_url %}
         <li>
