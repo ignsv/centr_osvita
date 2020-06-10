@@ -62,3 +62,6 @@ centr_osvita/media/
 
 #vagrant
 .vagrant
+
+settings_prod.py
+my_database

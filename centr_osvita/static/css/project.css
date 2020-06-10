@@ -51,12 +51,13 @@ html body{
 
 .main{
     background: #fff;
+    min-height: 100vh;
 }
 
 /*Main Page*/
 
 .main header{
-    height: 200px;
+    height: 300px;
 }
 
 .row .welcomeMessage, .row .logo{
@@ -107,10 +108,6 @@ html body .main .menu{
 
 .menu a:hover{
     text-decoration: none;
-}
-
-.menu .nav{
-    margin-top: -100px;
 }
 
 .menu .nav li a{
@@ -335,13 +332,44 @@ iframe{
   font-size: 18px;
 }
 
+ul.errorlist {
+    list-style: none;
+    color: #dc3545;
+    font-size: 12px;
+}
+
+.auth-form {
+    margin: auto;
+    width: 500px;
+}
+
+.auth-form h1 {
+    margin-bottom: 30px;
+}
+
+.auth-form .form-group.row {
+    margin: 15px 0;
+}
+
+.auth-action {
+    height: 300px;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.auth-action a {
+    height: 100px;
+}
+
+.auth-action svg {
+    transform: scale(4) translateY(50%);
+}
+
 @media (min-width: 992px){
 
     body{
         padding: auto auto;
         text-align: center;
-        padding-top: 30px;
-        padding-bottom: 30px;
     }
 
     .hideMobile{
@@ -382,6 +410,10 @@ iframe{
         padding: 0 0px;
     }
 
+    .main header{
+        height: 200px;
+    }
+
     .artAddress h3{
       font-size: 20px;
     }
@@ -417,5 +449,9 @@ iframe{
 
     .menu .nav li ul li a{
       height: 30px;
+    }
+
+    .auth-action {
+        display: none;
     }
 }

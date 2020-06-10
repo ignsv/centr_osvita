@@ -11,6 +11,11 @@ class UserRegisterForm(ModelForm):
         model = User
         fields = ['phone', 'password']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
     def save(self, commit=True):
         user = super().save(commit=False)
         user.username = user.phone

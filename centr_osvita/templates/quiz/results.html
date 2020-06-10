@@ -10,66 +10,79 @@
 
         <link rel="shortcut icon" href="{% static 'images/COT_Logo_Title.png' %}" type="image/png">
         {% block css %}
-{#            <link href="{% static 'css/project.css' %}" rel="stylesheet">#}
-            <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-            <link rel="stylesheet" media="(min-width: @screen-md-min)" href="{% static 'css/project.css' %}" />
+            <link href="{% static 'css/results.css' %}" rel="stylesheet">
+            <link href="{% static 'css/print.css' %}" rel="stylesheet" media="print">
+            <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">\
             <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
         {% endblock %}
     </head>
     <body>
     <div class="results">
         {% block content %}
-            {% for common_quiz_question in object.common_quiz_questions%}
-                <p>{{ forloop.counter }}</p>
-                <table border="1">
+          {% for common_quiz_question in object.common_quiz_questions%}
+            <div class="quiz">
+              <p>{{ forloop.counter }}</p>
+              <table border="1">
                 <tr>
-                {% for answer in common_quiz_question.question.ordered_answers_by_position.all %}
+                  {% for answer in common_quiz_question.question.ordered_answers_by_position.all %}
                     <td>{{answer.get_number_display}}</td>
-                    {% endfor %}
-                </tr>
-                  {% for quiz_answer in common_quiz_question.quizanswer_set.all%}
-                  <tr>
-                  {% for answer in common_quiz_question.question.answer_set.all%}
-                      {% if quiz_answer.number == answer.number and quiz_answer.answer.correct == True %}
-                        <td>Yes</td>
-                      {% elif quiz_answer.number == answer.number and quiz_answer.answer.correct == False %}
-                        <td>No</td>
-                      {% else %}
-                        <td>EMPTY</td>
-                      {% endif %}
                   {% endfor %}
+                </tr>
+                {% for quiz_answer in common_quiz_question.quizanswer_set.all%}
+                  <tr>
+                    {% for answer in common_quiz_question.question.answer_set.all%}
+                        {% if quiz_answer.number == answer.number and quiz_answer.answer.correct == True %}
+                          <td class="correct">
+                            &#x2713;
+                          </td>
+                        {% elif quiz_answer.number == answer.number and quiz_answer.answer.correct == False %}
+                          <td class="wrong">
+                            &#x2715;
+                          </td>
+                        {% else %}
+                          <td class="empty"></td>
+                        {% endif %}
+                    {% endfor %}
                   </tr>
-                  {% endfor %}
-                </table>
-            {% endfor %}
+                {% endfor %}
+              </table>
+            </div>
+          {% endfor %}
 
-            {% for order_quiz_question in object.order_quiz_questions%}
-                <p>{{ object.common_quiz_questions.all|length|add:forloop.counter}}</p>
-                <table border="1">
+          {% for order_quiz_question in object.order_quiz_questions%}
+            <div class="quiz">
+              <p>{{ object.common_quiz_questions.all|length|add:forloop.counter}}</p>
+              <table border="1">
                 <tr>
-                <td> </td>
-                {% for quiz_answer in order_quiz_question.ordered_quizanswers_by_position_two.all %}
+                  <td> </td>
+                  {% for quiz_answer in order_quiz_question.ordered_quizanswers_by_position_two.all %}
                     <td>{{quiz_answer.get_number_2_display}}</td>
-                    {% endfor %}
+                  {% endfor %}
                 </tr>
-                    {% for answer in order_quiz_question.question.ordered_answers_by_position.all%}
+                {% for answer in order_quiz_question.question.ordered_answers_by_position.all%}
                   <tr>
-                  <td>{{ answer.get_number_1_display }}</td>
+                    <td>{{ answer.get_number_1_display }}</td>
                     {% for quiz_answer in order_quiz_question.ordered_quizanswers_by_position_two.all%}
                       {% if quiz_answer.number_1 == answer.number_1 and quiz_answer.number_2 == answer.number_2 %}
-                        <td>Yes</td>
+                        <td class="correct">
+                          &#x2713;
+                        </td>
                       {% elif quiz_answer.number_1 == answer.number_1 and quiz_answer.number_2 != answer.number_2 %}
-                        <td>No</td>
+                        <td class="wrong">
+                          &#x2715;
+                        </td>
                       {% else %}
-                        <td>EMPTY</td>
+                        <td class="empty"></td>
                       {% endif %}
-                  {% endfor %}
+                    {% endfor %}
                   </tr>
-                  {% endfor %}
-                </table>
-            {% endfor %}
+                {% endfor %}
+              </table>
+            </div>
+          {% endfor %}
 
             {% for mapping_quiz_question in object.mapping_quiz_questions%}
+              <div class="quiz">
                 <p>{{ forloop.counter|add:object.question_sum_common_order }}</p>
                 <table border="1">
                 <tr>
@@ -84,20 +97,25 @@
                       <td>{{ answer.get_number_1_display }}</td>
                         {% for quiz_answer in mapping_quiz_question.ordered_quizanswers_by_position_two.all%}
                           {% if quiz_answer.number_1 == answer.number_1 and quiz_answer.number_2 == answer.number_2 %}
-                            <td>Yes</td>
+                            <td class="correct">
+                              &#x2713;
+                            </td>
                           {% elif quiz_answer.number_1 == answer.number_1 and quiz_answer.number_2 != answer.number_2 %}
-                            <td>No</td>
+                            <td class="wrong">
+                              &#x2715;
+                            </td>
                           {% else %}
-                            <td>EMPTY</td>
+                            <td class="empty"></td>
                           {% endif %}
                       {% endfor %}
                       </tr>
                     {% endif %}
                   {% endfor %}
                 </table>
+              </div>
             {% endfor %}
             <br>
-            <p>Mark: {{ object.current_mark }}/{{ object.max_available_mark }}</p>
+            <p>Оцінка: {{ object.current_mark }}/{{ object.max_available_mark }}</p>
 
         {% endblock content %}
     </div>

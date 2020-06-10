@@ -1,26 +1,49 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}Реєстрація{% endblock %}
+{% block title %}Вхід{% endblock %}
 
 
 {% block content %}
 
-    <form action="{% url 'users:login' %}" method="post">
+    <form action="{% url 'users:login' %}" 
+          method="post"
+          class="auth-form">
         {% csrf_token %}
+        <h1>Вхід</h1>
         {{ form.non_field_errors }}
-        <div>
-            {{ form.username.errors }}
-            <label for="{{ form.username.id_for_label }}">Телефон</label>
-            {{ form.username }}
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" 
+                   for="{{ form.username.id_for_label }}">
+                Телефон
+            </label>
+            <div class="col-sm-10">
+                {{ form.username }}
+            </div>
+            <div class="invalid-feedback">
+                {{ form.username.errors }}
+            </div>
         </div>
-        <div>
-            {{ form.password.errors }}
-            <label for="{{ form.password.id_for_label }}">Пароль</label>
-            {{ form.password }}
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" 
+                   for="{{ form.password.id_for_label }}">
+                Пароль
+            </label>
+            <div class="col-sm-10">
+                {{ form.password }}
+            </div>
+            <div class="invalid-feedback">
+                {{ form.password.errors }}
+            </div>
         </div>
-        <input type="submit" value="OK">
-    </form>
+        <input type="submit" 
+               value="Увійти"
+               class="btn btn-primary btn-lg">
 
+        <a href="{% url 'users:register' %}"
+           class="btn btn-outline-primary">
+            Реєстрація
+        </a>
+    </form>
 
 {% endblock %}

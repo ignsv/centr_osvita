@@ -11,6 +11,8 @@ class ProfileRegisterForm(ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.get('user', None)
         super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
     def clean(self):
         cleaned_data = super().clean()
