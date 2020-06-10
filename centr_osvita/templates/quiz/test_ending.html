@@ -5,7 +5,12 @@
 
 
 {% block content %}
-
-    <p>Ви пройшли тест!<a href="{% url 'common:home' %}"> Повернутись на головну</a></p>
+    <div class="subject-detail">
+        <h1>Ви пройшли тест!</h1>
+        <a href="{% url 'common:home' %}"
+            class="btn btn-primary">
+            Повернутись на головну
+        </a>
+    </div>
 
 {% endblock %}

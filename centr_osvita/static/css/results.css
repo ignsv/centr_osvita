@@ -24,3 +24,11 @@ td {
 .empty {
     background-color: yellow;
 }
+
+@media print {
+
+    .btn {
+        display: none;
+        visibility: hidden;
+    }
+}

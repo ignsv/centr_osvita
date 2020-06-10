@@ -11,17 +11,22 @@
         <link rel="shortcut icon" href="{% static 'images/COT_Logo_Title.png' %}" type="image/png">
         {% block css %}
             <link href="{% static 'css/results.css' %}" rel="stylesheet">
-            <link href="{% static 'css/print.css' %}" rel="stylesheet" media="print">
-            <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">\
+            <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
             <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
         {% endblock %}
     </head>
     <body>
     <div class="results">
+        <p>{{ object.subject.name }}</p>
+        
+        <p><b>{{ object.student.full_name }}</b></p>
+        
+        <p>{{ object.created }}</p>
+        
         {% block content %}
           {% for common_quiz_question in object.common_quiz_questions%}
             <div class="quiz">
-              <p>{{ forloop.counter }}</p>
+              <p>{{ forloop.counter }}. {{ common_quiz_question.question }}</p>
               <table border="1">
                 <tr>
                   {% for answer in common_quiz_question.question.ordered_answers_by_position.all %}
@@ -51,7 +56,7 @@
 
           {% for order_quiz_question in object.order_quiz_questions%}
             <div class="quiz">
-              <p>{{ object.common_quiz_questions.all|length|add:forloop.counter}}</p>
+              <p>{{ object.common_quiz_questions.all|length|add:forloop.counter}}. {{ order_quiz_question.question }}</p>
               <table border="1">
                 <tr>
                   <td> </td>
@@ -83,7 +88,7 @@
 
             {% for mapping_quiz_question in object.mapping_quiz_questions%}
               <div class="quiz">
-                <p>{{ forloop.counter|add:object.question_sum_common_order }}</p>
+                <p>{{ forloop.counter|add:object.question_sum_common_order }}. {{ mapping_quiz_question.question }}</p>
                 <table border="1">
                 <tr>
                 <td> </td>
@@ -118,6 +123,12 @@
             <p>Оцінка: {{ object.current_mark }}/{{ object.max_available_mark }}</p>
 
         {% endblock content %}
+
+        <input type="button" 
+               name="print" 
+               value="Print"
+               class="btn btn-primary"
+               onclick="window.print()">
     </div>
 
     {% block modal %}{% endblock modal %}

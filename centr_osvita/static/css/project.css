@@ -338,7 +338,7 @@ ul.errorlist {
     font-size: 12px;
 }
 
-.auth-form {
+.auth-form{
     margin: auto;
     width: 500px;
 }
@@ -363,6 +363,99 @@ ul.errorlist {
 
 .auth-action svg {
     transform: scale(4) translateY(50%);
+}
+
+.subject-list-page {
+    margin: 50px auto;
+    width: 500px;
+}
+
+.subject-list {
+    text-align: left;
+}
+
+.subject-list a {
+    font-size: 18px;
+    color: #2f4155;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+.subject-detail {
+    margin: 50px auto;
+    width: 500px;
+}
+
+.subject-detail-answer-list {
+    text-align: left;
+    font-size: 16px;
+}
+
+.subject-detail img {
+    max-width: 300px;
+    max-height: 300px;
+    margin: 30px 0;
+}
+
+.subject-detail td {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.myradio input {
+    display: none;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 29px;
+    width: 29px;
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.order-wrapper:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.order-wrapper input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+.checkmark:after {
+    content: "\2713";
+    position: absolute;
+    display: none;
+    color: #fff;
+    font-size: 20px;
+    left: 5px;
+}
+  
+.order-wrapper input:checked ~ .checkmark:after {
+    display: block;
+}
+  
+.container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.tables-flex {
+    display: flex;
+    margin: 30px 0;
+}
+
+.tables-flex table {
+    margin-right: 30px;
 }
 
 @media (min-width: 992px){

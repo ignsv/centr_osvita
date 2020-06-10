@@ -44,19 +44,9 @@
       </li>
       <li><a href="{% url 'common:zno_advices' %}">Підготовка до ЗНО</a></li>
       <li><a href="{% url 'common:contacts' %}">Наші контакти</a></li>
-      <li><a href="{% url 'common:contacts' %}">Наші контакти</a></li>
-      {% comment %} {% if not user.is_authenticated %}
-        <li>
-          <a href="{% url 'users:login' %}">
-            <i class="icon-signin"></i>
-          </a>
-        </li>
-      {% else %}
-        <li>
-          <a href="{% url 'users:logout' %}">
-            <i class="icon-signout"></i>
-          </a>
-        </li>
-      {% endif %} {% endcomment %}
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'quiz:subject-list' %}">Тести</a></li>
+      {% endif %}
+      
   </ul>
 </div>
