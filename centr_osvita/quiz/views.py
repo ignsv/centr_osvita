@@ -23,7 +23,7 @@ class SubjectListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         param = self.request.GET.get('q')
-        object_list = Subject.objects.all()
+        object_list = Subject.objects.filter(status=True)
         if param:
             object_list = object_list.filter(name__search=param)
         return object_list
@@ -38,7 +38,7 @@ class SubjectView(LoginRequiredMixin, View):
 
     def dispatch(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
-        self.instance = Subject.objects.filter(pk=pk).first()
+        self.instance = Subject.objects.filter(pk=pk, status=True).first()
         if not self.instance:
             raise Http404(_("Not found"))
         if not Quiz.objects.filter(student=request.user.profile, status=Quiz.QUIZ_STATUS_TYPES.progress).count():
