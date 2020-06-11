@@ -56,8 +56,11 @@ USE_L10N = True
 USE_TZ = True
 
 DATABASES = {
-    'default': env.db('DJANGO_DATABASE_URL')
-}
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'my_database',
+    }
+} 
 
 DJANGO_APPS = (
     'django.contrib.auth',
