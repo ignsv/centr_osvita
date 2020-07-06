@@ -95,6 +95,7 @@ class CommonAnswer(Answer):
         (2, 'second', 'B'),
         (3, 'third', 'C'),
         (4, 'fourth', 'D'),
+        (5, 'fifth', 'E'),
     )
     text = models.CharField(_('Text'), max_length=255)
     number = models.IntegerField(_("Answer Order"), choices=ORDER_COMMON)
@@ -186,8 +187,12 @@ class Quiz(TimeStampedModel):
 
     @property
     def max_available_mark(self):
-        return self.common_quiz_questions.count() + self.order_quiz_questions.count()*3 \
-               + self.mapping_quiz_questions.count()*4
+        max_mark = self.common_quiz_questions.count() + self.order_quiz_questions.count()*3
+        for quiz_mapping_question in self.mapping_quiz_questions:
+            quiz_answers_ids = quiz_mapping_question.quizanswer_set.values_list('id', flat=True)
+            max_mark += QuizMappingAnswer.objects.filter(id__in=quiz_answers_ids).exclude(
+                number_1=MappingAnswer.FIRST_CHAIN_TYPES.zero).count()
+        return max_mark
 
     @property
     def current_mark(self):
