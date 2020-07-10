@@ -31,7 +31,7 @@
         <div class="form-group row">
             <label class="col-sm-4 col-form-label" 
                    for="{{ profile_form.full_name.id_for_label }}">
-                Прізвище та ім'я
+                Прізвище та ім'я учня
             </label>
             <div class="col-sm-8">
                 {{ profile_form.full_name }}
@@ -42,62 +42,50 @@
         </div>
         <div class="form-group row">
             <label class="col-sm-4 col-form-label" 
-                   for="{{ profile_form.mother_full_name.id_for_label }}">
-                Мама: ім'я та по батькові
+                   for="{{ profile_form.parent_full_name.id_for_label }}">
+                Ім'я та по батькові одного із батьків
             </label>
             <div class="col-sm-8">
-                {{ profile_form.mother_full_name }}
+                {{ profile_form.parent_full_name }}
             </div>
             <div class="invalid-feedback">
-                {{ profile_form.mother_full_name.errors }}
+                {{ profile_form.parent_full_name.errors }}
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-4 col-form-label" 
-                   for="{{ profile_form.mother_phone.id_for_label }}">
-                Телефон мами(у форматі +380XXXXXXXXX)
+                   for="{{ profile_form.parent_phone.id_for_label }}">
+                Телефон одного з батьків(у форматі +380XXXXXXXXX)
             </label>
             <div class="col-sm-8">
-                {{ profile_form.mother_phone }}
+                {{ profile_form.parent_phone }}
             </div>
             <div class="invalid-feedback">
-                {{ profile_form.mother_phone.errors }}
+                {{ profile_form.parent_phone.errors }}
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label" 
-                   for="{{ profile_form.father_full_name.id_for_label }}">
-                Тато: ім'я та по батькові
+            <label class="col-sm-4 col-form-label"
+                   for="{{ profile_form.institution_name.id_for_label }}">
+                Навчальний заклад
             </label>
             <div class="col-sm-8">
-                {{ profile_form.father_full_name }}
+                {{ profile_form.institution_name }}
             </div>
             <div class="invalid-feedback">
-                {{ profile_form.father_full_name.errors }}
+                {{ profile_form.institution_name.errors }}
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label" 
-                   for="{{ profile_form.father_phone.id_for_label }}">
-                Телефон тата(у форматі +380XXXXXXXXX)
+            <label class="col-sm-4 col-form-label"
+                   for="{{ profile_form.grade.id_for_label }}">
+                Клас
             </label>
             <div class="col-sm-8">
-                {{ profile_form.father_phone }}
+                {{ profile_form.grade }}
             </div>
             <div class="invalid-feedback">
-                {{ profile_form.father_phone.errors }}
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label" 
-                   for="{{ profile_form.school_name.id_for_label }}">
-                Школа
-            </label>
-            <div class="col-sm-8">
-                {{ profile_form.school_name }}
-            </div>
-            <div class="invalid-feedback">
-                {{ profile_form.school_name.errors }}
+                {{ profile_form.grade.errors }}
             </div>
         </div>
         <div class="form-group row">

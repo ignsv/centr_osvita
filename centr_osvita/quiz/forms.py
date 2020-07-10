@@ -2,7 +2,7 @@ from django import forms
 from django.forms import BaseFormSet
 from django.utils.translation import ugettext as _
 
-from centr_osvita.quiz.models import CommonAnswer, OrderAnswer, MappingAnswer
+from centr_osvita.quiz.models import CommonAnswer, OrderAnswer
 
 
 class AnswerValidatedFormSet(BaseFormSet):
