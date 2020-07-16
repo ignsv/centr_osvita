@@ -25,7 +25,7 @@ class UserLoginTestCase(unittest.TestCase):
     def test_login_success(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        
+
         response = self.client.post(self.url, self.good_login_data, follow=True)
         self.assertEqual(('/', 302) in response.redirect_chain, True)
         self.assertEqual(response.status_code, 200)
