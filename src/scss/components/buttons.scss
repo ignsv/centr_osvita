@@ -1,0 +1,19 @@
+.button {
+  padding: 19px 0;
+  background: linear-gradient(0deg, #ff7d34 0%, #ffce50 100%);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  display: inline-block;
+
+  &--adaptive {
+    padding: 19px 48px;
+    text-transform: uppercase;
+  }
+
+  &--subject {
+    width: 100%;
+    text-align: center;
+  }
+}

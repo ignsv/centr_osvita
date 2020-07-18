@@ -1,0 +1,15 @@
+$color-primary: #fdd201;
+$color-text: #343434;
+$color-white: #fff;
+$color-bg: #E5E5E5;
+
+$font-poppins: 'Poppins', sans-serif;
+$font-nunito: 'Nunito', sans-serif;
+
+$sm: 576px !default;
+$md: 768px !default;
+$lg: 1100px !default;
+
+$sm-media: "only screen and (min-width : #{$sm})";
+$md-media: "only screen and (min-width : #{$md})";
+$lg-media: "only screen and (min-width : #{$lg})";

@@ -1,0 +1,31 @@
+h1 {
+  font-weight: 900;
+  font-size: 36px;
+
+
+  @media #{$sm-media} {
+    font-size: 48px;
+  }
+
+  @media #{$lg-media} {
+    font-size: 56px;
+  }
+}
+
+h2 {
+  font-weight: 900;
+  font-size: 36px;
+
+
+  @media #{$sm-media} {
+    font-size: 48px;
+  }
+
+  @media #{$lg-media} {
+    font-size: 56px;
+  }
+}
+
+p {
+  font-size: 18px;
+}
