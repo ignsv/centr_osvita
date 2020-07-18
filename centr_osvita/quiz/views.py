@@ -1,11 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms import formset_factory
 from django.views.generic import ListView, View
 from django.views.generic.detail import DetailView
 from django.http import Http404
 from django.utils.translation import ugettext as _
 from django.shortcuts import render, redirect
 
-from centr_osvita.quiz.forms import CommonAnswerForm, OrderAnswerForm, MappingAnswerForm
+from centr_osvita.quiz.forms import AnswerForm, OrderAnswerForm, AnswerValidatedFormSet
 from centr_osvita.quiz.mixins import IsStaffRequiredMixin
 from centr_osvita.quiz.models import Quiz, Subject, Question, QUESTION_TYPES, QuizCommonAnswer, \
     QuizOrderAnswer, OrderAnswer, QuizMappingAnswer, MappingAnswer, QuizQuestion, CommonAnswer
@@ -34,7 +35,7 @@ class SubjectView(LoginRequiredMixin, View):
     current_question = None
     current_quiz = None
     instance = None
-    current_form = None
+    current_formset = None
 
     def dispatch(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
@@ -57,14 +58,20 @@ class SubjectView(LoginRequiredMixin, View):
             self.current_question = Question.objects.filter(subject=self.instance, type=QUESTION_TYPES.mapping).exclude(
                 id__in=used_question_ids).first()
 
-        self.current_form = None
+        self.current_formset = None
         if self.current_question is not None:
             if self.current_question.type == QUESTION_TYPES.common:
-                self.current_form = CommonAnswerForm()
+                CommonAnswerFormSet = formset_factory(AnswerForm)
+                self.current_formset = CommonAnswerFormSet()
             elif self.current_question.type == QUESTION_TYPES.order:
-                self.current_form = OrderAnswerForm()
+                OrderAnswerFormSet = formset_factory(OrderAnswerForm, formset=AnswerValidatedFormSet,
+                                                     extra=self.current_question.answer_set.count())
+                self.current_formset = OrderAnswerFormSet()
             else:
-                self.current_form = MappingAnswerForm()
+                MappingAnswerFormSet = formset_factory(AnswerForm, formset=AnswerValidatedFormSet,
+                                                       extra=self.current_question.ordered_answers_by_position.exclude(
+                                                           number_1=MappingAnswer.FIRST_CHAIN_TYPES.zero).count())
+                self.current_formset = MappingAnswerFormSet()
 
         if not self.current_question:
             self.current_quiz.status = Quiz.QUIZ_STATUS_TYPES.done
@@ -77,77 +84,69 @@ class SubjectView(LoginRequiredMixin, View):
         context = dict()
         context['object'] = self.instance
         context['question'] = self.current_question
-        context['form'] = self.current_form
+        context['formset'] = self.current_formset
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         context = dict()
-        form = None
+        formset = None
+        order_chain_list = ['first', 'second', 'third', 'fourth']
         if self.current_question is not None:
             if self.current_question.type == QUESTION_TYPES.common:
-                form = CommonAnswerForm(request.POST)
+                CommonAnswerFormSet = formset_factory(AnswerForm)
+                formset = CommonAnswerFormSet(request.POST)
             elif self.current_question.type == QUESTION_TYPES.order:
-                form = OrderAnswerForm(request.POST)
+                OrderAnswerFormSet = formset_factory(OrderAnswerForm, formset=AnswerValidatedFormSet,
+                                                     extra=self.current_question.answer_set.count())
+                formset = OrderAnswerFormSet(request.POST)
             else:
-                form = MappingAnswerForm(request.POST)
+                MappingAnswerFormSet = formset_factory(AnswerForm, formset=AnswerValidatedFormSet,
+                                                       extra=self.current_question.ordered_answers_by_position.exclude(
+                                                           number_1=MappingAnswer.FIRST_CHAIN_TYPES.zero).count())
+                formset = MappingAnswerFormSet(request.POST)
 
-        if form.is_valid():
+        if formset.is_valid():
             quiz_question = QuizQuestion.objects.create(quiz=self.current_quiz, question=self.current_question,
                                                         status=QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.done)
             answers_ids = self.current_question.answer_set.values_list('id', flat=True)
             if self.current_question.type == QUESTION_TYPES.common:
-                answer = CommonAnswer.objects.filter(id__in=answers_ids, number=form.cleaned_data['number']).first()
-                QuizCommonAnswer.objects.create(quiz_question=quiz_question, number=form.cleaned_data['number'],
+                answer = CommonAnswer.objects.filter(id__in=answers_ids,
+                                                     number=formset.cleaned_data[0]['position']).first()
+                QuizCommonAnswer.objects.create(quiz_question=quiz_question, number=formset.cleaned_data[0]['position'],
                                                 answer=answer)
             elif self.current_question.type == QUESTION_TYPES.order:
-                answer_1 = OrderAnswer.objects.filter(id__in=answers_ids,
-                                                      number_1=OrderAnswer.ORDER_FIRST_CHAIN.first).first()
-                QuizOrderAnswer.objects.create(quiz_question=quiz_question, number_2=form.cleaned_data['position_1'],
-                                               number_1=answer_1.number_1, answer=answer_1)
-                answer_2 = OrderAnswer.objects.filter(id__in=answers_ids,
-                                                      number_1=OrderAnswer.ORDER_FIRST_CHAIN.second).first()
-                QuizOrderAnswer.objects.create(quiz_question=quiz_question, number_2=form.cleaned_data['position_2'],
-                                               number_1=answer_2.number_1, answer=answer_2)
-                answer_3 = OrderAnswer.objects.filter(id__in=answers_ids,
-                                                      number_1=OrderAnswer.ORDER_FIRST_CHAIN.third).first()
-                QuizOrderAnswer.objects.create(quiz_question=quiz_question, number_2=form.cleaned_data['position_3'],
-                                               number_1=answer_3.number_1, answer=answer_3)
-                answer_4 = OrderAnswer.objects.filter(id__in=answers_ids,
-                                                      number_1=OrderAnswer.ORDER_FIRST_CHAIN.fourth).first()
-                QuizOrderAnswer.objects.create(quiz_question=quiz_question, number_2=form.cleaned_data['position_4'],
-                                               number_1=answer_4.number_1, answer=answer_4)
+                for key, form_data in enumerate(formset.cleaned_data):
+                    answer = OrderAnswer.objects.filter(id__in=answers_ids,
+                                                        number_1=getattr(OrderAnswer.ORDER_FIRST_CHAIN,
+                                                                         order_chain_list[key])).first()
+                    QuizOrderAnswer.objects.create(quiz_question=quiz_question,
+                                                   number_2=form_data['position'],
+                                                   number_1=answer.number_1, answer=answer)
             else:
-                key_list = [int(form.cleaned_data['position_1']), int(form.cleaned_data['position_2']),
-                            int(form.cleaned_data['position_3']), int(form.cleaned_data['position_4'])]
-                answer_1 = MappingAnswer.objects.filter(id__in=answers_ids,
-                                                        number_1=MappingAnswer.FIRST_CHAIN_TYPES.first).first()
-                QuizMappingAnswer.objects.create(quiz_question=quiz_question, number_2=form.cleaned_data['position_1'],
-                                                 number_1=answer_1.number_1, answer=answer_1)
-                answer_2 = MappingAnswer.objects.filter(id__in=answers_ids,
-                                                        number_1=MappingAnswer.FIRST_CHAIN_TYPES.second).first()
-                QuizMappingAnswer.objects.create(quiz_question=quiz_question, number_2=form.cleaned_data['position_2'],
-                                                 number_1=answer_2.number_1, answer=answer_2)
-                answer_3 = MappingAnswer.objects.filter(id__in=answers_ids,
-                                                        number_1=MappingAnswer.FIRST_CHAIN_TYPES.third).first()
-                QuizMappingAnswer.objects.create(quiz_question=quiz_question, number_2=form.cleaned_data['position_3'],
-                                                 number_1=answer_3.number_1, answer=answer_3)
-                answer_4 = MappingAnswer.objects.filter(id__in=answers_ids,
-                                                        number_1=MappingAnswer.FIRST_CHAIN_TYPES.fourth).first()
-                QuizMappingAnswer.objects.create(quiz_question=quiz_question, number_2=form.cleaned_data['position_4'],
-                                                 number_1=answer_4.number_1, answer=answer_4)
-                answer_5 = MappingAnswer.objects.filter(id__in=answers_ids,
-                                                        number_1=MappingAnswer.FIRST_CHAIN_TYPES.zero).first()
+                key_list = []
+                for key, form_data in enumerate(formset.cleaned_data):
+                    key_list.append(int(form_data['position']))
+                    answer = MappingAnswer.objects.filter(id__in=answers_ids,
+                                                          number_1=getattr(MappingAnswer.FIRST_CHAIN_TYPES,
+                                                                           order_chain_list[key])).first()
+                    QuizMappingAnswer.objects.create(quiz_question=quiz_question,
+                                                     number_2=form_data['position'],
+                                                     number_1=answer.number_1, answer=answer)
+
+                answers_zero_position_one = MappingAnswer.objects.filter(
+                    id__in=answers_ids, number_1=MappingAnswer.FIRST_CHAIN_TYPES.zero)
                 second_order_list = []
                 for key, value in MappingAnswer.SECOND_CHAIN_TYPES:
                     second_order_list.append(key)
-                second_key = [x for x in second_order_list if x not in key_list][0]
+                unused_second_key_list = [x for x in second_order_list if x not in key_list]
 
-                QuizMappingAnswer.objects.create(quiz_question=quiz_question, number_2=second_key,
-                                                 number_1=answer_5.number_1, answer=answer_5)
+                for key, zero_answer in enumerate(answers_zero_position_one):
+                    QuizMappingAnswer.objects.create(quiz_question=quiz_question, number_2=unused_second_key_list[key],
+                                                     number_1=zero_answer.number_1, answer=zero_answer)
 
             return redirect('quiz:subject-detail', self.instance.id)
         else:
-            context['form'] = form
+            context['formset'] = formset
             context['object'] = self.instance
             context['question'] = self.current_question
             return render(request, self.template_name, context)
