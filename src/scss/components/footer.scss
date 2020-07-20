@@ -1,0 +1,24 @@
+.footer {
+  padding: 30px 0;
+
+  .content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+
+    @media #{$sm-media} {
+      flex-direction: row;
+    }
+  }
+
+  &__copyright {
+    p {
+      text-align: center;
+
+      @media #{$sm-media} {
+        text-align: right;
+      }
+    }
+  }
+}

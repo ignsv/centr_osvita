@@ -7,13 +7,19 @@
         <!--[if lt IE 9]>
           <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-        
+        <meta
+                name="viewport"
+                content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
         <link rel="shortcut icon" href="{% static 'images/COT_Logo_Title.png' %}" type="image/png">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         {% block css %}
-            <link href="{% static 'css/project.css' %}" rel="stylesheet">
+<!--            <link href="{% static 'css/project.css' %}" rel="stylesheet">-->
             <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-            <link rel="stylesheet" media="(min-width: @screen-md-min)" href="{% static 'css/project.css' %}" />
+<!--            <link rel="stylesheet" media="(min-width: @screen-md-min)" href="{% static 'css/project.css' %}" />-->
             <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+            <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
         {% endblock %}
     </head>
     <body>

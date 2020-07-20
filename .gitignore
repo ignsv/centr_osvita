@@ -54,7 +54,7 @@ node_modules/
 .sass-cache
 
 # virtual environments
-.env
+config/.env
 
 # User-uploaded media
 centr_osvita/media/
@@ -65,3 +65,5 @@ centr_osvita/media/
 
 settings_prod.py
 my_database
+
+env

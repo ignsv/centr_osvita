@@ -1,52 +1,96 @@
 {% load staticfiles i18n %}
-<header class="row">
-  <div class="col-md-6 col-sm-10 col-xs-10 col-lg-6 logo">
-    <a href="{% url 'common:home' %}"><img src="{% static 'images/COT_MainLogo.png' %}" alt="CET"></a>
-  </div>
+{% url 'common:home' as home_url %}
+{% url 'common:teachers' as teachers_url %}
 
-  <div class="auth-action col-sm-2 col-xs-2">
-    {% if not user.is_authenticated %}
-      <a href="{% url 'users:login' %}">
-        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M2.598 9h-1.055c1.482-4.638 5.83-8 10.957-8 6.347 0 11.5 5.153 11.5 11.5s-5.153 11.5-11.5 11.5c-5.127 0-9.475-3.362-10.957-8h1.055c1.443 4.076 5.334 7 9.902 7 5.795 0 10.5-4.705 10.5-10.5s-4.705-10.5-10.5-10.5c-4.568 0-8.459 2.923-9.902 7zm12.228 3l-4.604-3.747.666-.753 6.112 5-6.101 5-.679-.737 4.608-3.763h-14.828v-1h14.826z"/></svg>
-      </a>
-    {% else %}
-      <a href="{% url 'users:logout' %}">
-        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M2.598 9h-1.055c1.482-4.638 5.83-8 10.957-8 6.347 0 11.5 5.153 11.5 11.5s-5.153 11.5-11.5 11.5c-5.127 0-9.475-3.362-10.957-8h1.055c1.443 4.076 5.334 7 9.902 7 5.795 0 10.5-4.705 10.5-10.5s-4.705-10.5-10.5-10.5c-4.568 0-8.459 2.923-9.902 7zm12.228 3l-4.604-3.747.666-.753 6.112 5-6.101 5-.679-.737 4.608-3.763h-14.828v-1h14.826z"/></svg>
-      </a>
-    {% endif %}
-  </div>
-
-  <div class="welcomeMessage col-md-6 col-sm-12 col-xs-12 col-lg-6">
-
-      {% if not user.is_authenticated %}
-        <h4>Привіт, друже! <a href="{% url 'users:register' %}">Реєстрація</a> <a href="{% url 'users:login' %}">Увійти</a></h4>
-      {% else %}
-        <h4>Привіт, {{ user.profile.full_name }}! <a href="{% url 'users:logout' %}">Вийти</a> </h4>
-      {% endif %}
-      
-      <p>Ми раді бачити тебе на сторінках нашого веб-сайту! Сподіваємося, що ти знайдеш для себе якомога багато корисної інформації. Вдалого серфінгу!</p>
-
-  </div>
-
+<header>
+    <div class="content">
+        <div class="head">
+            <div class="head__logo">
+                <a href="{% url 'common:home' %}"><img src="{% static 'images/COT_logo.png' %}" alt="COT"></a>
+            </div>
+            <div class="head__links-wrapper">
+                <input type="checkbox" id="burger-cb" class="head__links-status" />
+                <label for="burger-cb" class="head__links-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+                <div class="head__links">
+                    <div class="menu">
+                        <nav>
+                            <ul>
+                                <li {% if request.get_full_path == home_url %}class="menu-selected"{% endif %}><a href="{% url 'common:home' %}">Головна</a></li>
+                                <li><a href="{% url 'common:zno_advices' %}">Тренінги</a></li>
+                                <li {% if request.get_full_path == teachers_url %}class="menu-selected"{% endif %}><a href="{% url 'common:teachers' %}">Викладачі</a></li>
+                                <li><a href="{% url 'common:contacts' %}">Контакти</a></li>
+                                {% if not user.is_authenticated %}
+                                <li><a href="{% url 'users:login' %}">Вхід</a></li>
+                                {% else %}
+                                <li><a href="{% url 'users:logout' %}">Вихід</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="head__socials">
+                        <a href="https://www.facebook.com/"><img src="{% static 'images/facebook.png' %}" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
-<div class="menu">
-  <ul class="nav nav-pills nav-justified">
-      <li><a href="{% url 'common:home' %}">Головна</a></li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Наші досягнення <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="{% url 'common:teachers' %}">Наші викладачі</a></li>
-          <li><a href="{% url 'common:statistics' %}">Статистика</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="{% url 'common:nice_moment' %}">Студія «Чудесна мить»</a></li>
-          <li><a href="{% url 'common:center_alisa' %}">Центр розвитку «Аліса»</a></li>
-        </ul>
-      </li>
-      <li><a href="{% url 'common:zno_advices' %}">Підготовка до ЗНО</a></li>
-      <li><a href="{% url 'common:contacts' %}">Наші контакти</a></li>
-      {% if user.is_authenticated %}
-        <li><a href="{% url 'quiz:subject-list' %}">Тести</a></li>
-      {% endif %}
-      
-  </ul>
-</div>
+
+
+
+
+<!--<header class="row">-->
+<!--  <div class="col-md-6 col-sm-10 col-xs-10 col-lg-6 logo">-->
+<!--    <a href="{% url 'common:home' %}"><img src="{% static 'images/COT_MainLogo.png' %}" alt="CET"></a>-->
+<!--  </div>-->
+
+<!--  <div class="auth-action col-sm-2 col-xs-2">-->
+<!--    {% if not user.is_authenticated %}-->
+<!--      <a href="{% url 'users:login' %}">-->
+<!--        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M2.598 9h-1.055c1.482-4.638 5.83-8 10.957-8 6.347 0 11.5 5.153 11.5 11.5s-5.153 11.5-11.5 11.5c-5.127 0-9.475-3.362-10.957-8h1.055c1.443 4.076 5.334 7 9.902 7 5.795 0 10.5-4.705 10.5-10.5s-4.705-10.5-10.5-10.5c-4.568 0-8.459 2.923-9.902 7zm12.228 3l-4.604-3.747.666-.753 6.112 5-6.101 5-.679-.737 4.608-3.763h-14.828v-1h14.826z"/></svg>-->
+<!--      </a>-->
+<!--    {% else %}-->
+<!--      <a href="{% url 'users:logout' %}">-->
+<!--        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M2.598 9h-1.055c1.482-4.638 5.83-8 10.957-8 6.347 0 11.5 5.153 11.5 11.5s-5.153 11.5-11.5 11.5c-5.127 0-9.475-3.362-10.957-8h1.055c1.443 4.076 5.334 7 9.902 7 5.795 0 10.5-4.705 10.5-10.5s-4.705-10.5-10.5-10.5c-4.568 0-8.459 2.923-9.902 7zm12.228 3l-4.604-3.747.666-.753 6.112 5-6.101 5-.679-.737 4.608-3.763h-14.828v-1h14.826z"/></svg>-->
+<!--      </a>-->
+<!--    {% endif %}-->
+<!--  </div>-->
+
+<!--  <div class="welcomeMessage col-md-6 col-sm-12 col-xs-12 col-lg-6">-->
+
+<!--      {% if not user.is_authenticated %}-->
+<!--        <h4>Привіт, друже! <a href="{% url 'users:register' %}">Реєстрація</a> <a href="{% url 'users:login' %}">Увійти</a></h4>-->
+<!--      {% else %}-->
+<!--        <h4>Привіт, {{ user.profile.full_name }}! <a href="{% url 'users:logout' %}">Вийти</a> </h4>-->
+<!--      {% endif %}-->
+<!--      -->
+<!--      <p>Ми раді бачити тебе на сторінках нашого веб-сайту! Сподіваємося, що ти знайдеш для себе якомога багато корисної інформації. Вдалого серфінгу!</p>-->
+
+<!--  </div>-->
+
+<!--</header>-->
+<!--<div class="menu">-->
+<!--    <ul class="nav nav-pills nav-justified">-->
+<!--        <li><a href="{% url 'common:home' %}">Головна</a></li>-->
+<!--        <li class="dropdown">-->
+<!--            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Наші досягнення <span class="caret"></span></a>-->
+<!--            <ul class="dropdown-menu">-->
+<!--                <li><a href="{% url 'common:teachers' %}">Наші викладачі</a></li>-->
+<!--                <li><a href="{% url 'common:statistics' %}">Статистика</a></li>-->
+<!--                <li role="separator" class="divider"></li>-->
+<!--                <li><a href="{% url 'common:nice_moment' %}">Студія «Чудесна мить»</a></li>-->
+<!--                <li><a href="{% url 'common:center_alisa' %}">Центр розвитку «Аліса»</a></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li><a href="{% url 'common:zno_advices' %}">Підготовка до ЗНО</a></li>-->
+<!--        <li><a href="{% url 'common:contacts' %}">Наші контакти</a></li>-->
+<!--        {% if user.is_authenticated %}-->
+<!--        <li><a href="{% url 'quiz:subject-list' %}">Тести</a></li>-->
+<!--        {% endif %}-->
+
+<!--    </ul>-->
+<!--</div>-->
