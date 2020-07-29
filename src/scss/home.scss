@@ -1,7 +1,14 @@
 .top-section {
+  background-image: url("../images/img_top_bg.png");
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.top-section-inner {
   @media #{$md-media} {
     background-size: 700px;
-    background-image: url("../images/img_top.jpg");
+    background-image: url("../images/img_top.png");
     background-repeat: no-repeat;
     background-position: right bottom;
   }
@@ -13,7 +20,7 @@
 
 .top {
   display: flex;
-  margin-top: 52px;
+
   justify-content: center;
 
   @media #{$md-media} {
@@ -36,6 +43,7 @@
     ul {
       margin-top: 40px;
       text-align: left;
+      padding-left: 30px;
 
       li {
         list-style-type: none;
@@ -76,14 +84,13 @@
 
 .subjects-section {
   background-color: #eff2f7;
-  padding: 120px 0;
+  padding: 120px 0 60px 0;
 }
 
 .subjects {
   h2 {
     margin-bottom: 80px;
   }
-
 
   &__items {
     display: flex;
@@ -113,36 +120,66 @@
 }
 
 .about-section {
-  background-image: url("../images/img-about-bg.jpg");
-  background-repeat: no-repeat;
-  background-position: right bottom;
-  background-size: contain;
   padding: 120px 0;
-
 }
 
 .about {
-  max-width: 670px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+
+  @media #{$lg-media} {
+    flex-direction: row;
+  }
+
+  &__img {
+    position: relative;
+    padding-right: 30px;
+  }
+
+  &__img-bg {
+    height: 100%;
+    width: calc(100% - 30px);
+    top: 30px;
+    left: 30px;
+    position: absolute;
+    background: linear-gradient(0deg, #1970e9 0%, #11a4da 100%);
+    z-index: -1;
+  }
+
+  &__info {
+    max-width: 670px;
+  }
 
   h2 {
     margin-bottom: 40px;
   }
 
+  p {
+    margin-bottom: 20px;
+    font-size: 22px;
+    line-height: 26px;
+  }
 }
 
 .contacts-section {
-  background: url("../images/img-contacts-bg.png");
-  background-repeat: no-repeat;
-  background-position: right bottom;
-  background-size: cover;
+  background-color: #eff2f7;
   padding: 120px 0;
 }
 
 .contacts {
-  background-color: #fff;
-  max-width: 670px;
-  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
-  padding: 80px;
+
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    margin-right: 50px;
+    width: 450px;
+  }
+
 
   h2 {
     margin-bottom: 40px;
@@ -163,7 +200,17 @@
     font-weight: 600;
 
     p {
-      margin-bottom: 0;
+      margin-bottom: 5px;
     }
+  }
+}
+
+.map {
+  width: 100%;
+  margin-top: 60px;
+  filter: drop-shadow(0px 4px 30px rgba(0, 0, 0, 0.1));
+
+  img {
+    width: 100%;
   }
 }
