@@ -5,112 +5,109 @@
 
 
 {% block content %}
+<div class="content">
+    <div class="auth">
+        <form action="{% url 'users:register' %}"
+              method="post"
+              class="auth-form-register">
+            {% csrf_token %}
 
-    <form action="{% url 'users:register' %}" 
-          method="post" 
-          class="auth-form">
-        {% csrf_token %}
+            <h1 class="mb-2 text-center">Реєстрація</h1>
 
-        <h1>Реєстрація</h1>
+            {{ user_form.non_field_errors }}
+            {{ profile_form.non_field_errors }}
 
-        {{ user_form.non_field_errors }}
-        {{ profile_form.non_field_errors }}
-
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label" 
-                   for="{{ user_form.phone.id_for_label }}">
-                Телефон(у форматі +380XXXXXXXXX)
-            </label>
-            <div class="col-sm-8">
-                {{ user_form.phone }}
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ user_form.phone.id_for_label }}">
+                    Телефон(у форматі +380XXXXXXXXX)
+                </label>
+                <div class="col-xs-12 col-md-8">
+                    {{ user_form.phone }}
+                </div>
+                <div class="invalid-feedback">
+                    {{ user_form.phone.errors }}
+                </div>
             </div>
-            <div class="invalid-feedback">
-                {{ user_form.phone.errors }}
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ profile_form.full_name.id_for_label }}">
+                    Прізвище та ім'я учня
+                </label>
+                <div class="col-xs-12 col-md-8">
+                    {{ profile_form.full_name }}
+                </div>
+                <div class="invalid-feedback">
+                    {{ profile_form.full_name.errors }}
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label" 
-                   for="{{ profile_form.full_name.id_for_label }}">
-                Прізвище та ім'я учня
-            </label>
-            <div class="col-sm-8">
-                {{ profile_form.full_name }}
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ profile_form.parent_full_name.id_for_label }}">
+                    Ім'я та по батькові одного із батьків
+                </label>
+                <div class="col-xs-12 col-md-8">
+                    {{ profile_form.parent_full_name }}
+                </div>
+                <div class="invalid-feedback">
+                    {{ profile_form.parent_full_name.errors }}
+                </div>
             </div>
-            <div class="invalid-feedback">
-                {{ profile_form.full_name.errors }}
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ profile_form.parent_phone.id_for_label }}">
+                    Телефон одного з батьків(у форматі +380XXXXXXXXX)
+                </label>
+                <div class="col-xs-12 col-md-8">
+                    {{ profile_form.parent_phone }}
+                </div>
+                <div class="invalid-feedback">
+                    {{ profile_form.parent_phone.errors }}
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label" 
-                   for="{{ profile_form.parent_full_name.id_for_label }}">
-                Ім'я та по батькові одного із батьків
-            </label>
-            <div class="col-sm-8">
-                {{ profile_form.parent_full_name }}
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ profile_form.institution_name.id_for_label }}">
+                    Навчальний заклад та клас
+                </label>
+                <div class="col-xs-8 col-md-6">
+                    {{ profile_form.institution_name }}
+                </div>
+                <div class="col-xs-4 col-md-2">
+                    {{ profile_form.grade }}
+                </div>
+                <div class="invalid-feedback">
+                    {{ profile_form.institution_name.errors }}
+                    {{ profile_form.grade.errors }}
+                </div>
             </div>
-            <div class="invalid-feedback">
-                {{ profile_form.parent_full_name.errors }}
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ user_form.password.id_for_label }}">
+                    Пароль
+                </label>
+                <div class="col-xs-12 col-md-8">
+                    {{ user_form.password }}
+                </div>
+                <div class="invalid-feedback">
+                    {{ user_form.password.errors }}
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label" 
-                   for="{{ profile_form.parent_phone.id_for_label }}">
-                Телефон одного з батьків(у форматі +380XXXXXXXXX)
-            </label>
-            <div class="col-sm-8">
-                {{ profile_form.parent_phone }}
-            </div>
-            <div class="invalid-feedback">
-                {{ profile_form.parent_phone.errors }}
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label"
-                   for="{{ profile_form.institution_name.id_for_label }}">
-                Навчальний заклад
-            </label>
-            <div class="col-sm-8">
-                {{ profile_form.institution_name }}
-            </div>
-            <div class="invalid-feedback">
-                {{ profile_form.institution_name.errors }}
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label"
-                   for="{{ profile_form.grade.id_for_label }}">
-                Клас
-            </label>
-            <div class="col-sm-8">
-                {{ profile_form.grade }}
-            </div>
-            <div class="invalid-feedback">
-                {{ profile_form.grade.errors }}
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label" 
-                   for="{{ user_form.password.id_for_label }}">
-                Пароль
-            </label>
-            <div class="col-sm-8">
-                {{ user_form.password }}
-            </div>
-            <div class="invalid-feedback">
-                {{ user_form.password.errors }}
-            </div>
-        </div>
+            <div class="row justify-content-center">
+                <input type="submit"
+                       value="Реєстрація"
+                       class="btn btn-primary mr-1">
+                <a href="{% url 'users:login' %}"
+                   class="btn btn-outline-primary">
+                    Вхід
+                </a></div>
 
 
-        <input type="submit" 
-               value="Реєстрація"
-               class="btn btn-primary btn-lg">
-        
-        <a href="{% url 'users:login' %}"
-           class="btn btn-outline-primary">
-            Вхід
-        </a>
-    </form>
+
+        </form>
+    </div>
+</div>
+
 
 
 {% endblock %}

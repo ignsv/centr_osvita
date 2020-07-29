@@ -23,18 +23,19 @@
         {% endblock %}
     </head>
     <body>
+    {% include "includes/header.html" %}
     <div class="main">
         {% if messages %}
             {% for message in messages %}
             <div class="alert {% if message.tags %}alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
             {% endfor %}
         {% endif %}
-        {% include "includes/header.html" %}
+
         {% block content %}
         {% endblock content %}
-        {% include "includes/footer.html" %}
-    </div>
 
+    </div>
+    {% include "includes/footer.html" %}
     {% block modal %}{% endblock modal %}
 
     {% block javascript %}
