@@ -39,3 +39,35 @@ class ZNOAdvicesView(TemplateView):
 
 class ContactsView(TemplateView):
     template_name = "web/contacts.html"
+
+
+class MathView(TemplateView):
+    template_name = "web/math.html"
+
+
+class UkrainianView(TemplateView):
+    template_name = "web/ukrainian.html"
+
+
+class EnglishView(TemplateView):
+    template_name = "web/english.html"
+
+
+class HistoryView(TemplateView):
+    template_name = "web/history.html"
+
+
+class PhysicsView(TemplateView):
+    template_name = "web/physics.html"
+
+
+class GeographyView(TemplateView):
+    template_name = "web/geography.html"
+
+
+class BiologyView(TemplateView):
+    template_name = "web/biology.html"
+
+
+class ChemistryView(TemplateView):
+    template_name = "web/chemistry.html"
