@@ -38,8 +38,7 @@
 }
 
 html body{
-    font-family: 'Roboto Slab', serif;
-    background: #F6F4F1;
+    font-family: 'Montserrat', sans-serif;
     height: 100%;
     width: 100%;
     font-weight: 400;
@@ -478,9 +477,8 @@ ul.errorlist {
     }
 
     .main{
-        max-width: 975px;
+        max-width: 1170px;
         margin: auto;
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
     .row .welcomeMessage, .row .logo{
