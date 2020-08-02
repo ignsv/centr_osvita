@@ -37,7 +37,7 @@ class ProfileUserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
 
-        Profile.objects.create(user=user, full_name='Admin Admin', school_name='Admin')
+        Profile.objects.create(user=user, full_name='Admin Admin', institution_name='Admin')
         return user
 
 
