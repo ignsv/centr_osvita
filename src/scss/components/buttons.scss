@@ -62,4 +62,14 @@
     }
 
   }
+
+  &--stat {
+    width: auto;
+    padding: 19px 25px;
+    background: linear-gradient(360deg, #1970E9 0%, #11A4DA 100%);
+
+    &:hover {
+      color: darken($color-white, 25%);
+    }
+  }
 }
