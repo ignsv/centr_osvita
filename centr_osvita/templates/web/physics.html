@@ -1,436 +1,67 @@
-{% extends "base.html" %} {% load static i18n %} {% block title %}Наші викладачі
+{% extends "base.html" %} {% load static i18n %} {% block title %}Фізика
 - ЦОТ{% endblock %} {% block content %}
 <main>
-  <section class="teacher-section">
+  <section class="subject-section">
     <div class="content">
-      <div class="teacher">
-        <div class="teacher__info">
-          <h2>Ткачук Тарас Павлович</h2>
-          <p>
-            Кандидат філологічних наук, викладач Вінницької академії неперервної
-            освіти, учитель-методист. Працював учителем у приватній школі,
-            викладачем на підготовчих курсах Київського міжнародного
-            університету, методистом Вінницького обласного інституту
-            післядипломної освіти педагогічних працівників, викладачем
-            Вінницького державного педагогічного університету ім.
-            М.М.Коцюбинського.
-          </p>
-          <p>
-            Автор більше 15 посібників для школи, співавтор підручника з
-            української мови для 5 класу.
-          </p>
-          <div class="teacher__buttons">
-            <a href="" class="button-youtube">Youtube</a>
-            <a href="" class="button-dictant">Диктанти</a>
+      <div class="subject-page">
+        <h1>Фізика</h1>
+        <div class="subject__body">
+          <div class="subject__info">
+            <div class="subject__points">
+              <div class="subject__point">
+                <img
+                        src="{% static 'images/icons/book.png' %}"
+                        alt="Програма"
+                />
+                <p>
+                  Програма тренінгу охоплює зміст шкільного курсу математики
+                  5-11 класів
+                </p>
+              </div>
+              <div class="subject__point">
+                <img
+                        src="{% static 'images/icons/pencil.png' %}"
+                        alt="Методика"
+                />
+                <p>Робота за авторською методикою</p>
+              </div>
+              <div class="subject__point">
+                <img
+                        src="{% static 'images/icons/clock.png' %}"
+                        alt="Тривалість"
+                />
+                <p>Тривалість заняття - 2 години</p>
+              </div>
+              <div class="subject__point">
+                <img
+                        src="{% static 'images/icons/calendar.png' %}"
+                        alt="Тривалість"
+                />
+                <p>Два заняття на тиждень</p>
+              </div>
+            </div>
+            <a href="/quiz/list?subject=physics" class="button">Пройти вхідний тест</a>
           </div>
-        </div>
-        <div class="teacher__photo">
-          <img
-            src="{% static 'images/teachers/tkachuk_taras.jpg' %}"
-            alt="Ткачук Тарас Павлович"
-          />
-          <div class="teacher__photo-bg"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="teacher-section teacher-section--bg">
-    <div class="content">
-      <div class="teacher">
-        <div class="teacher__info">
-          <h2>Клочко Ігор Якович</h2>
-          <p>
-            Учитель-методист. Переможець ІІ (обласного) етапу Всеукраїнського
-            конкурсу «Учитель року», фіналіст ІІІ етапу зазначеного конкурсу.
-            Лектор Вінницької академії неперервної освіти.
-          </p>
-          <p>
-            Постійний член журі ІІІ (обласного) етапу Всеукраїнської олімпіади з
-            математики. Працював методистом з навчальних дисциплін Вінницького
-            міського методичного кабінету. Працював учителем математики
-            Вінницького технічного ліцею.
-          </p>
-          <p>
-            Автор більше 20 методичних розробок з математики для середньої і
-            старшої школи.
-          </p>
-          <div class="teacher__buttons">
-            <a href="" class="button-youtube">Youtube</a>
+          <div class="subject__teacher">
+            <div class="subject__illustration subject__illustration--history">
+            </div>
+            <div class="teacher-card">
+              <div class="teacher-card__info">
+                <span>Викладач</span>
+                <h4>Мариянчук Анатолій Іванович</h4>
+                <a href="#" class="button button--stat">Статистика попередніх років</a>
+              </div>
+              <div class="teacher-card__photo">
+                <img
+                        src="{% static 'images/teachers/marianchuk.jpg' %}"
+                        alt="Мариянчук Анатолій Іванович"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="teacher__photo">
-         <div class="teacher__photo-wrapper">
-           <img
-                   src="{% static 'images/teachers/klochko.jpg' %}"
-                   alt="Клочко Ігор Якович"
-           />
-         </div>
-          <div class="teacher__photo-bg"></div>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="teacher-section">
-    <div class="content">
-      <div class="teacher">
-        <div class="teacher__info">
-          <h2>Савельєв Олександр Миколайович</h2>
-          <p>
-            Учитель історії зі стажем понад 25 років. П’ятикратний переможець
-            обласних змагань з ігор «Що? Де? Коли?» та «Брейн-рингу».м
-            Співробітник лабораторії інформаційних технологій ФМГ№17. Керівник
-            міжнародних історико-культурних проектів.
-          </p>
-          <p>
-            Лектор Вінницької академії неперервної освіти. Автор підручників для
-            школи та методичних розробок (більше 70) для вивчення всесвітньої
-            історії та історії України.
-          </p>
-          <div class="teacher__buttons">
-            <a href="" class="button-youtube">Youtube</a>
-          </div>
-        </div>
-        <div class="teacher__photo">
-          <img
-            src="{% static 'images/teachers/saveliev.jpg' %}"
-            alt="Савельєв Олександр Миколайович"
-          />
-          <div class="teacher__photo-bg"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="teacher-section teacher-section--bg">
-    <div class="content">
-      <div class="teacher">
-        <div class="teacher__info">
-          <h2>Кошевець Анатолій Валерійович</h2>
-          <p>
-            Викладач англійської мови. Працював у Вінницькому державному
-            педагогічному університеті імені М.М.Коцюбинського, закінчив London
-            Study Center (Велика Британія).
-          </p>
-          <p>
-            Веде заняття з англійської мови у недільній школі.
-          </p>
-        </div>
-        <div class="teacher__photo">
-          <img
-            src="{% static 'images/teachers/koshevets.jpg' %}"
-            alt="Кошевець Анатолій Валерійович"
-          />
-          <div class="teacher__photo-bg"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="teacher-section">
-    <div class="content">
-      <div class="teacher">
-        <div class="teacher__info">
-          <h2>Мариянчук Анатолій Іванович</h2>
-          <p>
-            Учитель фізики зі стажем роботи понад 25 років, спеціаліст вищої
-            категорії. Його учні були призерами міських та обласних олімпіад.
-          </p>
-        </div>
-        <div class="teacher__photo">
-          <img
-            src="{% static 'images/teachers/marianchuk.jpg' %}"
-            alt="Мариянчук Анатолій Іванович"
-          />
-          <div class="teacher__photo-bg"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="teacher-section teacher-section--bg">
-    <div class="content">
-      <div class="teacher">
-        <div class="teacher__info">
-          <h2>Ткачук Олександр Іванович</h2>
-          <p>
-            Старший учитель, Відмінник освіти України.
-          </p>
-          <p>
-            Має 35 років педагогічного стажу. Його учні були призерами районних
-            і обласних олімпіад. Близько 20 учнів продовжили його справу і
-            здобули професію вчителя біології. Два колишні учні стали
-            кандидатами біологічних наук.
-          </p>
-          <p>
-            Автор навчальних посібників з біології.
-          </p>
-        </div>
-        <div class="teacher__photo">
-          <img
-            src="{% static 'images/teachers/tkachuk_olexander.jpg' %}"
-            alt="Ткачук Олександр Іванович"
-          />
-          <div class="teacher__photo-bg"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="teacher-section">
-    <div class="content">
-      <div class="teacher">
-        <div class="teacher__info">
-          <h2>Добровольська Наталія Вікторівна</h2>
-          <p>
-            Lorem ipsum, or lipsum as it is sometimes known, is dummy text used
-            in laying out print, graphic or web designs. The passage is
-            attributed to an unknown typesetter in the 15th century who is
-            thought to have scrambled parts of Cicero's De Finibus Bonorum et
-            Malorum for use in a type specimen book. It usually begins with:
-          </p>
-        </div>
-        <div class="teacher__photo">
-          <img
-            src="{% static 'images/teachers/dobrovolska.jpg' %}"
-            alt="Добровольська Наталія Вікторівна"
-          />
-          <div class="teacher__photo-bg"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="teacher-section teacher-section--bg">
-    <div class="content">
-      <div class="teacher">
-        <div class="teacher__info">
-          <h2>Рум'янцева Катерина Євгенівна</h2>
-          <p>
-            Кандидат педагогічних наук, доцент Вінницького навчально-наукового
-            інституту економіки Тернопільського національного економічного
-            університету. Стаж роботи 24 роки.
-          </p>
-          <p>
-            Автор понад 80 наукових і навчально-методичних праць. Серед них один
-            навчальний посібник з вищої математики, три монографії, 22 праці
-            навчально-методичного характеру та ін.
-          </p>
-          <p>
-            Автор навчальних посібників з біології.
-          </p>
-        </div>
-        <div class="teacher__photo">
-          <div class="teacher__photo-bg"></div>
-          <img
-            src="{% static 'images/teachers/rumianceva.jpg' %}"
-            alt="Рум'янцева Катерина Євгенівна"
-          />
-
         </div>
       </div>
     </div>
   </section>
 </main>
-
 {% endblock %}
-
-<!--<div class="information">-->
-<!--    <h1>Наші досягнення</h1>-->
-<!--    <p>Спільними зусиллями творчої команди Центру освітніх технологій напрацьовано оригінальні методики, які дають змогу швидко й ефективно готувати дітей до здачі тестів ЗНО. Щороку не менше 55% старшокласників після проходження курсу з різних предметів складають тести на 180 – 200 балів.<br>Викладачами Центру підготовлено  й опубліковано більше 200 навчально-методичних посібників з різних предметів.</p>-->
-<!--    <div class="tkachuk row">-->
-<!--        <div class="col-md-8 col-xs-8 col-sm-8">-->
-<!--            <p><b>Ткачук Тарас Павлович</b> – кандидат філологічних наук, викладач Вінницької академії неперервної освіти,  учитель-методист. Працював учителем у приватній школі, викладачем на підготовчих курсах Київського міжнародного університету, методистом Вінницького обласного інституту післядипломної освіти педагогічних працівників, викладачем Вінницького державного педагогічного університету ім. М.М.Коцюбинського.  Автор більше 15 посібників для школи, співавтор підручника з української мови для 5 класу.</p>-->
-<!--        </div>-->
-<!--        <div class="col-md-4 col-xs-4 col-sm-4">-->
-<!--            <div id="carousel0" class="carousel slide">-->
-<!--                <div class="carousel-inner">-->
-<!--                    <div class="item active">-->
-<!--                        <img src="{% static 'images/books/tkachuk/Tkachuk.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/1155311492_1719722114.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/1165246015_1353210052.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/book_1268204029.gif' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/book_1355079578.jpg'%}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/book_1450306802.gif'%}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/book_1482078467.jpg'%}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/book_1556656218.jpg'%}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/book_1582556860.jpg'%}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/book_1765577254.jpg'%}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/book_628227279.jpg'%}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/book_634522469.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/book_753313125.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/tkachuk/book_978243446.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <a href="#carousel0" class="left carousel-control" data-slide="prev">-->
-<!--                    <span class="glyphicon glyphicon-chevron-left"></span>-->
-<!--                </a>-->
-<!--                <a href="#carousel0" class="right carousel-control" data-slide="next">-->
-<!--                    <span class="glyphicon glyphicon-chevron-right"></span>-->
-<!--                </a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="klochko row">-->
-<!--        <div class="col-md-4 col-xs-4 col-sm-4">-->
-<!--            <div id="carousel1" class="carousel slide">-->
-<!--                <div class="carousel-inner">-->
-<!--                    <div class="item active">-->
-<!--                        <img src="{% static 'images/books/klochko/1_2030.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/1169477756_2125052456.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/1169478120_1741902082.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/book_1036815832.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/book_1067717197.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/book_1150832549.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/book_1214980968.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/book_1484560843.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/book_1713460089.gif' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/book_1738593238.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/book_219249160.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/book_377359848.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/book_744066914.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/book_861524919.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/klochko/book_872760572.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <a href="#carousel1" class="left carousel-control" data-slide="prev">-->
-<!--                    <span class="glyphicon glyphicon-chevron-left"></span>-->
-<!--                </a>-->
-<!--                <a href="#carousel1" class="right carousel-control" data-slide="next">-->
-<!--                    <span class="glyphicon glyphicon-chevron-right"></span>-->
-<!--                </a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col-md-8 col-xs-8 col-sm-8">-->
-<!--            <p><b>Клочко Ігор Якович</b> – учитель-методист. Переможець ІІ (обласного) етапу Всеукраїнського конкурсу «Учитель року», фіналіст ІІІ етапу зазначеного конкурсу. Лектор Вінницького обласного інституту післядипломної освіти педагогічних працівників. Автор більше 20 методичних розробок з математики для середньої і старшої школи. Постійний член журі ІІІ (обласного) етапу Всеукраїнської олімпіади з математики. За останні три роки роботи підготував понад 40 призерів ІІ, ІІІ, ІV етапів Всеукраїнської олімпіади з математики. Працював методистом з навчальних дисциплін Вінницького міського методичного кабінету. Наразі працює вчителем математики Вінницького технічного ліцею.</p>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="savelev row">-->
-<!--        <div class="col-md-8 col-xs-8 col-sm-8">-->
-<!--            <p><b>Савельєв Олександр Миколайович</b> – учитель історії зі стажем понад 25 років. Автор підручників для школи та методичних розробок (більше 70) для вивчення всесвітньої історії та історії України. П’ятикратний переможець обласних змагань з ігор «Що? Де? Коли?» та «Брейн-рингу». Співробітник лабораторії інформаційних технологій ФМГ№17. Керівник міжнародних історико-культурних проектів.</p>-->
-<!--        </div>-->
-<!--        <div class="col-md-4 col-xs-4 col-sm-4">-->
-<!--            <div id="carousel2" class="carousel slide">-->
-<!--                <div class="carousel-inner">-->
-<!--                    <div class="item active">-->
-<!--                        <img src="{% static 'images/books/savelev/023.JPG' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/1155652976_1704207297.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/1155653106_142639253.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/1155653239_2138951949.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/1155653377_980296417.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/book_1102966290.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/book_1336353170.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/book_152947088.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/book_1544130908.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/book_1705975183.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/book_1992935127.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/book_330353307.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/book_478491404.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/book_544147029.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/book_859102811.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="{% static 'images/books/savelev/book_925689493.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <a href="#carousel2" class="left carousel-control" data-slide="prev">-->
-<!--                    <span class="glyphicon glyphicon-chevron-left"></span>-->
-<!--                </a>-->
-<!--                <a href="#carousel2" class="right carousel-control" data-slide="next">-->
-<!--                    <span class="glyphicon glyphicon-chevron-right"></span>-->
-<!--                </a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="koshevec row">-->
-<!--        <div class="col-md-4 col-xs-4 col-sm-4">-->
-<!--            <div id="carousel2" class="carousel slide">-->
-<!--                <div class="carousel-inner">-->
-<!--                    <div class="item active">-->
-<!--                        <img src="{% static 'images/books/koshevec.jpg' %}" alt="">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col-md-8 col-xs-8 col-sm-8">-->
-<!--            <p><b>Кошевець Анатолій Валерійович</b>  – викладач англійської мови. Працював у Вінницькому державному педагогічному університеті імені М.М.Коцюбинського, закінчив London Study Center (Велика Британія). Веде заняття з англійської мови у недільній школі.</p>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->

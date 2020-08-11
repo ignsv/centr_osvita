@@ -2,19 +2,27 @@
   background-image: url("../images/img_top_bg.png");
   background-position: top right;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 100% auto;
+
+  @media #{$md-media} {
+    background-size: auto 80%;
+  }
+
+  @media #{$lg-media} {
+    background-size: auto 95%;
+  }
 }
 
 .top-section-inner {
   @media #{$md-media} {
-    background-size: 700px;
+    background-size: auto 90%;
     background-image: url("../images/img_top.png");
     background-repeat: no-repeat;
-    background-position: right bottom;
+    background-position: 90% 100%;
   }
 
   @media #{$lg-media} {
-    background-size: contain;
+    background-size: auto 95%;
   }
 }
 
@@ -48,6 +56,7 @@
       li {
         list-style-type: none;
         position: relative;
+        text-shadow: 0px 0px 2px rgba(255, 255, 255, 1);
 
         &:nth-child(2) {
           margin: 23px 0;

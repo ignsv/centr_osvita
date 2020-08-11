@@ -5,27 +5,30 @@
 
 {% block content %}
 
-    <div class="subject-list-page">
-        <h1>Тести</h1>
-        <form action="{% url 'quiz:subject-list' %}" 
-              method="get"
-              class="form-group">
-            <input name="q" 
-                    type="text" 
-                    placeholder="Пошук..."
-                    aria-label="Пошук..."
-                    class="form-control"
-                    aria-describedby="button-addon2">
-        </form>
+<main>
+    <div class="content">
+        <div class="quiz-list">
+            <h1>Тести</h1>
+            <form action="{% url 'quiz:subject-list' %}"
+                  method="get"
+                  class="quiz-list__search">
+                <input name="q"
+                       type="text"
+                       placeholder="Пошук..."
+                       aria-label="Пошук..."
+                       class="form-control"
+                       aria-describedby="button-addon2">
+            </form>
 
-        <div class="subject-list">
-            {% for subject in object_list %}
+            <div class="quiz-list__list">
+                {% for subject in object_list %}
                 <a href="{% url 'quiz:subject-detail' subject.id %}">
                     {{ subject.name }}
                 </a>
-                <br>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
+</main>
 
 {% endblock %}

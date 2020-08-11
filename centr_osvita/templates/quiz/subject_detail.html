@@ -5,145 +5,146 @@
 
 
 {% block content %}
+<main>
+    <div class="content">
+        <div class="quiz-detail">
+            <h1 data-question-id="{{ question.id }}">
+                {{ question.text }}
+            </h1>
 
-    <div class="subject-detail">
-        <h1 data-question-id="{{ question.id }}">
-            {{ question.text }}
-        </h1>
+            {% if question.image %}
+            <img src="{{ question.image.url }}"
+                 alt="Image"/>
+            {% endif %}
 
-        {% if question.image %}
-            <img src="{{ question.image.url }}" 
-                alt="Image"/>
-        {% endif %}
-
-        <div class="subject-detail-answer-list">
-            {% if question.type == 0 %}
+            <div class="quiz-detail__answer-list">
+                {% if question.type == 0 %}
                 {% for answer in question.ordered_answers_by_position.all %}
-                    <p data-answer-id="{{ answer.id }}">
-                        {{answer.get_number_display}}. {{answer.text}}
-                    </p>
+                <p data-answer-id="{{ answer.id }}">
+                    {{answer.get_number_display}}. {{answer.text}}
+                </p>
                 {% endfor %}
-            {% elif question.type == 1 %}
+                {% elif question.type == 1 %}
                 {% for answer in question.ordered_answers_by_position.all %}
-                    <p data-answer-id="{{ answer.id }}">
-                        {{answer.get_number_1_display}}. {{answer.text}}
-                    </p>
+                <p data-answer-id="{{ answer.id }}">
+                    {{answer.get_number_1_display}}. {{answer.text}}
+                </p>
                 {% endfor %}
-            {% else %}
+                {% else %}
                 <div class="tables-flex">
                     <table border="1">
                         {% for answer in question.ordered_answers_by_position.all %}
-                            {% if answer.number_1 != 0 %}
-                                <tr>
-                                    <td data-answer-id="{{ answer.id }}">
-                                        {{answer.get_number_1_display}}
-                                    </td>
-                                    <td>
-                                        {{answer.text_1}}
-                                    </td>
-                                </tr>
-                            {% endif %}
+                        {% if answer.number_1 != 0 %}
+                        <tr>
+                            <td data-answer-id="{{ answer.id }}">
+                                {{answer.get_number_1_display}}
+                            </td>
+                            <td>
+                                {{answer.text_1}}
+                            </td>
+                        </tr>
+                        {% endif %}
                         {% endfor %}
                     </table>
 
                     <table border="1">
                         {% for answer in question.ordered_answers_by_position_two.all %}
-                            <tr>
-                                <td>
-                                    {{answer.get_number_2_display}}
-                                </td>
-                                <td>
-                                    {{answer.text_2}}
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                {{answer.get_number_2_display}}
+                            </td>
+                            <td>
+                                {{answer.text_2}}
+                            </td>
+                        </tr>
                         {% endfor %}
                     </table>
                 </div>
-            {% endif %}
-        </div>
+                {% endif %}
+            </div>
 
-        <form action="{% url 'quiz:subject-detail' object.id%}" 
-            method="post">
-            {% csrf_token %}
-            {{ formset.management_form }}
-            {{ formset.non_form_errors }}
-            <table border="1">
-                {% if question.type == 2 %}
+            <form action="{% url 'quiz:subject-detail' object.id%}"
+                  method="post">
+                {% csrf_token %}
+                {{ formset.management_form }}
+                {{ formset.non_form_errors }}
+                <table border="1">
+                    {% if question.type == 2 %}
                     <tr>
                         <td> </td>
                         {% for answer in question.ordered_answers_by_position_two.all %}
-                            <td>{{answer.get_number_2_display}}</td>
+                        <td>{{answer.get_number_2_display}}</td>
                         {% endfor %}
                     </tr>
                     {% for form in formset %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
                         {% for field in form %}
-                            {% for radio in field %}
-                                <td class="myradio">
-                                    <label for="{{ radio.id_for_label }}" 
-                                        class="order-wrapper">
-                                        {{ radio.tag }}
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                            {% endfor %}
-                        </tr>
+                        {% for radio in field %}
+                        <td class="myradio">
+                            <label for="{{ radio.id_for_label }}"
+                                   class="order-wrapper">
+                                {{ radio.tag }}
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        {% endfor %}
+                    </tr>
                     {% endfor %}
                     {% endfor %}
-                {% elif question.type == 1 %}
+                    {% elif question.type == 1 %}
                     <tr>
                         <td> </td>
                         {% for answer in question.ordered_answers_by_position_two.all %}
-                            <td>{{answer.get_number_2_display}}</td>
+                        <td>{{answer.get_number_2_display}}</td>
                         {% endfor %}
                     </tr>
                     {% for form in formset %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
                         {% for field in form %}
-                            {% for radio in field %}
-                                <td class="myradio">
-                                    <label for="{{ radio.id_for_label }}" 
-                                        class="order-wrapper">
-                                        {{ radio.tag }}
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                            {% endfor %}
-                        </tr>
+                        {% for radio in field %}
+                        <td class="myradio">
+                            <label for="{{ radio.id_for_label }}"
+                                   class="order-wrapper">
+                                {{ radio.tag }}
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        {% endfor %}
+                    </tr>
                     {% endfor %}
                     {% endfor %}
-                {% else %}
+                    {% else %}
                     <tr>
                         {% for answer in question.ordered_answers_by_position_two.all %}
-                            <td>{{answer.get_number_display}}</td>
+                        <td>{{answer.get_number_display}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
                         {% for form in formset %}
                         {% for field in form %}
-                            {% for radio in field %}
-                                <td class="myradio">
-                                    <label for="{{ radio.id_for_label }}" 
-                                        class="order-wrapper">
-                                        {{ radio.tag }}
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                            {% endfor %}
+                        {% for radio in field %}
+                        <td class="myradio">
+                            <label for="{{ radio.id_for_label }}"
+                                   class="order-wrapper">
+                                {{ radio.tag }}
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        {% endfor %}
                         {% endfor %}
                         {% endfor %}
                     </tr>
-                {% endif %}
-            </table>
+                    {% endif %}
+                </table>
 
-            <input type="submit" 
-                    value="Надіслати"
-                    class="btn btn-primary">
-        </form>
+                <input type="submit"
+                       value="Надіслати"
+                       class="btn btn-primary">
+            </form>
+        </div>
     </div>
-
-
+</main>
 {% endblock %}
 

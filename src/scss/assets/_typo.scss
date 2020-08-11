@@ -26,6 +26,20 @@ h2 {
   }
 }
 
+h4 {
+  font-weight: 900;
+  font-size: 22px;
+  line-height: 140%;
+
+  @media #{$sm-media} {
+    font-size: 26px;
+  }
+
+  @media #{$lg-media} {
+    font-size: 32px;
+  }
+}
+
 p {
   font-size: 18px;
 }
