@@ -5,12 +5,16 @@
 
 
 {% block content %}
-    <div class="subject-detail">
-        <h1>Ви пройшли тест!</h1>
-        <a href="{% url 'common:home' %}"
-            class="btn btn-primary">
-            Повернутись на головну
-        </a>
+<main>
+    <div class="container">
+        <div class="quiz-detail">
+            <h1>Ви пройшли тест!</h1>
+            <a href="{% url 'common:home' %}"
+               class="btn btn-primary">
+                Повернутись на головну
+            </a>
+        </div>
     </div>
+</main>
 
 {% endblock %}
