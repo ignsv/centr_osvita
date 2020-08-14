@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 
 from centr_osvita.quiz.forms import AnswerForm, OrderAnswerForm, AnswerValidatedFormSet
 from centr_osvita.quiz.mixins import IsStaffRequiredMixin
-from centr_osvita.quiz.models import Quiz, Subject, Question, QUESTION_TYPES, QuizCommonAnswer, \
+from centr_osvita.quiz.models import Quiz, Test, Question, QUESTION_TYPES, QuizCommonAnswer, \
     QuizOrderAnswer, OrderAnswer, QuizMappingAnswer, MappingAnswer, QuizQuestion, CommonAnswer
 
 
@@ -18,20 +18,20 @@ class QuizResultView(IsStaffRequiredMixin, DetailView):
     queryset = Quiz.objects.filter(status__in=(Quiz.QUIZ_STATUS_TYPES.suspend, Quiz.QUIZ_STATUS_TYPES.done))
 
 
-class SubjectListView(LoginRequiredMixin, ListView):
-    model = Subject
-    template_name = 'quiz/subject_list.html'
+class TestListView(LoginRequiredMixin, ListView):
+    model = Test
+    template_name = 'quiz/test_list.html'
 
     def get_queryset(self):
         param = self.request.GET.get('q')
-        object_list = Subject.objects.filter(status=True)
+        object_list = Test.objects.filter(status=True)
         if param:
             object_list = object_list.filter(name__search=param)
         return object_list
 
 
-class SubjectView(LoginRequiredMixin, View):
-    template_name = 'quiz/subject_detail.html'
+class TestView(LoginRequiredMixin, View):
+    template_name = 'quiz/test_detail.html'
     current_question = None
     current_quiz = None
     instance = None
@@ -39,7 +39,7 @@ class SubjectView(LoginRequiredMixin, View):
 
     def dispatch(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
-        self.instance = Subject.objects.filter(pk=pk, status=True).first()
+        self.instance = Test.objects.filter(pk=pk, status=True).first()
         if not self.instance:
             raise Http404(_("Not found"))
         if not Quiz.objects.filter(student=request.user.profile, status=Quiz.QUIZ_STATUS_TYPES.progress).count():
@@ -144,7 +144,7 @@ class SubjectView(LoginRequiredMixin, View):
                     QuizMappingAnswer.objects.create(quiz_question=quiz_question, number_2=unused_second_key_list[key],
                                                      number_1=zero_answer.number_1, answer=zero_answer)
 
-            return redirect('quiz:subject-detail', self.instance.id)
+            return redirect('quiz:test-detail', self.instance.id)
         else:
             context['formset'] = formset
             context['object'] = self.instance
@@ -153,7 +153,7 @@ class SubjectView(LoginRequiredMixin, View):
 
 
 class EndQuizView(LoginRequiredMixin, View):
-    model = Subject
+    model = Test
     template_name = 'quiz/test_ending.html'
 
     def get(self, request, *args, **kwargs):

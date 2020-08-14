@@ -1,12 +1,27 @@
 from django.contrib import admin
 
-from centr_osvita.quiz.models import Subject, Question, CommonAnswer, OrderAnswer, MappingAnswer, Answer, Quiz, \
-    QuizCommonAnswer, QuizOrderAnswer, QuizMappingAnswer, QuizAnswer, QuizQuestion
+from centr_osvita.quiz.models import Subject, Test, Question, CommonAnswer, OrderAnswer, MappingAnswer, Answer, Quiz, \
+    QuizCommonAnswer, QuizOrderAnswer, QuizMappingAnswer, QuizAnswer, QuizQuestion, Year, YearSubjectStatistics
 from polymorphic.admin import PolymorphicInlineSupportMixin, StackedPolymorphicInline
 
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
+    list_display = ('name', )
+
+
+@admin.register(Year)
+class YearAdmin(admin.ModelAdmin):
+    list_display = ('date', )
+
+
+@admin.register(YearSubjectStatistics)
+class YearSubjectStatisticsAdmin(admin.ModelAdmin):
+    list_display = ('subject', 'year')
+
+
+@admin.register(Test)
+class TestAdmin(admin.ModelAdmin):
     list_display = ('name', 'status')
 
 
@@ -31,13 +46,13 @@ class AnswerInline(StackedPolymorphicInline):
 @admin.register(Question)
 class QuestionAdmin(PolymorphicInlineSupportMixin, admin.ModelAdmin):
     inlines = (AnswerInline,)
-    search_fields = ('subject__name', 'text')
+    search_fields = ('test__name', 'text')
 
 
 @admin.register(Quiz)
 class QuizAdmin(admin.ModelAdmin):
-    list_display = ('subject', 'status', 'student')
-    search_fields = ('subject__name', 'student__full_name')
+    list_display = ('test', 'status', 'student')
+    search_fields = ('test__name', 'student__full_name')
     list_filter = ('status',)
 
 

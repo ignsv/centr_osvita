@@ -16,13 +16,13 @@ QUESTION_TYPES = Choices(
 
 def question_image_path(instance, filename):
     dot_position = filename.find('.')
-    return 'subject_{0}/{1}'.format(str(instance.subject.id),
+    return 'test_{0}/{1}'.format(str(instance.test.id),
                                     filename[:dot_position]+str(int(time.time()))+filename[dot_position:])
 
 
-class Subject(TimeStampedModel):
+class Subject(models.Model):
     name = models.CharField(_('Subject name'), max_length=255, help_text=_('Maximum length is 255 symbols'))
-    status = models.BooleanField(_('Publish status'))
+    slug = models.SlugField(_('Slug name'))
 
     class Meta:
         verbose_name = _('Subject')
@@ -31,9 +31,41 @@ class Subject(TimeStampedModel):
     def __str__(self):
         return self.name
 
+    @property
+    def ordered_statistic_by_year(self):
+        return self.statistics.order_by('year__date')
+
+
+class Year(models.Model):
+    date = models.SmallIntegerField(_('Year info'))
+
+    def __str__(self):
+        return str(self.date)
+
+
+class YearSubjectStatistics(models.Model):
+    subject = models.ForeignKey(Subject, verbose_name=_('Subject'), on_delete=models.CASCADE, related_name='statistics')
+    percent_c = models.FloatField(_('Percent of pupils that have C mark'))
+    percent_b = models.FloatField(_('Percent of pupils that have B mark'))
+    percent_a = models.FloatField(_('Percent of pupils that have A mark'))
+    year = models.ForeignKey(Year, verbose_name=_('Year'), on_delete=models.CASCADE, related_name='statistics')
+
+
+class Test(TimeStampedModel):
+    subject = models.ForeignKey(Subject, verbose_name=_('Subject'), on_delete=models.CASCADE, related_name='tests')
+    name = models.CharField(_('Test name'), max_length=255, help_text=_('Maximum length is 255 symbols'))
+    status = models.BooleanField(_('Publish status'))
+
+    class Meta:
+        verbose_name = _('Test')
+        verbose_name_plural = _('Tests')
+
+    def __str__(self):
+        return self.name
+
 
 class Question(TimeStampedModel):
-    subject = models.ForeignKey(Subject, verbose_name=_('Subject'), on_delete=models.CASCADE, related_name='questions')
+    test = models.ForeignKey(Test, verbose_name=_('Test'), on_delete=models.CASCADE, related_name='questions')
     text = models.TextField(_('Text'))
     image = models.ImageField(_("Image"), upload_to=question_image_path, null=True, blank=True)
     type = models.IntegerField(_("Question Type"), choices=QUESTION_TYPES, default=QUESTION_TYPES.common)
@@ -170,7 +202,7 @@ class Quiz(TimeStampedModel):
         (1, 'done', 'Done'),
         (2, 'suspend', 'Suspend'),
     )
-    subject = models.ForeignKey(Subject, verbose_name=_('Subject'), on_delete=models.CASCADE, related_name='quizzes')
+    test = models.ForeignKey(Test, verbose_name=_('Test'), on_delete=models.CASCADE, related_name='quizzes')
     status = models.IntegerField(_("Status"), choices=QUIZ_STATUS_TYPES, default=QUIZ_STATUS_TYPES.progress)
     student = models.ForeignKey(Profile, verbose_name=_('Student'), on_delete=models.CASCADE, related_name='quizzes')
 
@@ -179,7 +211,7 @@ class Quiz(TimeStampedModel):
         verbose_name_plural = _('Quizzes')
 
     def __str__(self):
-        return '{}:{}_{}'.format(self.id, self.subject.name, self.student.full_name)
+        return '{}:{}_{}'.format(self.id, self.test.name, self.student.full_name)
 
     @property
     def question_sum_common_order(self):
