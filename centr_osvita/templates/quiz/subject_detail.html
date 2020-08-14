@@ -8,13 +8,21 @@
 <main>
     <div class="content">
         <div class="quiz-detail">
-            <h1 data-question-id="{{ question.id }}">
-                {{ question.text }}
-            </h1>
+            <div class="quiz-detail__head">
+                <h4 data-question-id="{{ question.id }}">
+                    {{ question.text }}
+                </h4>
+<!--                Enter time here in seconds-->
+                <p id="time">100</p>
+                <p id="timer"></p>
+            </div>
+
 
             {% if question.image %}
-            <img src="{{ question.image.url }}"
-                 alt="Image"/>
+                <div class="quiz-detail__image">
+                    <img src="{{ question.image.url }}"
+                         alt="Image"/>
+                </div>
             {% endif %}
 
             <div class="quiz-detail__answer-list">
@@ -63,88 +71,106 @@
                 {% endif %}
             </div>
 
-            <form action="{% url 'quiz:subject-detail' object.id%}"
-                  method="post">
-                {% csrf_token %}
-                {{ formset.management_form }}
-                {{ formset.non_form_errors }}
-                <table border="1">
-                    {% if question.type == 2 %}
-                    <tr>
-                        <td> </td>
-                        {% for answer in question.ordered_answers_by_position_two.all %}
-                        <td>{{answer.get_number_2_display}}</td>
-                        {% endfor %}
-                    </tr>
-                    {% for form in formset %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        {% for field in form %}
-                        {% for radio in field %}
-                        <td class="myradio">
-                            <label for="{{ radio.id_for_label }}"
-                                   class="order-wrapper">
-                                {{ radio.tag }}
-                                <span class="checkmark"></span>
-                            </label>
-                        </td>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %}
-                    {% endfor %}
-                    {% elif question.type == 1 %}
-                    <tr>
-                        <td> </td>
-                        {% for answer in question.ordered_answers_by_position_two.all %}
-                        <td>{{answer.get_number_2_display}}</td>
-                        {% endfor %}
-                    </tr>
-                    {% for form in formset %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        {% for field in form %}
-                        {% for radio in field %}
-                        <td class="myradio">
-                            <label for="{{ radio.id_for_label }}"
-                                   class="order-wrapper">
-                                {{ radio.tag }}
-                                <span class="checkmark"></span>
-                            </label>
-                        </td>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %}
-                    {% endfor %}
-                    {% else %}
-                    <tr>
-                        {% for answer in question.ordered_answers_by_position_two.all %}
-                        <td>{{answer.get_number_display}}</td>
-                        {% endfor %}
-                    </tr>
-                    <tr>
+            <div class="quiz-detail__result-table">
+                <form action="{% url 'quiz:subject-detail' object.id%}"
+                      method="post" class="quiz-detail__result-form">
+                    {% csrf_token %}
+                    {{ formset.management_form }}
+                    {{ formset.non_form_errors }}
+                    <table border="1">
+                        {% if question.type == 2 %}
+                        <tr>
+                            <td> </td>
+                            {% for answer in question.ordered_answers_by_position_two.all %}
+                            <td>{{answer.get_number_2_display}}</td>
+                            {% endfor %}
+                        </tr>
                         {% for form in formset %}
-                        {% for field in form %}
-                        {% for radio in field %}
-                        <td class="myradio">
-                            <label for="{{ radio.id_for_label }}"
-                                   class="order-wrapper">
-                                {{ radio.tag }}
-                                <span class="checkmark"></span>
-                            </label>
-                        </td>
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            {% for field in form %}
+                            {% for radio in field %}
+                            <td class="myradio">
+                                <label for="{{ radio.id_for_label }}"
+                                       class="order-wrapper">
+                                    {{ radio.tag }}
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            {% endfor %}
+                        </tr>
                         {% endfor %}
                         {% endfor %}
+                        {% elif question.type == 1 %}
+                        <tr>
+                            <td> </td>
+                            {% for answer in question.ordered_answers_by_position_two.all %}
+                            <td>{{answer.get_number_2_display}}</td>
+                            {% endfor %}
+                        </tr>
+                        {% for form in formset %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            {% for field in form %}
+                            {% for radio in field %}
+                            <td class="myradio">
+                                <label for="{{ radio.id_for_label }}"
+                                       class="order-wrapper">
+                                    {{ radio.tag }}
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            {% endfor %}
+                        </tr>
                         {% endfor %}
-                    </tr>
-                    {% endif %}
-                </table>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            {% for answer in question.ordered_answers_by_position_two.all %}
+                            <td>{{answer.get_number_display}}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for form in formset %}
+                            {% for field in form %}
+                            {% for radio in field %}
+                            <td class="myradio">
+                                <label for="{{ radio.id_for_label }}"
+                                       class="order-wrapper">
+                                    {{ radio.tag }}
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            {% endfor %}
+                            {% endfor %}
+                            {% endfor %}
+                        </tr>
+                        {% endif %}
+                    </table>
 
-                <input type="submit"
-                       value="Надіслати"
-                       class="btn btn-primary">
-            </form>
+                    <input type="submit"
+                           value="Надіслати"
+                           class="btn btn-primary">
+                </form>
+            </div>
+
+
         </div>
     </div>
 </main>
+<!-- Modal -->
+<div class="modal fade" id="timeoutModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                Час вичерпано
+            </div>
+            <div class="modal-footer">
+<!--                Set results link here-->
+                <a href="/" class="btn btn-primary" id="timeout-results">Результати</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
