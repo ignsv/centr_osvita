@@ -7,6 +7,6 @@
 * ``pip install -r requirements/base.txt``
 * ``./manage.py migrate``
 ## Load test data
-* ``/manage.py loaddata test_db.json``
+* ``./manage.py loaddata test_db.json``
 ## Run the server
 * ``./manage.py runserver``

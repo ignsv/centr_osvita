@@ -5,112 +5,14 @@
 
 
 {% block content %}
+    <h2>{{ subject.name }}</h2>
+    {% for statistic in subject.ordered_statistic_by_year %}
+        <h4>{{ statistic.year.date}}</h4>
+        <p>Задовільно - {{ statistic.percent_c }}</p>
+        <p>Добре - {{ statistic.percent_b }}</p>
+        <p>Відмінно - {{ statistic.percent_a }}</p>
+    {% endfor %}
 
-    <div class="information">
-            <h1>СТАТИСТИКА</h1>
-            <h3>Результати ЗНО з української мови та літератури</h3>
-            <div id="chart2011" style="width: 900px; height: 600px;"></div>
-            <div id="chart2012" style="width: 900px; height: 600px;"></div>
-            <div id="chart2013" style="width: 900px; height: 600px;"></div>
-            <div id="chart2014" style="width: 900px; height: 600px;"></div>
-            <div id="chart2015" style="width: 900px; height: 600px;"></div>
-    </div>
 
 {% endblock %}
 
-{% block javascript %}
-     <script src="{% static 'js/jquery-2.2.0.js' %}"></script>
-     <script src="{% static 'js/bootstrap.js' %}"></script>
-     <script src="{% static 'js/loader.js' %}" type="text/javascript"></script>
-     <script src="{% static 'js/project.js' %}"></script>
-     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-
-        var data0 = google.visualization.arrayToDataTable([
-          ['Mark', 'Percent'],
-          ['5-6',     0.00],
-          ['7-9',     54.20],
-          ['10-12',     45.80]
-        ]);
-
-        var options0 = {
-          title: '2011 рік'
-        };
-
-        var chart0 = new google.visualization.PieChart(document.getElementById('chart2011'));
-
-        var data1 = google.visualization.arrayToDataTable([
-          ['Mark', 'Percent'],
-          ['5-6',     18.50],
-          ['7-9',     37.00],
-          ['10-12',     44.50]
-        ]);
-
-        var options1 = {
-          title: '2012 рік'
-        };
-
-        var chart1 = new google.visualization.PieChart(document.getElementById('chart2012'));
-
-        var data2 = google.visualization.arrayToDataTable([
-          ['Mark', 'Percent'],
-          ['5-6',     3.80],
-          ['7-9',     33.90],
-          ['10-12',     62.30]
-        ]);
-
-        var options2 = {
-          title: '2013 рік'
-        };
-
-        var chart2 = new google.visualization.PieChart(document.getElementById('chart2013'));
-
-        var data3 = google.visualization.arrayToDataTable([
-          ['Mark', 'Percent'],
-          ['5-6',     13.90],
-          ['7-9',     41.70],
-          ['10-12',     44.40]
-        ]);
-
-        var options3 = {
-          title: '2014 рік'
-        };
-
-        var chart3 = new google.visualization.PieChart(document.getElementById('chart2014'));
-
-        var data4 = google.visualization.arrayToDataTable([
-          ['Mark', 'Percent'],
-          ['5-6',     8.80],
-          ['7-9',     35.60],
-          ['10-12',     55.60]
-        ]);
-
-        var options4 = {
-          title: '2015 рік'
-        };
-
-        var chart4 = new google.visualization.PieChart(document.getElementById('chart2015'));
-
-        chart0.draw(data0, options0);
-        chart1.draw(data1, options1);
-        chart2.draw(data2, options2);
-        chart3.draw(data3, options3);
-        chart4.draw(data4, options4);
-      }
-    </script>
-    <script type="text/javascript">
-          WebFontConfig = {
-            google: { families: [ 'Roboto+Slab::cyrillic' ] }
-          };
-          (function() {
-            var wf = document.createElement('script');
-            wf.src = "{% static 'js/webfont.js'%}";
-            wf.type = 'text/javascript';
-            wf.async = 'true';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(wf, s);
-          })();
-    </script>
-{% endblock %}

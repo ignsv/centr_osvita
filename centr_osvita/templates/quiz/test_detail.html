@@ -72,7 +72,7 @@
             </div>
 
             <div class="quiz-detail__result-table">
-                <form action="{% url 'quiz:subject-detail' object.id%}"
+                <form action="{% url 'quiz:test-detail' object.id%}"
                       method="post" class="quiz-detail__result-form">
                     {% csrf_token %}
                     {{ formset.management_form }}
