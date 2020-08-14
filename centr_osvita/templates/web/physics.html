@@ -40,7 +40,9 @@
                 <p>Два заняття на тиждень</p>
               </div>
             </div>
-            <a href="/quiz/list?subject=physics" class="button">Пройти вхідний тест</a>
+            {% if user.is_authenticated %}
+              <a href="/quiz/list?subject=physics" class="button">Пройти вхідний тест</a>
+            {% endif %}
           </div>
           <div class="subject__teacher">
             <div class="subject__illustration subject__illustration--history">
