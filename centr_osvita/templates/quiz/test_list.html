@@ -9,7 +9,7 @@
     <div class="content">
         <div class="quiz-list">
             <h1>Тести</h1>
-            <form action="{% url 'quiz:subject-list' %}"
+            <form action="{% url 'quiz:test-list' %}"
                   method="get"
                   class="quiz-list__search">
                 <input name="q"
@@ -22,7 +22,7 @@
 
             <div class="quiz-list__list">
                 {% for subject in object_list %}
-                <a href="{% url 'quiz:subject-detail' subject.id %}">
+                <a href="{% url 'quiz:test-detail' subject.id %}">
                     {{ subject.name }}
                 </a>
                 {% endfor %}
