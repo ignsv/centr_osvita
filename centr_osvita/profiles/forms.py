@@ -8,7 +8,7 @@ class ProfileRegisterForm(ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['full_name', 'parent_full_name', 'parent_phone', 'institution_name', 'grade']
+        fields = ['full_name', 'parent_full_name', 'parent_phone', 'institution_type', 'institution_name', 'grade']
 
     def __init__(self, *args, **kwargs):
         user = kwargs.get('user', None)
