@@ -12,6 +12,12 @@ class Profile(TimeStampedModel):
         (10, 'ten', '10'),
         (11, 'eleven', '11'),
     )
+    INSTITUTION_TYPE = Choices(
+        (1, 'school', _('School')),
+        (2, 'lyceum', _('Lyceum/Gymnasium')),
+        (3, 'college', _('College')),
+        (0, 'other', _('Other')),
+    )
     user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_('User'), on_delete=models.CASCADE)
     full_name = models.CharField(_('full name'), max_length=255, help_text=_('Maximum length is 255 symbols'))
     parent_full_name = models.CharField(_('Parent fullname'), max_length=255,
@@ -19,6 +25,8 @@ class Profile(TimeStampedModel):
     parent_phone = PhoneNumberField(_('Parent phone'))
     institution_name = models.CharField(_('Institution name'), max_length=255,
                                         help_text=_('Maximum length is 255 symbols'))
+    institution_type = models.IntegerField(_("Institution type"), choices=INSTITUTION_TYPE,
+                                           default=INSTITUTION_TYPE.school)
     grade = models.IntegerField(_("Grade number"), choices=GRADE_NUMBER, null=True, blank=True)
 
     class Meta:
