@@ -23,10 +23,10 @@ class TestListView(LoginRequiredMixin, ListView):
     template_name = 'quiz/test_list.html'
 
     def get_queryset(self):
-        param = self.request.GET.get('q')
+        subject_param = self.request.GET.get('subject')
         object_list = Test.objects.filter(status=True)
-        if param:
-            object_list = object_list.filter(name__search=param)
+        if subject_param:
+            object_list = object_list.filter(subject__slug=subject_param)
         return object_list
 
 
@@ -43,19 +43,19 @@ class TestView(LoginRequiredMixin, View):
         if not self.instance:
             raise Http404(_("Not found"))
         if not Quiz.objects.filter(student=request.user.profile, status=Quiz.QUIZ_STATUS_TYPES.progress).count():
-            Quiz.objects.create(subject=self.instance, student=request.user.profile)
+            Quiz.objects.create(test=self.instance, student=request.user.profile)
 
         self.current_quiz = Quiz.objects.filter(student=self.request.user.profile,
                                                 status=Quiz.QUIZ_STATUS_TYPES.progress).first()
         used_question_ids = self.current_quiz.quiz_questions.values_list('question__id', flat=True)
 
-        self.current_question = Question.objects.filter(subject=self.instance, type=QUESTION_TYPES.common).exclude(
+        self.current_question = Question.objects.filter(test=self.instance, type=QUESTION_TYPES.common).exclude(
             id__in=used_question_ids).first()
         if not self.current_question:
-            self.current_question = Question.objects.filter(subject=self.instance, type=QUESTION_TYPES.order).exclude(
+            self.current_question = Question.objects.filter(test=self.instance, type=QUESTION_TYPES.order).exclude(
                 id__in=used_question_ids).first()
         if not self.current_question:
-            self.current_question = Question.objects.filter(subject=self.instance, type=QUESTION_TYPES.mapping).exclude(
+            self.current_question = Question.objects.filter(test=self.instance, type=QUESTION_TYPES.mapping).exclude(
                 id__in=used_question_ids).first()
 
         self.current_formset = None

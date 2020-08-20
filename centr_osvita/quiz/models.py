@@ -61,7 +61,7 @@ class Test(TimeStampedModel):
         verbose_name_plural = _('Tests')
 
     def __str__(self):
-        return self.name
+        return '{} {}'.format(self.subject.name, self.name)
 
 
 class Question(TimeStampedModel):
