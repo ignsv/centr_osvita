@@ -43,20 +43,22 @@ class TestView(LoginRequiredMixin, View):
         if not self.instance:
             raise Http404(_("Not found"))
         if not Quiz.objects.filter(student=request.user.profile, status=Quiz.QUIZ_STATUS_TYPES.progress).count():
-            Quiz.objects.create(test=self.instance, student=request.user.profile)
+            quiz = Quiz.objects.create(test=self.instance, student=request.user.profile)
+            quiz.create_random_quiz_questions()
 
         self.current_quiz = Quiz.objects.filter(student=self.request.user.profile,
                                                 status=Quiz.QUIZ_STATUS_TYPES.progress).first()
-        used_question_ids = self.current_quiz.quiz_questions.values_list('question__id', flat=True)
+        available_question_ids = self.current_quiz.quiz_questions.filter(
+            status=QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.active).values_list('question__id', flat=True)
 
-        self.current_question = Question.objects.filter(test=self.instance, type=QUESTION_TYPES.common).exclude(
-            id__in=used_question_ids).first()
+        self.current_question = Question.objects.filter(test=self.instance, type=QUESTION_TYPES.common).filter(
+            id__in=available_question_ids).first()
         if not self.current_question:
-            self.current_question = Question.objects.filter(test=self.instance, type=QUESTION_TYPES.order).exclude(
-                id__in=used_question_ids).first()
+            self.current_question = Question.objects.filter(test=self.instance, type=QUESTION_TYPES.order).filter(
+                id__in=available_question_ids).first()
         if not self.current_question:
-            self.current_question = Question.objects.filter(test=self.instance, type=QUESTION_TYPES.mapping).exclude(
-                id__in=used_question_ids).first()
+            self.current_question = Question.objects.filter(test=self.instance, type=QUESTION_TYPES.mapping).filter(
+                id__in=available_question_ids).first()
 
         self.current_formset = None
         if self.current_question is not None:
@@ -106,8 +108,10 @@ class TestView(LoginRequiredMixin, View):
                 formset = MappingAnswerFormSet(request.POST)
 
         if formset.is_valid():
-            quiz_question = QuizQuestion.objects.create(quiz=self.current_quiz, question=self.current_question,
-                                                        status=QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.done)
+            quiz_question = QuizQuestion.objects.filter(quiz=self.current_quiz, question=self.current_question,
+                                                        status=QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.active).first()
+            quiz_question.status = QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.done
+            quiz_question.save()
             answers_ids = self.current_question.answer_set.values_list('id', flat=True)
             if self.current_question.type == QUESTION_TYPES.common:
                 answer = CommonAnswer.objects.filter(id__in=answers_ids,

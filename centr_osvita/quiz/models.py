@@ -226,6 +226,27 @@ class Quiz(TimeStampedModel):
     def __str__(self):
         return '{}:{}_{}'.format(self.id, self.test.name, self.student.full_name)
 
+    def create_random_quiz_questions(self):
+        common_questions = Question.objects.filter(
+            test=self.test,
+            type=QUESTION_TYPES.common).order_by('?')[:self.test.test_parameter.number_of_common_questions]
+        order_questions = Question.objects.filter(
+            test=self.test,
+            type=QUESTION_TYPES.order).order_by('?')[:self.test.test_parameter.number_of_order_questions]
+        mapping_questions = Question.objects.filter(
+            test=self.test,
+            type=QUESTION_TYPES.mapping).order_by('?')[:self.test.test_parameter.number_of_mapping_questions]
+
+        for common in common_questions:
+            QuizQuestion.objects.create(question=common, quiz=self)
+
+        for order in order_questions:
+            QuizQuestion.objects.create(question=order, quiz=self)
+
+        for mapping in mapping_questions:
+            QuizQuestion.objects.create(question=mapping, quiz=self)
+
+
     @property
     def question_sum_common_order(self):
         return self.common_quiz_questions.count() + self.order_quiz_questions.count()
