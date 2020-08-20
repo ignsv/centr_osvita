@@ -253,12 +253,12 @@ class Quiz(TimeStampedModel):
 
     @property
     def max_available_mark(self):
-        max_mark = self.common_quiz_questions.count() + self.order_quiz_questions.count()*3
+        max_mark = self.common_quiz_questions.count()*self.test.test_parameter.coefficient_of_common_question \
+                   + self.order_quiz_questions.count()*self.test.test_parameter.coefficient_of_order_question*3
         for quiz_mapping_question in self.mapping_quiz_questions:
-            quiz_answers_ids = quiz_mapping_question.quizanswer_set.values_list('id', flat=True)
-            max_mark += QuizMappingAnswer.objects.filter(id__in=quiz_answers_ids).exclude(
-                number_1=MappingAnswer.FIRST_CHAIN_TYPES.zero).count()
-        return max_mark
+            max_mark += quiz_mapping_question.question.ordered_answers_by_position.exclude(
+                number_1=MappingAnswer.FIRST_CHAIN_TYPES.zero).count()*self.test.test_parameter.coefficient_of_mapping_question
+        return round(max_mark, 2)
 
     @property
     def current_mark(self):
@@ -266,7 +266,7 @@ class Quiz(TimeStampedModel):
         for common_quiz_question in self.common_quiz_questions:
             for quiz_answer in common_quiz_question.quizanswer_set.all():
                 if quiz_answer.answer.correct and quiz_answer.answer.number == quiz_answer.number:
-                    result_mark += 1
+                    result_mark += self.test.test_parameter.coefficient_of_common_question
 
         for order_quiz_question in self.order_quiz_questions:
             in_row = True
@@ -274,24 +274,25 @@ class Quiz(TimeStampedModel):
                 if not in_row and index == order_quiz_question.quizanswer_set.count()-1 \
                         and quiz_answer.answer.number_1 == quiz_answer.number_1 \
                         and quiz_answer.answer.number_2 == quiz_answer.number_2:
-                    result_mark += 1
+                    result_mark += self.test.test_parameter.coefficient_of_order_question
                 elif in_row and index == order_quiz_question.quizanswer_set.count()-1 \
                         and quiz_answer.answer.number_1 == quiz_answer.number_1 \
                         and quiz_answer.answer.number_2 == quiz_answer.number_2:
                     pass
                 elif in_row and quiz_answer.answer.number_1 == quiz_answer.number_1 \
                         and quiz_answer.answer.number_2 == quiz_answer.number_2:
-                    result_mark += 1
+                    result_mark += self.test.test_parameter.coefficient_of_order_question
                 else:
                     in_row = False
 
         for mapping_quiz_question in self.mapping_quiz_questions:
             for quiz_answer in mapping_quiz_question.ordered_quizanswers_by_position_one:
                 if quiz_answer.answer.number_1 == quiz_answer.number_1 \
+                        and quiz_answer.answer.number_1 != MappingAnswer.FIRST_CHAIN_TYPES.zero \
                         and quiz_answer.answer.number_2 == quiz_answer.number_2:
-                    result_mark += 1
+                    result_mark += self.test.test_parameter.coefficient_of_mapping_question
 
-        return result_mark
+        return round(result_mark, 2)
 
     @property
     def common_quiz_questions(self):

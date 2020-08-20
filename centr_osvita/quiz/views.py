@@ -76,9 +76,7 @@ class TestView(LoginRequiredMixin, View):
                 self.current_formset = MappingAnswerFormSet()
 
         if not self.current_question:
-            self.current_quiz.status = Quiz.QUIZ_STATUS_TYPES.done
-            self.current_quiz.save()
-            return redirect('quiz:quiz-finish')
+            return redirect('quiz:quiz-finish', self.current_quiz.id)
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -86,6 +84,7 @@ class TestView(LoginRequiredMixin, View):
         context = dict()
         context['object'] = self.instance
         context['question'] = self.current_question
+        context['quiz'] = self.current_quiz
         context['formset'] = self.current_formset
         return render(request, self.template_name, context)
 
@@ -153,12 +152,41 @@ class TestView(LoginRequiredMixin, View):
             context['formset'] = formset
             context['object'] = self.instance
             context['question'] = self.current_question
+            context['quiz'] = self.current_quiz
             return render(request, self.template_name, context)
 
 
-class EndQuizView(LoginRequiredMixin, View):
-    model = Test
+
+
+class CancelTestView(LoginRequiredMixin, View):
+
+    def dispatch(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        self.instance = Quiz.objects.filter(pk=pk, student=self.request.user.profile).first()
+        if not self.instance:
+            raise Http404(_("Not found"))
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return redirect('quiz:quiz-finish', self.instance.id)
+
+
+class FinishQuizView(LoginRequiredMixin, View):
     template_name = 'quiz/test_ending.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        self.instance = Quiz.objects.filter(pk=pk, student=self.request.user.profile).first()
+        if not self.instance:
+            raise Http404(_("Not found"))
+
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        self.instance.status = Quiz.QUIZ_STATUS_TYPES.done
+        self.instance.save()
+        self.instance.quiz_questions.filter(status=QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.active).update(
+            status=QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.suspend)
+        context = dict()
+        context['instance'] = self.instance
+        return render(request, self.template_name, context)
