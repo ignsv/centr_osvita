@@ -51,10 +51,24 @@ class YearSubjectStatistics(models.Model):
     year = models.ForeignKey(Year, verbose_name=_('Year'), on_delete=models.CASCADE, related_name='statistics')
 
 
+class TestParameter(TimeStampedModel):
+    test_time = models.SmallIntegerField(_('Test time'), default=20)
+    number_of_common_questions =  models.SmallIntegerField(_('Number of common questions'))
+    number_of_order_questions = models.SmallIntegerField(_('Number of order questions'))
+    number_of_mapping_questions = models.SmallIntegerField(_('Number of mapping questions'))
+    coefficient_of_common_question = models.FloatField(_('coefficient per common questions'))
+    coefficient_of_order_question = models.FloatField(_('coefficient per order questions'))
+    coefficient_of_mapping_question = models.FloatField(_('coefficient per mapping questions'))
+
+    class Meta:
+        verbose_name = _('Test Parameter')
+
+
 class Test(TimeStampedModel):
     subject = models.ForeignKey(Subject, verbose_name=_('Subject'), on_delete=models.CASCADE, related_name='tests')
     name = models.CharField(_('Test name'), max_length=255, help_text=_('Maximum length is 255 symbols'))
     status = models.BooleanField(_('Publish status'))
+    test_parameter = models.OneToOneField(TestParameter, verbose_name=_('Test Parameter'), on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _('Test')
@@ -62,7 +76,6 @@ class Test(TimeStampedModel):
 
     def __str__(self):
         return '{} {}'.format(self.subject.name, self.name)
-
 
 class Question(TimeStampedModel):
     test = models.ForeignKey(Test, verbose_name=_('Test'), on_delete=models.CASCADE, related_name='questions')
