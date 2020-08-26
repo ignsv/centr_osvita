@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 from centr_osvita.quiz.models import Subject, Test, Question, CommonAnswer, OrderAnswer, MappingAnswer, Answer, Quiz, \
-    QuizCommonAnswer, QuizOrderAnswer, QuizMappingAnswer, QuizAnswer, QuizQuestion, Year, YearSubjectStatistics
+    QuizCommonAnswer, QuizOrderAnswer, QuizMappingAnswer, QuizAnswer, QuizQuestion, Year, YearSubjectStatistics, \
+    TestParameter
 from polymorphic.admin import PolymorphicInlineSupportMixin, StackedPolymorphicInline
 
 
@@ -23,6 +24,11 @@ class YearSubjectStatisticsAdmin(admin.ModelAdmin):
 @admin.register(Test)
 class TestAdmin(admin.ModelAdmin):
     list_display = ('name', 'status')
+
+
+@admin.register(TestParameter)
+class TestParamAdmin(admin.ModelAdmin):
+    list_display = ('id',)
 
 
 class AnswerInline(StackedPolymorphicInline):

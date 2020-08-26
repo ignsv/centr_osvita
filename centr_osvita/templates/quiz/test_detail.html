@@ -13,8 +13,16 @@
                     {{ question.text }}
                 </h4>
 <!--                Enter time here in seconds-->
-                <p id="time">100</p>
+                <p id="time">{{ time_left }}</p>
                 <p id="timer"></p>
+                 <form action="{% url 'quiz:quiz-cancel' quiz.id%}" method="post">
+                     {% csrf_token %}
+                    <p>
+                        <input type="submit"
+                               value="Зупинити тест"
+                               class="btn btn-primary">
+                    </p>
+                 </form>
             </div>
 
 
@@ -167,7 +175,7 @@
             </div>
             <div class="modal-footer">
 <!--                Set results link here-->
-                <a href="/" class="btn btn-primary" id="timeout-results">Результати</a>
+                <a href="{% url 'quiz:quiz-finish' quiz.id%}" class="btn btn-primary" id="timeout-results">Результати</a>
             </div>
         </div>
     </div>

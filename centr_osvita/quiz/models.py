@@ -51,18 +51,31 @@ class YearSubjectStatistics(models.Model):
     year = models.ForeignKey(Year, verbose_name=_('Year'), on_delete=models.CASCADE, related_name='statistics')
 
 
+class TestParameter(TimeStampedModel):
+    test_time = models.SmallIntegerField(_('Test time'), default=20)
+    number_of_common_questions =  models.SmallIntegerField(_('Number of common questions'))
+    number_of_order_questions = models.SmallIntegerField(_('Number of order questions'))
+    number_of_mapping_questions = models.SmallIntegerField(_('Number of mapping questions'))
+    coefficient_of_common_question = models.FloatField(_('coefficient per common questions'))
+    coefficient_of_order_question = models.FloatField(_('coefficient per order questions'))
+    coefficient_of_mapping_question = models.FloatField(_('coefficient per mapping questions'))
+
+    class Meta:
+        verbose_name = _('Test Parameter')
+
+
 class Test(TimeStampedModel):
     subject = models.ForeignKey(Subject, verbose_name=_('Subject'), on_delete=models.CASCADE, related_name='tests')
     name = models.CharField(_('Test name'), max_length=255, help_text=_('Maximum length is 255 symbols'))
     status = models.BooleanField(_('Publish status'))
+    test_parameter = models.OneToOneField(TestParameter, verbose_name=_('Test Parameter'), on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _('Test')
         verbose_name_plural = _('Tests')
 
     def __str__(self):
-        return self.name
-
+        return '{} {}'.format(self.subject.name, self.name)
 
 class Question(TimeStampedModel):
     test = models.ForeignKey(Test, verbose_name=_('Test'), on_delete=models.CASCADE, related_name='questions')
@@ -213,18 +226,39 @@ class Quiz(TimeStampedModel):
     def __str__(self):
         return '{}:{}_{}'.format(self.id, self.test.name, self.student.full_name)
 
+    def create_random_quiz_questions(self):
+        common_questions = Question.objects.filter(
+            test=self.test,
+            type=QUESTION_TYPES.common).order_by('?')[:self.test.test_parameter.number_of_common_questions]
+        order_questions = Question.objects.filter(
+            test=self.test,
+            type=QUESTION_TYPES.order).order_by('?')[:self.test.test_parameter.number_of_order_questions]
+        mapping_questions = Question.objects.filter(
+            test=self.test,
+            type=QUESTION_TYPES.mapping).order_by('?')[:self.test.test_parameter.number_of_mapping_questions]
+
+        for common in common_questions:
+            QuizQuestion.objects.create(question=common, quiz=self)
+
+        for order in order_questions:
+            QuizQuestion.objects.create(question=order, quiz=self)
+
+        for mapping in mapping_questions:
+            QuizQuestion.objects.create(question=mapping, quiz=self)
+
+
     @property
     def question_sum_common_order(self):
         return self.common_quiz_questions.count() + self.order_quiz_questions.count()
 
     @property
     def max_available_mark(self):
-        max_mark = self.common_quiz_questions.count() + self.order_quiz_questions.count()*3
+        max_mark = self.common_quiz_questions.count()*self.test.test_parameter.coefficient_of_common_question \
+                   + self.order_quiz_questions.count()*self.test.test_parameter.coefficient_of_order_question*3
         for quiz_mapping_question in self.mapping_quiz_questions:
-            quiz_answers_ids = quiz_mapping_question.quizanswer_set.values_list('id', flat=True)
-            max_mark += QuizMappingAnswer.objects.filter(id__in=quiz_answers_ids).exclude(
-                number_1=MappingAnswer.FIRST_CHAIN_TYPES.zero).count()
-        return max_mark
+            max_mark += quiz_mapping_question.question.ordered_answers_by_position.exclude(
+                number_1=MappingAnswer.FIRST_CHAIN_TYPES.zero).count()*self.test.test_parameter.coefficient_of_mapping_question
+        return round(max_mark, 2)
 
     @property
     def current_mark(self):
@@ -232,7 +266,7 @@ class Quiz(TimeStampedModel):
         for common_quiz_question in self.common_quiz_questions:
             for quiz_answer in common_quiz_question.quizanswer_set.all():
                 if quiz_answer.answer.correct and quiz_answer.answer.number == quiz_answer.number:
-                    result_mark += 1
+                    result_mark += self.test.test_parameter.coefficient_of_common_question
 
         for order_quiz_question in self.order_quiz_questions:
             in_row = True
@@ -240,24 +274,25 @@ class Quiz(TimeStampedModel):
                 if not in_row and index == order_quiz_question.quizanswer_set.count()-1 \
                         and quiz_answer.answer.number_1 == quiz_answer.number_1 \
                         and quiz_answer.answer.number_2 == quiz_answer.number_2:
-                    result_mark += 1
+                    result_mark += self.test.test_parameter.coefficient_of_order_question
                 elif in_row and index == order_quiz_question.quizanswer_set.count()-1 \
                         and quiz_answer.answer.number_1 == quiz_answer.number_1 \
                         and quiz_answer.answer.number_2 == quiz_answer.number_2:
                     pass
                 elif in_row and quiz_answer.answer.number_1 == quiz_answer.number_1 \
                         and quiz_answer.answer.number_2 == quiz_answer.number_2:
-                    result_mark += 1
+                    result_mark += self.test.test_parameter.coefficient_of_order_question
                 else:
                     in_row = False
 
         for mapping_quiz_question in self.mapping_quiz_questions:
             for quiz_answer in mapping_quiz_question.ordered_quizanswers_by_position_one:
                 if quiz_answer.answer.number_1 == quiz_answer.number_1 \
+                        and quiz_answer.answer.number_1 != MappingAnswer.FIRST_CHAIN_TYPES.zero \
                         and quiz_answer.answer.number_2 == quiz_answer.number_2:
-                    result_mark += 1
+                    result_mark += self.test.test_parameter.coefficient_of_mapping_question
 
-        return result_mark
+        return round(result_mark, 2)
 
     @property
     def common_quiz_questions(self):

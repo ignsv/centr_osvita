@@ -5,6 +5,8 @@ from django.views.generic.detail import DetailView
 from django.http import Http404
 from django.utils.translation import ugettext as _
 from django.shortcuts import render, redirect
+from django.utils import timezone
+from datetime import timedelta
 
 from centr_osvita.quiz.forms import AnswerForm, OrderAnswerForm, AnswerValidatedFormSet
 from centr_osvita.quiz.mixins import IsStaffRequiredMixin
@@ -23,10 +25,10 @@ class TestListView(LoginRequiredMixin, ListView):
     template_name = 'quiz/test_list.html'
 
     def get_queryset(self):
-        param = self.request.GET.get('q')
+        subject_param = self.request.GET.get('subject')
         object_list = Test.objects.filter(status=True)
-        if param:
-            object_list = object_list.filter(name__search=param)
+        if subject_param:
+            object_list = object_list.filter(subject__slug=subject_param)
         return object_list
 
 
@@ -43,20 +45,22 @@ class TestView(LoginRequiredMixin, View):
         if not self.instance:
             raise Http404(_("Not found"))
         if not Quiz.objects.filter(student=request.user.profile, status=Quiz.QUIZ_STATUS_TYPES.progress).count():
-            Quiz.objects.create(subject=self.instance, student=request.user.profile)
+            quiz = Quiz.objects.create(test=self.instance, student=request.user.profile)
+            quiz.create_random_quiz_questions()
 
         self.current_quiz = Quiz.objects.filter(student=self.request.user.profile,
                                                 status=Quiz.QUIZ_STATUS_TYPES.progress).first()
-        used_question_ids = self.current_quiz.quiz_questions.values_list('question__id', flat=True)
+        available_question_ids = self.current_quiz.quiz_questions.filter(
+            status=QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.active).values_list('question__id', flat=True)
 
-        self.current_question = Question.objects.filter(subject=self.instance, type=QUESTION_TYPES.common).exclude(
-            id__in=used_question_ids).first()
+        self.current_question = Question.objects.filter(test=self.instance, type=QUESTION_TYPES.common).filter(
+            id__in=available_question_ids).first()
         if not self.current_question:
-            self.current_question = Question.objects.filter(subject=self.instance, type=QUESTION_TYPES.order).exclude(
-                id__in=used_question_ids).first()
+            self.current_question = Question.objects.filter(test=self.instance, type=QUESTION_TYPES.order).filter(
+                id__in=available_question_ids).first()
         if not self.current_question:
-            self.current_question = Question.objects.filter(subject=self.instance, type=QUESTION_TYPES.mapping).exclude(
-                id__in=used_question_ids).first()
+            self.current_question = Question.objects.filter(test=self.instance, type=QUESTION_TYPES.mapping).filter(
+                id__in=available_question_ids).first()
 
         self.current_formset = None
         if self.current_question is not None:
@@ -74,9 +78,7 @@ class TestView(LoginRequiredMixin, View):
                 self.current_formset = MappingAnswerFormSet()
 
         if not self.current_question:
-            self.current_quiz.status = Quiz.QUIZ_STATUS_TYPES.done
-            self.current_quiz.save()
-            return redirect('quiz:quiz-finish')
+            return redirect('quiz:quiz-finish', self.current_quiz.id)
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -84,7 +86,15 @@ class TestView(LoginRequiredMixin, View):
         context = dict()
         context['object'] = self.instance
         context['question'] = self.current_question
+        context['quiz'] = self.current_quiz
         context['formset'] = self.current_formset
+        if timezone.now() < self.current_quiz.created + \
+                timedelta(minutes=self.current_quiz.test.test_parameter.test_time):
+            context['time_left'] = int((self.current_quiz.created +
+                                    timedelta(minutes=self.current_quiz.test.test_parameter.test_time) -
+                                    timezone.now()).total_seconds())
+        else:
+            context['time_left'] = 0
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
@@ -106,8 +116,10 @@ class TestView(LoginRequiredMixin, View):
                 formset = MappingAnswerFormSet(request.POST)
 
         if formset.is_valid():
-            quiz_question = QuizQuestion.objects.create(quiz=self.current_quiz, question=self.current_question,
-                                                        status=QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.done)
+            quiz_question = QuizQuestion.objects.filter(quiz=self.current_quiz, question=self.current_question,
+                                                        status=QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.active).first()
+            quiz_question.status = QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.done
+            quiz_question.save()
             answers_ids = self.current_question.answer_set.values_list('id', flat=True)
             if self.current_question.type == QUESTION_TYPES.common:
                 answer = CommonAnswer.objects.filter(id__in=answers_ids,
@@ -149,12 +161,48 @@ class TestView(LoginRequiredMixin, View):
             context['formset'] = formset
             context['object'] = self.instance
             context['question'] = self.current_question
+            context['quiz'] = self.current_quiz
+            if timezone.now() < self.current_quiz.created + \
+                    timedelta(minutes=self.current_quiz.test.test_parameter.test_time):
+                context['time_left'] = int((self.current_quiz.created +
+                                        timedelta(minutes=self.current_quiz.test.test_parameter.test_time) -
+                                        timezone.now()).total_seconds())
+            else:
+                context['time_left'] = 0
             return render(request, self.template_name, context)
 
 
-class EndQuizView(LoginRequiredMixin, View):
-    model = Test
+
+
+class CancelTestView(LoginRequiredMixin, View):
+
+    def dispatch(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        self.instance = Quiz.objects.filter(pk=pk, student=self.request.user.profile).first()
+        if not self.instance:
+            raise Http404(_("Not found"))
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return redirect('quiz:quiz-finish', self.instance.id)
+
+
+class FinishQuizView(LoginRequiredMixin, View):
     template_name = 'quiz/test_ending.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        self.instance = Quiz.objects.filter(pk=pk, student=self.request.user.profile).first()
+        if not self.instance:
+            raise Http404(_("Not found"))
+
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        self.instance.status = Quiz.QUIZ_STATUS_TYPES.done
+        self.instance.save()
+        self.instance.quiz_questions.filter(status=QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.active).update(
+            status=QuizQuestion.QUIZ_QUESTION_STATUS_TYPES.suspend)
+        context = dict()
+        context['instance'] = self.instance
+        return render(request, self.template_name, context)
