@@ -5,6 +5,8 @@ from django.views.generic.detail import DetailView
 from django.http import Http404
 from django.utils.translation import ugettext as _
 from django.shortcuts import render, redirect
+from django.utils import timezone
+from datetime import timedelta
 
 from centr_osvita.quiz.forms import AnswerForm, OrderAnswerForm, AnswerValidatedFormSet
 from centr_osvita.quiz.mixins import IsStaffRequiredMixin
@@ -86,6 +88,13 @@ class TestView(LoginRequiredMixin, View):
         context['question'] = self.current_question
         context['quiz'] = self.current_quiz
         context['formset'] = self.current_formset
+        if timezone.now() < self.current_quiz.created + \
+                timedelta(minutes=self.current_quiz.test.test_parameter.test_time):
+            context['time_left'] = int((self.current_quiz.created +
+                                    timedelta(minutes=self.current_quiz.test.test_parameter.test_time) -
+                                    timezone.now()).total_seconds())
+        else:
+            context['time_left'] = 0
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
@@ -153,6 +162,13 @@ class TestView(LoginRequiredMixin, View):
             context['object'] = self.instance
             context['question'] = self.current_question
             context['quiz'] = self.current_quiz
+            if timezone.now() < self.current_quiz.created + \
+                    timedelta(minutes=self.current_quiz.test.test_parameter.test_time):
+                context['time_left'] = int((self.current_quiz.created +
+                                        timedelta(minutes=self.current_quiz.test.test_parameter.test_time) -
+                                        timezone.now()).total_seconds())
+            else:
+                context['time_left'] = 0
             return render(request, self.template_name, context)
 
 
