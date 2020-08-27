@@ -1,10 +1,10 @@
 {% extends "base.html" %} {% load static i18n %} {% block title %}Хімія
 - ЦОТ{% endblock %} {% block content %}
 <main>
-  <section class="subject-section">
+  <section class="subject-section chemistry-section">
     <div class="content">
       <div class="subject-page">
-        <h1>Фізика</h1>
+        <h1>Хімія</h1>
         <div class="subject__body">
           <div class="subject__info">
             <div class="subject__points">
@@ -14,30 +14,22 @@
                         alt="Програма"
                 />
                 <p>
-                  Програма тренінгу охоплює зміст шкільного курсу математики
-                  5-11 класів
+                  Програма тренінгу охоплює зміст шкільного курсу хімії 7-11 класів
                 </p>
-              </div>
-              <div class="subject__point">
-                <img
-                        src="{% static 'images/icons/pencil.png' %}"
-                        alt="Методика"
-                />
-                <p>Робота за авторською методикою</p>
               </div>
               <div class="subject__point">
                 <img
                         src="{% static 'images/icons/clock.png' %}"
                         alt="Тривалість"
                 />
-                <p>Тривалість заняття - 2 години</p>
+                <p>Заняття триває 2 години</p>
               </div>
               <div class="subject__point">
                 <img
                         src="{% static 'images/icons/calendar.png' %}"
                         alt="Тривалість"
                 />
-                <p>Два заняття на тиждень</p>
+                <p>Одне заняття на тиждень</p>
               </div>
             </div>
             {% if user.is_authenticated %}

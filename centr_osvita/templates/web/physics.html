@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% load static i18n %} {% block title %}Фізика
 - ЦОТ{% endblock %} {% block content %}
 <main>
-  <section class="subject-section">
+  <section class="subject-section physics-section">
     <div class="content">
       <div class="subject-page">
         <h1>Фізика</h1>
@@ -14,23 +14,15 @@
                         alt="Програма"
                 />
                 <p>
-                  Програма тренінгу охоплює зміст шкільного курсу математики
-                  5-11 класів
+                  Програма тренінгу охоплює зміст шкільного курсу фізики 7-11 класів
                 </p>
-              </div>
-              <div class="subject__point">
-                <img
-                        src="{% static 'images/icons/pencil.png' %}"
-                        alt="Методика"
-                />
-                <p>Робота за авторською методикою</p>
               </div>
               <div class="subject__point">
                 <img
                         src="{% static 'images/icons/clock.png' %}"
                         alt="Тривалість"
                 />
-                <p>Тривалість заняття - 2 години</p>
+                <p>Заняття триває 1,5 години</p>
               </div>
               <div class="subject__point">
                 <img
@@ -45,8 +37,6 @@
             {% endif %}
           </div>
           <div class="subject__teacher">
-            <div class="subject__illustration subject__illustration--history">
-            </div>
             <div class="teacher-card">
               <div class="teacher-card__info">
                 <span>Викладач</span>
