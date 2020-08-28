@@ -647,21 +647,28 @@ header {
     position: relative; }
     .quiz-detail__head #timer {
       position: absolute;
-      top: -20px;
+      top: -65px;
       right: 0; }
     .quiz-detail__head #time {
       display: none; }
+  .quiz-detail__stop-btn {
+    position: absolute;
+    top: -45px;
+    right: 0; }
   .quiz-detail__image {
-    max-height: 400px; }
+    max-width: 600px;
+    margin: 0 auto; }
     .quiz-detail__image img {
-      max-width: 100%; }
-  .quiz-detail__answer-list .tables-flex {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 30px 0; }
-  .quiz-detail__answer-list .tables-flex table {
-    margin: 0 30px 30px 0; }
+      width: 100%; }
+  .quiz-detail__answer-list {
+    margin: 25px 0; }
+    .quiz-detail__answer-list .tables-flex {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 30px 0; }
+    .quiz-detail__answer-list .tables-flex table {
+      margin: 0 30px 30px 0; }
   .quiz-detail__result-table td {
     width: 30px;
     height: 30px;

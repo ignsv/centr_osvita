@@ -32,7 +32,7 @@
 
     #timer {
       position: absolute;
-      top: -20px;
+      top: -65px;
       right: 0;
     }
 
@@ -41,15 +41,23 @@
     }
   }
 
+  &__stop-btn {
+    position: absolute;
+    top: -45px;
+    right: 0;
+  }
+
   &__image {
-    max-height: 400px;
+    max-width: 600px;
+    margin: 0 auto;
 
     img {
-      max-width: 100%;
+      width: 100%;
     }
   }
 
   &__answer-list {
+    margin: 25px 0;
     .tables-flex {
       display: flex;
       justify-content: center;
