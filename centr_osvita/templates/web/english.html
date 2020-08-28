@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% load static i18n %} {% block title %}Англійська мова
 - ЦОТ{% endblock %} {% block content %}
 <main>
-  <section class="subject-section">
+  <section class="subject-section english-section">
     <div class="content">
       <div class="subject-page">
         <h1>Англійська мова</h1>
@@ -14,23 +14,15 @@
                         alt="Програма"
                 />
                 <p>
-                  Програма тренінгу охоплює зміст шкільного курсу математики
-                  5-11 класів
+                  Програма тренінгу враховує специфіку робочого зошиту ЗНО з англійської мови
                 </p>
-              </div>
-              <div class="subject__point">
-                <img
-                        src="{% static 'images/icons/pencil.png' %}"
-                        alt="Методика"
-                />
-                <p>Робота за авторською методикою</p>
               </div>
               <div class="subject__point">
                 <img
                         src="{% static 'images/icons/clock.png' %}"
                         alt="Тривалість"
                 />
-                <p>Тривалість заняття - 2 години</p>
+                <p>Заняття триває 2 години</p>
               </div>
               <div class="subject__point">
                 <img
@@ -40,16 +32,16 @@
                 <p>Два заняття на тиждень</p>
               </div>
             </div>
-            <a href="/quiz/list?subject=english" class="button">Пройти вхідний тест</a>
+            {% if user.is_authenticated %}
+              <a href="/quiz/list?subject=english" class="button">Пройти вхідний тест</a>
+            {% endif %}
           </div>
           <div class="subject__teacher">
-            <div class="subject__illustration subject__illustration--history">
-            </div>
             <div class="teacher-card">
               <div class="teacher-card__info">
                 <span>Викладач</span>
                 <h4>Кошевець Анатолій Валерійович</h4>
-                <a href="#" class="button button--stat">Статистика попередніх років</a>
+                <a href="/statistics/?subject=english" class="button button--stat">Статистика попередніх років</a>
               </div>
               <div class="teacher-card__photo">
                 <img

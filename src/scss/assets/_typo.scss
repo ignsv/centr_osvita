@@ -26,6 +26,20 @@ h2 {
   }
 }
 
+h3 {
+  font-weight: 900;
+  font-size: 35px;
+  line-height: 140%;
+
+  @media #{$sm-media} {
+    font-size: 45px;
+  }
+
+  @media #{$lg-media} {
+    font-size: 55px;
+  }
+}
+
 h4 {
   font-weight: 900;
   font-size: 22px;

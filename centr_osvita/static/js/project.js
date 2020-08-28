@@ -31,3 +31,25 @@ if ($("#time").length) {
     renderTimer(minutes, seconds);
   }, 1000);
 }
+
+if ($("#id_institution_type").length) {
+  let input = $("#id_institution_type")
+
+  input.change(e => {
+    console.log(input.val())
+    if (input.val() == 0 || input.val() == 3) {
+      $("#id_grade").css("display", "none")
+      $("#label_for_institution").text("Навчальний заклад")
+      if ($("#institution_container").hasClass("col-md-6")) {
+        $("#institution_container").toggleClass("col-md-6 col-md-8")
+      }
+
+    } else {
+      $("#id_grade").css("display", "block")
+      $("#label_for_institution").text("Навчальний заклад та клас")
+      if ($("#institution_container").hasClass("col-md-8")) {
+        $("#institution_container").toggleClass("col-md-8 col-md-6")
+      }
+    }
+  })
+}

@@ -79,13 +79,15 @@
             </div>
             <div class="form-group row align-items-center">
                 <label class="col-xs-12 col-md-4 col-form-label"
-                       for="{{ profile_form.institution_name.id_for_label }}">
+                       for="{{ profile_form.institution_name.id_for_label }}"
+                       id="label_for_institution"
+                >
                     Навчальний заклад та клас
                 </label>
-                <div class="col-xs-8 col-md-6">
+                <div class="col-8 col-md-6" id="institution_container">
                     {{ profile_form.institution_name }}
                 </div>
-                <div class="col-xs-4 col-md-2">
+                <div class="col-4 col-md-2">
                     {{ profile_form.grade }}
                 </div>
                 <div class="invalid-feedback">
