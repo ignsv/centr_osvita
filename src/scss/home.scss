@@ -112,6 +112,7 @@
   width: 270px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background-color: #fff;
   border-radius: 16px;
   align-items: center;
@@ -145,6 +146,10 @@
   &__img {
     position: relative;
     padding-right: 30px;
+
+    img {
+      max-width: 100%;
+    }
   }
 
   &__img-bg {

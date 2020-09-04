@@ -9,18 +9,6 @@
     <div class="content">
         <div class="quiz-list">
             <h1>Тести</h1>
-            <br>
-{#            <form action="{% url 'quiz:test-list'%}"#}
-{#                  method="get"#}
-{#                  class="quiz-list__search">#}
-{#                <input name="q"#}
-{#                       type="text"#}
-{#                       placeholder="Пошук..."#}
-{#                       aria-label="Пошук..."#}
-{#                       class="form-control"#}
-{#                       aria-describedby="button-addon2">#}
-{#            </form>#}
-
             <div class="quiz-list__list">
                 {% for subject in object_list %}
                 <a href="{% url 'quiz:test-detail' subject.id %}">
