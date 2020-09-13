@@ -1,0 +1,91 @@
+{% load staticfiles i18n %}<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Результати{% endblock title %}</title>
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link rel="shortcut icon" href="{% static 'images/COT_Logo_Title.png' %}" type="image/png">
+        {% block css %}
+            <link href="{% static 'css/results.css' %}" rel="stylesheet">
+            <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+            <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+        {% endblock %}
+    </head>
+    <body>
+    <div class="results">
+        <p>Дата звіту: {{ object.created }}</p>
+
+        {% block content %}
+        {% for student in object.profiles.all %}
+            <table border="1">
+            <tr>
+            <td>Номер телефону</td>
+            <td>Прізвище ім'я</td>
+            <td>Ім'я одного з батьків</td>
+            <td>Номер одного з батьків</td>
+            <td>Клас</td>
+            </tr>
+            <tr>
+            <td>{{student.user.phone}}</td>
+            <td>{{student.full_name}}</td>
+            <td>{{student.parent_full_name}}</td>
+            <td>{{student.parent_phone}}</td>
+            {% if student.grade %}
+            <td>{{student.grade}}</td>
+            {% else %}
+            <td>-</td>
+            {% endif %}
+            </tr>
+            <tr>
+            <td>Пройдені тести</td>
+            <td>Дата і час</td>
+            <td>Оцінка</td>
+            </tr>
+            {% for quiz in student.quizzes.all %}
+            <tr>
+            <td>{{ quiz.test.subject.name }} {{ quiz.test.name }}</td>
+            <td>{{quiz.created|date:"d.m.Y: H:i"}}</td>
+            <td>{{ quiz.current_mark }}/{{ quiz.max_available_mark }}</td>
+            </tr>
+            {% endfor %}
+            </table>
+
+
+        {% endfor %}
+
+        {% endblock content %}
+
+        <input type="button"
+               name="print"
+               value="Print"
+               class="btn btn-primary"
+               onclick="window.print()">
+    </div>
+
+    {% block modal %}{% endblock modal %}
+
+    {% block javascript %}
+        <script src="{% static 'js/jquery-2.2.0.js' %}"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+        <script src="{% static 'js/project.js' %}"></script>
+        <script type="text/javascript">
+          WebFontConfig = {
+            google: { families: [ 'Roboto+Slab::cyrillic' ] }
+          };
+          (function() {
+            var wf = document.createElement('script');
+            wf.src = "{% static 'js/webfont.js'%}";
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+          })();
+        </script>
+    {% endblock javascript %}
+
+    </body>
+</html>
