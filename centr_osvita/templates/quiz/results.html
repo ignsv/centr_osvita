@@ -27,6 +27,15 @@
           {% for common_quiz_question in object.common_quiz_questions%}
             <div class="quiz">
               <p>{{ forloop.counter }}. {{ common_quiz_question.question.text }}</p>
+
+            <!-- ADDING ANSWERS TO QUESTION-->
+                {% for answer in common_quiz_question.question.ordered_answers_by_position.all %}
+                <p data-answer-id="{{ answer.id }}">
+                    {{answer.get_number_display}}. {{answer.text}}
+                </p>
+                {% endfor %}
+
+
             <!-- Check if question quiz wasn`t cancelled -->
             {% if common_quiz_question.status != 2%}
               <table border="1">
@@ -62,6 +71,17 @@
           {% for order_quiz_question in object.order_quiz_questions%}
             <div class="quiz">
               <p>{{ object.common_quiz_questions.all|length|add:forloop.counter}}. {{ order_quiz_question.question.text }}</p>
+
+            <!-- ADDING ANSWERS TO QUESTION-->
+                {% for answer in order_quiz_question.question.ordered_answers_by_position_two.all %}
+                <p data-answer-id="{{ answer.id }}">
+                    {{answer.get_number_2_display}}. {{answer.text}}
+                </p>
+                {% endfor %}
+
+
+
+
             <!-- Check if question quiz wasn`t cancelled -->
             {% if order_quiz_question.status != 2%}
               <table border="1">
@@ -99,6 +119,48 @@
             {% for mapping_quiz_question in object.mapping_quiz_questions%}
               <div class="quiz">
                 <p>{{ forloop.counter|add:object.question_sum_common_order }}. {{ mapping_quiz_question.question.text }}</p>
+
+
+
+
+
+              <!-- ADDING ANSWERS TO QUESTION-->
+              <div class="tables-flex">
+                    <table border="1">
+                        {% for answer in mapping_quiz_question.question.ordered_answers_by_position.all %}
+                        {% if answer.number_1 != 0 %}
+                        <tr>
+                            <td data-answer-id="{{ answer.id }}">
+                                {{answer.get_number_1_display}}
+                            </td>
+                            <td>
+                                {{answer.text_1}}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </table>
+
+                    <table border="1">
+                        {% for answer in mapping_quiz_question.question.ordered_answers_by_position_two.all %}
+                        <tr>
+                            <td>
+                                {{answer.get_number_2_display}}
+                            </td>
+                            <td>
+                                {{answer.text_2}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+
+
+
+
+
+
                   <!-- Check if question quiz wasn`t cancelled -->
                 {% if mapping_quiz_question.status != 2%}
                 <table border="1">
