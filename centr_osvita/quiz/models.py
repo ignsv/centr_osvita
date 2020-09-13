@@ -45,9 +45,9 @@ class Year(models.Model):
 
 class YearSubjectStatistics(models.Model):
     subject = models.ForeignKey(Subject, verbose_name=_('Subject'), on_delete=models.CASCADE, related_name='statistics')
-    percent_c = models.FloatField(_('Percent of pupils that have C mark'))
-    percent_b = models.FloatField(_('Percent of pupils that have B mark'))
-    percent_a = models.FloatField(_('Percent of pupils that have A mark'))
+    percent_c = models.IntegerField(_('Percent of pupils that have C mark'))
+    percent_b = models.IntegerField(_('Percent of pupils that have B mark'))
+    percent_a = models.IntegerField(_('Percent of pupils that have A mark'))
     year = models.ForeignKey(Year, verbose_name=_('Year'), on_delete=models.CASCADE, related_name='statistics')
 
 
