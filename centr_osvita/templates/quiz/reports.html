@@ -20,18 +20,18 @@
         <p>Дата звіту: {{ object.created }}</p>
 
         {% block content %}
-        {% for student in object.profiles.all %}
+        {% for student in object.ordered_by_student_full_name.all %}
             <table border="1">
             <tr>
-            <td>Номер телефону</td>
             <td>Прізвище ім'я</td>
+            <td>Номер телефону</td>
             <td>Ім'я одного з батьків</td>
             <td>Номер одного з батьків</td>
             <td>Клас</td>
             </tr>
             <tr>
-            <td>{{student.user.phone}}</td>
             <td>{{student.full_name}}</td>
+            <td>{{student.user.phone}}</td>
             <td>{{student.parent_full_name}}</td>
             <td>{{student.parent_phone}}</td>
             {% if student.grade %}
@@ -40,18 +40,20 @@
             <td>-</td>
             {% endif %}
             </tr>
-            <tr>
-            <td>Пройдені тести</td>
-            <td>Дата і час</td>
-            <td>Оцінка</td>
-            </tr>
-            {% for quiz in student.quizzes.all %}
-            <tr>
-            <td>{{ quiz.test.subject.name }} {{ quiz.test.name }}</td>
-            <td>{{quiz.created|date:"d.m.Y: H:i"}}</td>
-            <td>{{ quiz.current_mark }}/{{ quiz.max_available_mark }}</td>
-            </tr>
-            {% endfor %}
+            {% if student.quizzes.all %}
+                <tr>
+                <td>Пройдені тести</td>
+                <td>Дата і час</td>
+                <td>Оцінка</td>
+                </tr>
+                {% for quiz in student.quizzes.all %}
+                <tr>
+                <td>{{ quiz.test.subject.name }} {{ quiz.test.name }}</td>
+                <td>{{quiz.created|date:"d.m.Y: H:i"}}</td>
+                <td>{{ quiz.current_mark }}/{{ quiz.max_available_mark }}</td>
+                </tr>
+                {% endfor %}
+            {% endif %}
             </table>
 
 
