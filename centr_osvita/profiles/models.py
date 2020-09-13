@@ -35,3 +35,15 @@ class Profile(TimeStampedModel):
 
     def __str__(self):
         return self.full_name
+
+
+class UserReport(TimeStampedModel):
+    profiles = models.ManyToManyField(Profile, _('Profiles'))
+
+    class Meta:
+        verbose_name = _('User Report')
+        verbose_name_plural = _('User Reports')
+
+    @property
+    def ordered_by_student_full_name(self):
+        return self.profiles.order_by('full_name')

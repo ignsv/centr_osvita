@@ -12,12 +12,19 @@ from centr_osvita.quiz.forms import AnswerForm, OrderAnswerForm, AnswerValidated
 from centr_osvita.quiz.mixins import IsStaffRequiredMixin
 from centr_osvita.quiz.models import Quiz, Test, Question, QUESTION_TYPES, QuizCommonAnswer, \
     QuizOrderAnswer, OrderAnswer, QuizMappingAnswer, MappingAnswer, QuizQuestion, CommonAnswer
+from centr_osvita.profiles.models import UserReport
 
 
 class QuizResultView(IsStaffRequiredMixin, DetailView):
     model = Quiz
     template_name = 'quiz/results.html'
     queryset = Quiz.objects.filter(status__in=(Quiz.QUIZ_STATUS_TYPES.suspend, Quiz.QUIZ_STATUS_TYPES.done))
+
+
+class ProfileReportsView(IsStaffRequiredMixin, DetailView):
+    model = UserReport
+    template_name = 'quiz/reports.html'
+    queryset = UserReport.objects.all()
 
 
 class TestListView(LoginRequiredMixin, ListView):

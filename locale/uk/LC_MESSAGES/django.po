@@ -1,0 +1,388 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-14 01:52+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: centr_osvita/common/views.py:37 centr_osvita/quiz/views.py:53
+#: centr_osvita/quiz/views.py:190 centr_osvita/quiz/views.py:204
+msgid "Not found"
+msgstr "Не знайдено"
+
+#: centr_osvita/profiles/admin.py:14
+msgid "Date entarence difference"
+msgstr "Різниця у даті приходу"
+
+#: centr_osvita/profiles/admin.py:28
+msgid "from now to 0.5 year"
+msgstr "Півроку різниця"
+
+#: centr_osvita/profiles/admin.py:29
+msgid "from 0.5 year to 1 Year"
+msgstr "Від півроку до року"
+
+#: centr_osvita/profiles/admin.py:30
+msgid "from 1 year to 1.5 Year"
+msgstr "від року до півтора року"
+
+#: centr_osvita/profiles/admin.py:31
+msgid "from 1.5 years to 2 Year"
+msgstr "від півтора року до 2 років"
+
+#: centr_osvita/profiles/admin.py:32
+msgid "more than 2"
+msgstr "більше двох років"
+
+#: centr_osvita/profiles/models.py:16
+msgid "School"
+msgstr "Школа"
+
+#: centr_osvita/profiles/models.py:17
+msgid "Lyceum/Gymnasium"
+msgstr "Ліцей/Гімназія"
+
+#: centr_osvita/profiles/models.py:18
+msgid "College"
+msgstr "Коледж"
+
+#: centr_osvita/profiles/models.py:19
+msgid "Other"
+msgstr "Інше"
+
+#: centr_osvita/profiles/models.py:21
+msgid "User"
+msgstr "Користувач"
+
+#: centr_osvita/profiles/models.py:22
+msgid "full name"
+msgstr "Повне ім'я"
+
+#: centr_osvita/profiles/models.py:22 centr_osvita/profiles/models.py:24
+#: centr_osvita/profiles/models.py:27 centr_osvita/quiz/models.py:24
+#: centr_osvita/quiz/models.py:80
+msgid "Maximum length is 255 symbols"
+msgstr "Найбільша кількість символів - 255"
+
+#: centr_osvita/profiles/models.py:23
+msgid "Parent fullname"
+msgstr "Повне ім'я одного з батьків"
+
+#: centr_osvita/profiles/models.py:25
+msgid "Parent phone"
+msgstr "Телефон одного з батьків"
+
+#: centr_osvita/profiles/models.py:26
+msgid "Institution name"
+msgstr "Назва закладу"
+
+#: centr_osvita/profiles/models.py:28
+msgid "Institution type"
+msgstr "Тип Закладу"
+
+#: centr_osvita/profiles/models.py:30
+msgid "Grade number"
+msgstr "Клас"
+
+#: centr_osvita/profiles/models.py:33
+msgid "Profile"
+msgstr "Профіль"
+
+#: centr_osvita/profiles/models.py:34 centr_osvita/profiles/models.py:41
+msgid "Profiles"
+msgstr "Профілі"
+
+#: centr_osvita/profiles/models.py:44
+msgid "User Report"
+msgstr "Звіт по студентові"
+
+#: centr_osvita/profiles/models.py:45
+msgid "User Reports"
+msgstr "Звіти по студентах"
+
+#: centr_osvita/quiz/forms.py:14
+msgid "You should enter different values"
+msgstr "Ви маєте ввести різні значення"
+
+#: centr_osvita/quiz/models.py:24
+msgid "Subject name"
+msgstr "Назва предмету"
+
+#: centr_osvita/quiz/models.py:25
+msgid "Slug name"
+msgstr "Назва слаг"
+
+#: centr_osvita/quiz/models.py:28 centr_osvita/quiz/models.py:53
+#: centr_osvita/quiz/models.py:79
+msgid "Subject"
+msgstr "Предмет"
+
+#: centr_osvita/quiz/models.py:29
+msgid "Subjects"
+msgstr "Предмети"
+
+#: centr_osvita/quiz/models.py:40
+msgid "Year info"
+msgstr "Інформація про рік"
+
+#: centr_osvita/quiz/models.py:43 centr_osvita/quiz/models.py:57
+msgid "Year"
+msgstr "РІк"
+
+#: centr_osvita/quiz/models.py:44
+#, fuzzy
+#| msgid "Year"
+msgid "Years"
+msgstr "Роки"
+
+#: centr_osvita/quiz/models.py:54
+msgid "Percent of pupils that have C mark"
+msgstr "Відстоток учнів з оцінкою задовільно"
+
+#: centr_osvita/quiz/models.py:55
+msgid "Percent of pupils that have B mark"
+msgstr "Відстоток учнів з оцінкою добре"
+
+#: centr_osvita/quiz/models.py:56
+msgid "Percent of pupils that have A mark"
+msgstr "Відстоток учнів з оцінкою відмінно"
+
+#: centr_osvita/quiz/models.py:60
+msgid "Year Subject Statisctic"
+msgstr "Статистика предмету за рік"
+
+#: centr_osvita/quiz/models.py:61
+msgid "Year Subject Statisctics"
+msgstr "Статистика предмету за рік"
+
+#: centr_osvita/quiz/models.py:65
+msgid "Test time"
+msgstr "Час тесту"
+
+#: centr_osvita/quiz/models.py:66
+msgid "Number of common questions"
+msgstr "Кількість звичайних питань"
+
+#: centr_osvita/quiz/models.py:67
+msgid "Number of order questions"
+msgstr "Кількість питань на послідовність"
+
+#: centr_osvita/quiz/models.py:68
+msgid "Number of mapping questions"
+msgstr "Кількість питань на відповідність"
+
+#: centr_osvita/quiz/models.py:69
+msgid "coefficient per common questions"
+msgstr "Коефіцієнт звичайного питання"
+
+#: centr_osvita/quiz/models.py:70
+msgid "coefficient per order questions"
+msgstr "коефіцієнт питання на послідовність"
+
+#: centr_osvita/quiz/models.py:71
+msgid "coefficient per mapping questions"
+msgstr "коефіцієнт питання на відповідність"
+
+#: centr_osvita/quiz/models.py:74 centr_osvita/quiz/models.py:82
+msgid "Test Parameter"
+msgstr "Параметр тесту"
+
+#: centr_osvita/quiz/models.py:75
+#, fuzzy
+#| msgid "Test Parameter"
+msgid "Test Parameters"
+msgstr "Параметри тесту"
+
+#: centr_osvita/quiz/models.py:80
+msgid "Test name"
+msgstr "Назва тесту"
+
+#: centr_osvita/quiz/models.py:81
+msgid "Publish status"
+msgstr "Статус публікації"
+
+#: centr_osvita/quiz/models.py:85 centr_osvita/quiz/models.py:92
+#: centr_osvita/quiz/models.py:229
+msgid "Test"
+msgstr "Тест"
+
+#: centr_osvita/quiz/models.py:86
+msgid "Tests"
+msgstr "Тести"
+
+#: centr_osvita/quiz/models.py:93 centr_osvita/quiz/models.py:156
+#: centr_osvita/quiz/models.py:182
+msgid "Text"
+msgstr "Текст"
+
+#: centr_osvita/quiz/models.py:94
+msgid "Image"
+msgstr "Зображення"
+
+#: centr_osvita/quiz/models.py:95
+msgid "Question Type"
+msgstr "Тип питання"
+
+#: centr_osvita/quiz/models.py:98 centr_osvita/quiz/models.py:134
+#: centr_osvita/quiz/models.py:338
+msgid "Question"
+msgstr "Питання"
+
+#: centr_osvita/quiz/models.py:99
+msgid "Questions"
+msgstr "Тип питання"
+
+#: centr_osvita/quiz/models.py:137 centr_osvita/quiz/models.py:375
+msgid "Answer"
+msgstr "Відповідь"
+
+#: centr_osvita/quiz/models.py:138
+msgid "Answers"
+msgstr "Відповідді"
+
+#: centr_osvita/quiz/models.py:157 centr_osvita/quiz/models.py:391
+msgid "Answer Order"
+msgstr "Відповідь на послідовність"
+
+#: centr_osvita/quiz/models.py:158
+msgid "Correct answer"
+msgstr "Правильна відповідь"
+
+#: centr_osvita/quiz/models.py:161
+msgid "Common Answer"
+msgstr "Звичайна відповідь"
+
+#: centr_osvita/quiz/models.py:162
+msgid "Common Answers"
+msgstr "Звичайні відповідді"
+
+#: centr_osvita/quiz/models.py:183 centr_osvita/quiz/models.py:399
+msgid "Answer FIRST Position"
+msgstr "Відповіль Перша Позиція"
+
+#: centr_osvita/quiz/models.py:184 centr_osvita/quiz/models.py:400
+msgid "Answer SECOND Position"
+msgstr "Відповідь Друга позиція"
+
+#: centr_osvita/quiz/models.py:187
+msgid "Order Answer"
+msgstr "Відповідь на послідовність"
+
+#: centr_osvita/quiz/models.py:188
+msgid "Order Answers"
+msgstr "Відповіді на послідовності"
+
+#: centr_osvita/quiz/models.py:210 centr_osvita/quiz/models.py:408
+msgid "First chain"
+msgstr "Перший ланцюг"
+
+#: centr_osvita/quiz/models.py:211 centr_osvita/quiz/models.py:409
+msgid "Second chain"
+msgstr "Другий ланцюг"
+
+#: centr_osvita/quiz/models.py:212
+msgid "Text 1"
+msgstr "Текст 1"
+
+#: centr_osvita/quiz/models.py:213
+msgid "Text 2"
+msgstr "Текст 2"
+
+#: centr_osvita/quiz/models.py:216
+msgid "Mapping Answer"
+msgstr "Відповідь на відповідність"
+
+#: centr_osvita/quiz/models.py:217
+msgid "Mapping Answers"
+msgstr "Відповідді на відповідність"
+
+#: centr_osvita/quiz/models.py:230 centr_osvita/quiz/models.py:340
+msgid "Status"
+msgstr "Статус"
+
+#: centr_osvita/quiz/models.py:231
+msgid "Student"
+msgstr "Студент"
+
+#: centr_osvita/quiz/models.py:234 centr_osvita/quiz/models.py:337
+msgid "Quiz"
+msgstr "Тестування"
+
+#: centr_osvita/quiz/models.py:235
+msgid "Quizzes"
+msgstr "Тестування"
+
+#: centr_osvita/quiz/models.py:344 centr_osvita/quiz/models.py:374
+msgid "Quiz Question"
+msgstr "Питання тестування"
+
+#: centr_osvita/quiz/models.py:345
+msgid "Quiz Questions"
+msgstr "Питання тестування"
+
+#: centr_osvita/quiz/models.py:379
+msgid "Quiz Answer"
+msgstr "Відповідь тестування"
+
+#: centr_osvita/quiz/models.py:380
+msgid "Quiz Answers"
+msgstr "Відповіді тестування"
+
+#: centr_osvita/quiz/models.py:394
+msgid "Quiz Common Answer"
+msgstr "Відповідь на звичайне тестування"
+
+#: centr_osvita/quiz/models.py:395
+msgid "Quiz Common Answers"
+msgstr "Відповіді на звичайне тестування"
+
+#: centr_osvita/quiz/models.py:403
+msgid "Quiz Order Answer"
+msgstr "відповідь на послідовне тестування"
+
+#: centr_osvita/quiz/models.py:404
+msgid "Quiz Order Answers"
+msgstr "відповіді на послідовне тестування"
+
+#: centr_osvita/quiz/models.py:412
+msgid "Quiz Mapping Answer"
+msgstr "відповідь на відповідності тестування"
+
+#: centr_osvita/quiz/models.py:413
+msgid "Quiz Mapping Answers"
+msgstr "відповіді на відповідності тестування"
+
+#: centr_osvita/templates/admin/profiles/userreport/change_form.html:5
+#: centr_osvita/templates/admin/quiz/quiz/change_form.html:5
+msgid "History"
+msgstr "Історія"
+
+#: centr_osvita/templates/admin/profiles/userreport/change_form.html:12
+#: centr_osvita/templates/admin/quiz/quiz/change_form.html:12
+msgid "View on site"
+msgstr "Подивитись на сайті"
+
+#: centr_osvita/users/admin.py:17
+msgid "Personal info"
+msgstr "Особиста інформація"
+
+#: centr_osvita/users/admin.py:18
+msgid "Permissions"
+msgstr "Дозволи"
+
+#: centr_osvita/users/admin.py:20
+msgid "Important dates"
+msgstr "Важливі дати"

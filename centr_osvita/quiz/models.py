@@ -39,16 +39,24 @@ class Subject(models.Model):
 class Year(models.Model):
     date = models.SmallIntegerField(_('Year info'))
 
+    class Meta:
+        verbose_name = _('Year')
+        verbose_name_plural = _('Years')
+
     def __str__(self):
         return str(self.date)
 
 
 class YearSubjectStatistics(models.Model):
     subject = models.ForeignKey(Subject, verbose_name=_('Subject'), on_delete=models.CASCADE, related_name='statistics')
-    percent_c = models.FloatField(_('Percent of pupils that have C mark'))
-    percent_b = models.FloatField(_('Percent of pupils that have B mark'))
-    percent_a = models.FloatField(_('Percent of pupils that have A mark'))
+    percent_c = models.IntegerField(_('Percent of pupils that have C mark'))
+    percent_b = models.IntegerField(_('Percent of pupils that have B mark'))
+    percent_a = models.IntegerField(_('Percent of pupils that have A mark'))
     year = models.ForeignKey(Year, verbose_name=_('Year'), on_delete=models.CASCADE, related_name='statistics')
+
+    class Meta:
+        verbose_name = _('Year Subject Statisctic')
+        verbose_name_plural = _('Year Subject Statisctics')
 
 
 class TestParameter(TimeStampedModel):
@@ -62,6 +70,7 @@ class TestParameter(TimeStampedModel):
 
     class Meta:
         verbose_name = _('Test Parameter')
+        verbose_name_plural = _('Test Parameters')
 
 
 class Test(TimeStampedModel):
