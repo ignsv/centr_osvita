@@ -41,9 +41,9 @@
                 </p>
                 {% endfor %}
                 {% elif question.type == 1 %}
-                {% for answer in question.ordered_answers_by_position.all %}
+                {% for answer in question.ordered_answers_by_position_two.all %}
                 <p data-answer-id="{{ answer.id }}">
-                    {{answer.get_number_1_display}}. {{answer.text}}
+                    {{answer.get_number_2_display}}. {{answer.text}}
                 </p>
                 {% endfor %}
                 {% else %}
