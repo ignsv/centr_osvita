@@ -45,7 +45,14 @@ MANAGERS = ADMINS
 
 TIME_ZONE = 'Europe/Kiev'
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uk'
+
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+
+LOCALE_PATHS = [
+    os.path.join(PROJECT_PATH, '../locale'),
+]
+
 
 SITE_ID = 1
 
