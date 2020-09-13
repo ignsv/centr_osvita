@@ -17,7 +17,7 @@
 .subject {
   &__body {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
 
     @media #{$lg-media} {
@@ -63,6 +63,43 @@
 
     @media #{$lg-media} {
       margin-bottom: 0;
+    }
+  }
+
+  &__contacts {
+    background-color: $color-white;
+    padding: 40px;
+    align-self: center;
+  }
+
+  &__contacts-body {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__contacts-head {
+    text-transform: uppercase;
+    color: rgba(43,43,43, 0.4);
+    font-weight: 600;
+  }
+
+  &__contacts-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 30px 30px 30px 0
+  }
+
+  &__contacts-icon {
+    margin-right: 30px;
+  }
+
+  &__contacts-info {
+    font-weight: 600;
+
+    a {
+      color: #2b2b2b;
+      line-height: 25px;
     }
   }
 }
@@ -143,4 +180,5 @@
 
 .subject-section {
   background-size: cover;
+  background-color: #333333;
 }

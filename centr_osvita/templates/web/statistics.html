@@ -8,7 +8,7 @@
 <main class="stat-page">
     <div class="content">
         <h2>Результати попередніх років</h2>
-        <a href="#" class="stat-page__link">{{ subject.name }}</a>
+        <a href="/{{ subject.slug }}" class="stat-page__link">{{ subject.name }}</a>
     </div>
     <div class="stat">
         {% for statistic in subject.ordered_statistic_by_year %}

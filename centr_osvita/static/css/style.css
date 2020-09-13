@@ -385,6 +385,7 @@ header {
   width: 270px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background-color: #fff;
   border-radius: 16px;
   align-items: center;
@@ -412,6 +413,8 @@ header {
   .about__img {
     position: relative;
     padding-right: 30px; }
+    .about__img img {
+      max-width: 100%; }
   .about__img-bg {
     height: 100%;
     width: calc(100% - 30px);
@@ -534,7 +537,7 @@ header {
 
 .subject__body {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center; }
   @media only screen and (min-width: 1100px) {
     .subject__body {
@@ -569,6 +572,35 @@ header {
   @media only screen and (min-width: 1100px) {
     .subject__teacher {
       margin-bottom: 0; } }
+
+.subject__contacts {
+  background-color: #fff;
+  padding: 40px;
+  align-self: center; }
+
+.subject__contacts-body {
+  display: flex;
+  flex-wrap: wrap; }
+
+.subject__contacts-head {
+  text-transform: uppercase;
+  color: rgba(43, 43, 43, 0.4);
+  font-weight: 600; }
+
+.subject__contacts-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 30px 30px 30px 0; }
+
+.subject__contacts-icon {
+  margin-right: 30px; }
+
+.subject__contacts-info {
+  font-weight: 600; }
+  .subject__contacts-info a {
+    color: #2b2b2b;
+    line-height: 25px; }
 
 .teacher-card {
   display: flex;
@@ -624,7 +656,8 @@ header {
   background-image: url("../images/bg-chem.png"); }
 
 .subject-section {
-  background-size: cover; }
+  background-size: cover;
+  background-color: #333333; }
 
 .quiz-list {
   padding-top: 80px; }
@@ -632,9 +665,16 @@ header {
     margin: 40px 0 10px 0; }
   .quiz-list__list {
     display: flex;
-    flex-direction: column; }
+    flex-direction: column;
+    padding-left: 5px;
+    margin-top: 30px; }
     .quiz-list__list a {
-      margin-bottom: 10px; }
+      margin-bottom: 10px;
+      font-size: 25px;
+      font-weight: 500; }
+      .quiz-list__list a:hover {
+        text-shadow: 1px 1px 3px #969696;
+        text-decoration: none; }
 
 .quiz-detail {
   padding: 80px 0;
