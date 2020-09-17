@@ -125,8 +125,8 @@
 
 
               <!-- ADDING ANSWERS TO QUESTION-->
-              <div class="tables-flex">
-                    <table border="1">
+              <div class="tables-flex d-flex mb-3">
+                    <table class="mr-2" border="1">
                         {% for answer in mapping_quiz_question.question.ordered_answers_by_position.all %}
                         {% if answer.number_1 != 0 %}
                         <tr>

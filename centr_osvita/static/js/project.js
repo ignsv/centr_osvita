@@ -35,8 +35,7 @@ if ($("#time").length) {
 if ($("#id_institution_type").length) {
   let input = $("#id_institution_type");
 
-  input.change(e => {
-    console.log(input.val());
+  const handleInstitutionInput = () => {
     if (input.val() == 0 || input.val() == 3) {
       $("#id_grade").css("display", "none");
       $("#id_grade").prop("disabled", true);
@@ -52,5 +51,11 @@ if ($("#id_institution_type").length) {
         $("#institution_container").toggleClass("col-md-8 col-md-6");
       }
     }
+  };
+
+  handleInstitutionInput();
+
+  input.change(e => {
+    handleInstitutionInput();
   });
 }
