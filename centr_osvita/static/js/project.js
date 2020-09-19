@@ -59,3 +59,19 @@ if ($("#id_institution_type").length) {
     handleInstitutionInput();
   });
 }
+
+if ($("#personal_data_agree") && $("#reg_submit")) {
+  let checkbox = $("#personal_data_agree");
+
+  const switchSubmitButtonStatus = () => {
+    if (checkbox.is(":checked")) {
+      $("#reg_submit").prop("disabled", false);
+    } else {
+      $("#reg_submit").prop("disabled", true);
+    }
+  };
+  switchSubmitButtonStatus();
+  checkbox.change(e => {
+    switchSubmitButtonStatus();
+  });
+}
