@@ -300,6 +300,11 @@ header {
       max-width: 700px; }
     .auth-form input[type=text], .auth-form input[type=password] {
       width: 100%; }
+  .auth__agree {
+    text-align: left; }
+    @media only screen and (min-width: 768px) {
+      .auth__agree {
+        text-align: right; } }
 
 .top-section {
   background-image: url("../images/img_top_bg.png");
