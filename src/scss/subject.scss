@@ -28,7 +28,7 @@
 
   &__info {
     max-width: 470px;
-    padding-bottom: 60px;
+    //padding-bottom: 60px;
     order: 2;
     color: $color-white;
 
@@ -51,6 +51,12 @@
     p {
       margin-left: 30px;
       line-height: 24px;
+      font-size: 18px;
+      font-weight: 600;
+
+      @media #{$md-media} {
+        font-weight: 22px;
+      }
     }
   }
 
@@ -60,6 +66,7 @@
     flex-direction: column;
     justify-content: flex-end;
     margin-bottom: 35px;
+    margin-top: 20px;
 
     @media #{$lg-media} {
       margin-bottom: 0;
