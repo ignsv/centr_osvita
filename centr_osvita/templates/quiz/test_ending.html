@@ -10,6 +10,7 @@
         <div class="quiz-detail">
             <h1>Ви пройшли тест!</h1>
             <h4>Результат: {{ instance.current_mark }}/{{ instance.max_available_mark }}</h4>
+            <p>Для консультації звертайтеся за <a href="{% url 'common:home' %}#contacts">контактами</a>.</p>
             <a href="{% url 'common:home' %}"
                class="btn btn-primary">
                 Повернутись на головну

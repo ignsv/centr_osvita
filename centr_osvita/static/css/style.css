@@ -551,7 +551,6 @@ header {
 
 .subject__info {
   max-width: 470px;
-  padding-bottom: 60px;
   order: 2;
   color: #fff; }
   @media only screen and (min-width: 1100px) {
@@ -566,14 +565,20 @@ header {
   margin-bottom: 60px; }
   .subject__point p {
     margin-left: 30px;
-    line-height: 24px; }
+    line-height: 24px;
+    font-size: 18px;
+    font-weight: 600; }
+    @media only screen and (min-width: 768px) {
+      .subject__point p {
+        font-weight: 22px; } }
 
 .subject__teacher {
   max-width: 670px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  margin-bottom: 35px; }
+  margin-bottom: 35px;
+  margin-top: 20px; }
   @media only screen and (min-width: 1100px) {
     .subject__teacher {
       margin-bottom: 0; } }
@@ -688,6 +693,8 @@ header {
     margin-bottom: 30px; }
   .quiz-detail h4 {
     margin-bottom: 40px; }
+  .quiz-detail p {
+    margin-bottom: 30px; }
   .quiz-detail__head {
     position: relative; }
     .quiz-detail__head #timer {
