@@ -1,0 +1,191 @@
+.subject-page {
+  padding: 80px 0;
+
+  h1 {
+    margin-bottom: 60px;
+    text-align: center;
+    color: $color-white;
+
+    @media #{$lg-media} {
+      text-align: left;
+    }
+
+
+  }
+}
+
+.subject {
+  &__body {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+
+    @media #{$lg-media} {
+      flex-direction: row;
+      align-items: stretch;
+    }
+  }
+
+  &__info {
+    max-width: 470px;
+    //padding-bottom: 60px;
+    order: 2;
+    color: $color-white;
+
+    @media #{$lg-media} {
+      order: 0;
+    }
+
+
+
+    & .button {
+      padding: 19px 25px;
+    }
+  }
+
+  &__point {
+    display: flex;
+    align-items: center;
+    margin-bottom: 60px;
+
+    p {
+      margin-left: 30px;
+      line-height: 24px;
+      font-size: 18px;
+      font-weight: 600;
+
+      @media #{$md-media} {
+        font-weight: 22px;
+      }
+    }
+  }
+
+  &__teacher {
+    max-width: 670px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 35px;
+    margin-top: 20px;
+
+    @media #{$lg-media} {
+      margin-bottom: 0;
+    }
+  }
+
+  &__contacts {
+    background-color: $color-white;
+    padding: 40px;
+    align-self: center;
+  }
+
+  &__contacts-body {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__contacts-head {
+    text-transform: uppercase;
+    color: rgba(43,43,43, 0.4);
+    font-weight: 600;
+  }
+
+  &__contacts-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 30px 30px 30px 0
+  }
+
+  &__contacts-icon {
+    margin-right: 30px;
+  }
+
+  &__contacts-info {
+    font-weight: 600;
+
+    a {
+      color: #2b2b2b;
+      line-height: 25px;
+    }
+  }
+}
+
+.teacher-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  background-color: $color-white;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    span {
+      text-transform: uppercase;
+      color: #2b2b2b;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    h4 {
+      margin: 20px 0 40px 0;
+    }
+  }
+
+  &__photo {
+    width: 155px;
+    margin-left: 25px;
+    display: none;
+
+    @media #{$sm-media} {
+      display: block;
+    }
+
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.physics-section {
+  background-image: url("../images/bg-phys.png");
+}
+
+.ukrainian-section {
+  background-image: url("../images/bg-ukr.png");
+}
+
+.math-section {
+  background-image: url("../images/bg-math.png");
+}
+
+.english-section {
+  background-image: url("../images/bg-eng.png");
+}
+
+.history-section {
+  background-image: url("../images/bg-history.png");
+}
+
+.geography-section {
+  background-image: url("../images/bg-geograph.png");
+}
+
+.biology-section {
+  background-image: url("../images/bg-biology.png");
+}
+
+.chemistry-section {
+  background-image: url("../images/bg-chem.png");
+}
+
+.subject-section {
+  background-size: cover;
+  background-color: #333333;
+}

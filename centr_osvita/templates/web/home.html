@@ -1,0 +1,215 @@
+{% extends "base.html" %} {% load static i18n %} {% block title %}ЗНО -
+ЦОТ{%endblock %} {% block content %}
+<main>
+  <section class="top-section">
+    <div class="top-section-inner">
+      <div class="content">
+        <div class="top">
+          <div class="top__info">
+            <h1>Центр освітніх технологій</h1>
+            <ul>
+              <li>Тренінги для учнів та вчителів</li>
+              <li>Пробне тестування</li>
+              <li>Посібники для підготовки до ДПА та ЗНО</li>
+            </ul>
+            {% if not user.is_authenticated %}
+            <a href="{% url 'users:register' %}" class="button button--adaptive"
+            >Зареєструватись</a
+            >
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <section class="subjects-section" id="subjects">
+    <div class="content">
+      <div class="subjects">
+        <h2>Обирай предмет</h2>
+        <div class="subjects__items">
+          <div class="subject">
+            <img
+              src="{% static 'images/icons/math.png' %}"
+              alt="Math"
+              class="subject__icon"
+            />
+            <span class="subject__title">Математика</span>
+            <a href="{% url 'common:math' %}" class="button button--subject">Детальніше</a>
+          </div>
+          <div class="subject">
+            <img
+              src="{% static 'images/icons/ukr_lang.png' %}"
+              alt="Math"
+              class="subject__icon"
+            />
+            <span class="subject__title">Українська мова</span>
+            <a href="{% url 'common:ukrainian' %}" class="button button--subject">Детальніше</a>
+          </div>
+          <div class="subject">
+            <img
+              src="{% static 'images/icons/eng_lang.png' %}"
+              alt="Math"
+              class="subject__icon"
+            />
+            <span class="subject__title">Англійська мова</span>
+            <a href="{% url 'common:english' %}" class="button button--subject">Детальніше</a>
+          </div>
+          <div class="subject">
+            <img
+              src="{% static 'images/icons/history.png' %}"
+              alt="Math"
+              class="subject__icon"
+            />
+            <span class="subject__title">Історія</span>
+            <a href="{% url 'common:history' %}" class="button button--subject">Детальніше</a>
+          </div>
+          <div class="subject">
+            <img
+              src="{% static 'images/icons/physics.png' %}"
+              alt="Physics"
+              class="subject__icon"
+            />
+            <span class="subject__title">Фізика</span>
+            <a href="{% url 'common:physics' %}" class="button button--subject">Детальніше</a>
+          </div>
+          <div class="subject">
+            <img
+              src="{% static 'images/icons/geography.png' %}"
+              alt="Geography"
+              class="subject__icon"
+            />
+            <span class="subject__title">Географія</span>
+            <a href="{% url 'common:geography' %}" class="button button--subject">Детальніше</a>
+          </div>
+          <div class="subject">
+            <img
+              src="{% static 'images/icons/biology.png' %}"
+              alt="Biology"
+              class="subject__icon"
+            />
+            <span class="subject__title">Біологія</span>
+            <a href="{% url 'common:biology' %}" class="button button--subject">Детальніше</a>
+          </div>
+          <div class="subject">
+            <img
+              src="{% static 'images/icons/chem.png' %}"
+              alt="Chemistry"
+              class="subject__icon"
+            />
+            <span class="subject__title">Хімія</span>
+            <a href="{% url 'common:chemistry' %}" class="button button--subject">Детальніше</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="about-section">
+    <div class="content">
+      <div class="about">
+        <div class="about__info">
+          <h2>Про наш центр</h2>
+          <p>
+            Вінницький обласний “Центр освітніх технологій” створено 2009 року.
+            Основні види діяльності - проведення освітніх семінарів та тренінгів
+            для учителів, батьків, студентів та учнів Вінницької області.
+          </p>
+          <p>
+            Найбільші досягнення наша команда має у професійній підготовці
+            старшокласників до здачі державної підсумкової атестації та
+            незалежного оцінювання.
+          </p>
+          <p>
+            За роки своєї діяльності Центр освітніх технологій отримав заслужене
+            визнання серед дітей, їхніх батьків та учителів міста Вінниці й
+            Вінницької області. У центрі працюють високопрофесійні спеціалісти з
+            багатолітнім стажем роботи у школі та вищих навчальних закладах.
+          </p>
+          <p>
+            На сьогодні наші викладачі готують випускників до здачі тестів ЗНО з
+            усіх предметів. Тут можна отримати кваліфіковану консультацію з
+            будь-яких питань, що стосуються навчальних програм пробного
+            тестування, посібників для підготовки до тестів ЗНО, реєстрації на
+            сайті Центру оцінювання якості освіти, вибору вузу та подачі
+            документів під час вступу.
+          </p>
+          <p>
+            Центр освітніх технологій займається інформаційно-видавничою
+            діяльністю, співпрацює з міжнародними організаціями, сприяє
+            поширенню інформації серед педагогів, тренерів та молоді про
+            демократичну та громадянську освіту. Ми вивчаємо культурну спадщину
+            українського народу та репрезентуємо матеріали на всеукраїнському та
+            міжнародному рівнях
+          </p>
+        </div>
+        <div class="about__img">
+          <img src="{% static 'images/img-about-us.png' %}" alt="About us" />
+          <div class="about__img-bg"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="contacts-section" id="contacts">
+    <div class="content">
+      <div class="contacts-block">
+        <div class="contacts">
+          <h2>Наші контакти</h2>
+          <div class="contacts__items">
+            <div class="contacts__item">
+              <div class="contacts__icon">
+                <img src="{% static 'images/icons/phone.png' %}" alt="Phone" />
+              </div>
+              <div class="contacts__info">
+                <p><a href="tel:+380982072728">(098) 207-27-28</a></p>
+                <p><a href="tel:+380938144042">(093) 814-40-42</a></p>
+              </div>
+            </div>
+            <div class="contacts__item">
+              <div class="contacts__icon">
+                <img src="{% static 'images/icons/viber.png' %}" alt="Viber" />
+              </div>
+              <div class="contacts__info">
+                <p>Viber:</p>
+                <p><a href="tel:+380938144042">(093) 814-40-42</a></p>
+              </div>
+            </div>
+            <div class="contacts__item">
+              <div class="contacts__icon">
+                <img
+                  src="{% static 'images/icons/telegram.png' %}"
+                  alt="Telegram"
+                />
+              </div>
+              <div class="contacts__info">
+                <p>Telegram: <a href="tg://resolve?domain=cotvin">@cotvin</a></p>
+                <p><a href="tel:+380982072728">(098) 207-27-28</a></p>
+              </div>
+            </div>
+            <div class="contacts__item">
+              <div class="contacts__icon">
+                <img src="{% static 'images/icons/pin.png' %}" alt="Location" />
+              </div>
+              <div class="contacts__info">
+                <p>м. Вінниця</p>
+                <p>вул. Князів Коріатовичів 54, 21000</p>
+              </div>
+            </div>
+            <div class="contacts__item">
+              <div class="contacts__icon">
+                <img src="{% static 'images/icons/phone.png' %}" alt="Phone" />
+              </div>
+              <div class="contacts__info">
+                <p><a href="mailto:cot.vn.ua@gmail.com">cot.vn.ua@gmail.com</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="map">
+          <img src="{% static 'images/map.jpg' %}" alt="Map" />
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}

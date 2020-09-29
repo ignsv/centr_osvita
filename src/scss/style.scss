@@ -1,0 +1,16 @@
+@import "./assets/reset";
+@import "./assets/variables";
+@import "./assets/typo";
+@import "main";
+
+@import "./components/header";
+@import "./components/footer";
+@import "./components/buttons";
+@import './components/modal';
+
+@import "auth";
+@import "home";
+@import "teachers";
+@import "subject";
+@import "quiz";
+@import "stats";

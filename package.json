@@ -1,0 +1,26 @@
+{
+  "name": "landing-boilerplate",
+  "version": "1.0.0",
+  "description": "boilerplate for making landing pages",
+  "scripts": {
+    "build": "gulp iconfont && gulp build",
+    "fonts": "gulp iconfont",
+    "dev": "gulp build && gulp serve"
+  },
+  "author": "Max Nych",
+  "license": "ISC",
+  "devDependencies": {
+    "async": "^3.1.0",
+    "gulp": "^4.0.2",
+    "gulp-consolidate": "^0.2.0",
+    "gulp-iconfont": "^10.0.3",
+    "gulp-include-html": "^1.0.14",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.13.1"
+  },
+  "dependencies": {
+    "reset-css": "^4.0.1"
+  }
+}

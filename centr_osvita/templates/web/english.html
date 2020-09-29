@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% load static i18n %} {% block title %}Англійська мова
+- ЦОТ{% endblock %} {% block content %}
+<main>
+  <section class="subject-section english-section">
+    <div class="content">
+      <div class="subject-page">
+        <h1>Англійська мова</h1>
+        <div class="subject__body">
+          <div class="subject__info">
+            <div class="subject__points">
+              <div class="subject__point">
+                <img
+                        src="{% static 'images/icons/book.png' %}"
+                        alt="Програма"
+                />
+                <p>
+                  Програма тренінгу враховує специфіку робочого зошиту ЗНО з англійської мови
+                </p>
+              </div>
+              <div class="subject__point">
+                <img
+                        src="{% static 'images/icons/clock.png' %}"
+                        alt="Тривалість"
+                />
+                <p>Заняття триває 2 години</p>
+              </div>
+              <div class="subject__point">
+                <img
+                        src="{% static 'images/icons/calendar.png' %}"
+                        alt="Тривалість"
+                />
+                <p>Два заняття на тиждень</p>
+              </div>
+            </div>
+            {% if user.is_authenticated %}
+              <a href="/quiz/list?subject=english" class="button">Пройти вхідний тест</a>
+            {% endif %}
+          </div>
+          <div class="subject__teacher">
+            <div class="teacher-card">
+              <div class="teacher-card__info">
+                <span>Викладач</span>
+                <h4>Кошевець Анатолій Валерійович</h4>
+                <a href="/statistics/?subject=english" class="button button--stat">Статистика попередніх років</a>
+              </div>
+              <div class="teacher-card__photo">
+                <img
+                        src="{% static 'images/teachers/koshevets.jpg' %}"
+                        alt="Кошевець Анатолій Валерійович"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}

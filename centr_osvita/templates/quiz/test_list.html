@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}Список тестів{% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="content">
+        <div class="quiz-list">
+            <h1>Тести</h1>
+            <div class="quiz-list__list">
+                {% for subject in object_list %}
+                <a href="{% url 'quiz:test-detail' subject.id %}">
+                    {{ subject.name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

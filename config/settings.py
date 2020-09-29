@@ -43,9 +43,16 @@ ADMINS = tuple([tuple(admins.split(':')) for admins in env.list('DJANGO_ADMINS')
 
 MANAGERS = ADMINS
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uk'
+
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+
+LOCALE_PATHS = [
+    os.path.join(PROJECT_PATH, '../locale'),
+]
+
 
 SITE_ID = 1
 
@@ -67,24 +74,27 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.postgres'
 )
 
 THIRD_PARTY_APPS = (
     'django_extensions',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    'phonenumber_field',
+    'polymorphic',
 )
 
 LOCAL_APPS = (
     'centr_osvita.common.apps.CommonConfig',
     'centr_osvita.users.apps.UsersConfig',
+    'centr_osvita.profiles.apps.ProfilesConfig',
+    'centr_osvita.quiz.apps.QuizConfig',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 AUTH_USER_MODEL = 'users.User'
 ADMIN_URL = r'^admin/'
+LOGIN_URL = '/users/login/'
 
 MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -157,15 +167,9 @@ ROOT_URLCONF = 'config.urls'
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
 )
-
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 LOGGING = {
     'version': 1,

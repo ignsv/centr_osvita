@@ -1,0 +1,72 @@
+{% extends "base.html" %} {% load static i18n %} {% block title %}Географія
+- ЦОТ{% endblock %} {% block content %}
+<main>
+  <section class="subject-section geography-section">
+    <div class="content">
+      <div class="subject-page">
+        <h1>Географія</h1>
+        <div class="subject__body">
+          <div class="subject__info">
+            <div class="subject__points">
+              <div class="subject__point">
+                <img
+                        src="{% static 'images/icons/book.png' %}"
+                        alt="Програма"
+                />
+                <p>
+                  Програма тренінгу охоплює зміст шкільного курсу географії
+                </p>
+              </div>
+              <div class="subject__point">
+                <img
+                        src="{% static 'images/icons/clock.png' %}"
+                        alt="Тривалість"
+                />
+                <p>Заняття триває 2 години</p>
+              </div>
+              <div class="subject__point">
+                <img
+                        src="{% static 'images/icons/calendar.png' %}"
+                        alt="Тривалість"
+                />
+                <p>Одне заняття на тиждень</p>
+              </div>
+            </div>
+            {% if user.is_authenticated %}
+              <a href="/quiz/list?subject=geography" class="button">Пройти вхідний тест</a>
+            {% endif %}
+          </div>
+          <div class="subject__contacts">
+            <div class="subject__contacts-head">
+              Наші контакти
+            </div>
+            <div class="subject__contacts-body">
+              <div class="subject__contacts-item">
+                <div class="subject__contacts-icon">
+                  <img src="{% static 'images/icons/phone.png' %}" alt="Phone" />
+                </div>
+                <div class="subject__contacts-info">
+                  <p><a href="tel:+380982072728">(098) 207-27-28</a></p>
+                  <p><a href="tel:+380938144042">(093) 814-40-42</a></p>
+                </div>
+              </div>
+              <div class="subject__contacts-item">
+                <div class="subject__contacts-icon">
+                  <img
+                          src="{% static 'images/icons/telegram.png' %}"
+                          alt="Telegram"
+                  />
+                </div>
+                <div class="subject__contacts-info">
+                  <p>Telegram: <a href="tg://resolve?domain=cotvin">@cotvin</a></p>
+                  <p><a href="tel:+380982072728">(098) 207-27-28</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

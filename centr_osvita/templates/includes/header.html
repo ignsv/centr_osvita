@@ -1,0 +1,41 @@
+{% load staticfiles i18n %}
+{% url 'common:home' as home_url %}
+{% url 'common:teachers' as teachers_url %}
+
+<header>
+    <div class="content">
+        <div class="head">
+            <div class="head__logo">
+                <a href="{% url 'common:home' %}"><img src="{% static 'images/COT_logo.png' %}" alt="COT"></a>
+            </div>
+            <div class="head__links-wrapper">
+                <input type="checkbox" id="burger-cb" class="head__links-status" />
+                <label for="burger-cb" class="head__links-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+                <div class="head__links">
+                    <div class="menu">
+                        <nav>
+                            <ul>
+                                <li {% if request.get_full_path == home_url %}class="menu-selected"{% endif %}><a href="{% url 'common:home' %}">Головна</a></li>
+                                <li><a href="{% url 'common:home' %}#subjects">Тренінги</a></li>
+                                <li {% if request.get_full_path == teachers_url %}class="menu-selected"{% endif %}><a href="{% url 'common:teachers' %}">Викладачі</a></li>
+                                <li><a href="{% url 'common:home' %}#contacts">Контакти</a></li>
+                                {% if not user.is_authenticated %}
+                                <li><a href="{% url 'users:login' %}">Вхід</a></li>
+                                {% else %}
+                                <li><a href="{% url 'users:logout' %}">Вихід</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="head__socials">
+                        <a href="https://www.facebook.com/groups/1626704494284751/" target="_blank"><img src="{% static 'images/facebook.png' %}" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

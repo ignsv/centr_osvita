@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}Реєстрація{% endblock %}
+
+
+{% block content %}
+<div class="content">
+    <div class="auth">
+        <form action="{% url 'users:register' %}"
+              method="post"
+              class="auth-form-register">
+            {% csrf_token %}
+
+            <h1 class="mb-2 text-center">Реєстрація</h1>
+
+            {{ user_form.non_field_errors }}
+            {{ profile_form.non_field_errors }}
+
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ user_form.phone.id_for_label }}">
+                    Телефон(у форматі +380XXXXXXXXX)
+                </label>
+                <div class="col-xs-12 col-md-8">
+                    {{ user_form.phone }}
+                </div>
+                <div class="col-12 p-3 text-right">
+                    {{ user_form.phone.errors }}
+                </div>
+            </div>
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ profile_form.full_name.id_for_label }}">
+                    Прізвище та ім'я учня
+                </label>
+                <div class="col-xs-12 col-md-8">
+                    {{ profile_form.full_name }}
+                </div>
+                <div class="col-12 p-3 text-right">
+                    {{ profile_form.full_name.errors }}
+                </div>
+            </div>
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ profile_form.parent_full_name.id_for_label }}">
+                    Ім'я та по батькові одного із батьків
+                </label>
+                <div class="col-xs-12 col-md-8">
+                    {{ profile_form.parent_full_name }}
+                </div>
+                <div class="col-12 p-3 text-right">
+                    {{ profile_form.parent_full_name.errors }}
+                </div>
+            </div>
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ profile_form.parent_phone.id_for_label }}">
+                    Телефон одного з батьків(у форматі +380XXXXXXXXX)
+                </label>
+                <div class="col-xs-12 col-md-8">
+                    {{ profile_form.parent_phone }}
+                </div>
+                <div class="col-12 p-3 text-right">
+                    {{ profile_form.parent_phone.errors }}
+                </div>
+            </div>
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ profile_form.institution_type.id_for_label }}">
+                    Тип навчального закладу
+                </label>
+                <div class="col-xs-12 col-md-8">
+                    {{ profile_form.institution_type }}
+                </div>
+                <div class="col-12 p-3 text-right">
+                    {{ profile_form.institution_type.errors }}
+                </div>
+            </div>
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ profile_form.institution_name.id_for_label }}"
+                       id="label_for_institution"
+                >
+                    Навчальний заклад та клас
+                </label>
+                <div class="col-8 col-md-6" id="institution_container">
+                    {{ profile_form.institution_name }}
+                </div>
+                <div class="col-4 col-md-2">
+                    {{ profile_form.grade }}
+                </div>
+                <div class="col-12 p-3 pt-0 text-right">
+                    {{ profile_form.institution_name.errors }}
+                    {{ profile_form.grade.errors }}
+                </div>
+            </div>
+            <div class="form-group row align-items-center">
+                <label class="col-xs-12 col-md-4 col-form-label"
+                       for="{{ user_form.password.id_for_label }}">
+                    Пароль
+                </label>
+                <div class="col-xs-12 col-md-8">
+                    {{ user_form.password }}
+                </div>
+                <div class="col-12 p-3 text-right">
+                    {{ user_form.password.errors }}
+                </div>
+            </div>
+            <div class="form-group row align-items-center">
+                <label for="personal_data_agree"
+                       class="col-12 col-md-8 col-form-label"
+                >
+                    Я погоджуюсь на обробку моїх персональних даних
+                </label>
+                <div class="col-12 col-md-4 auth__agree">
+                    <input type="checkbox" id="personal_data_agree">
+                </div>
+
+            </div>
+            <div class="row justify-content-center">
+                <input type="submit"
+                       id="reg_submit"
+                       value="Реєстрація"
+                       class="btn btn-primary mr-1">
+                <a href="{% url 'users:login' %}"
+                   class="btn btn-outline-primary">
+                    Вхід
+                </a></div>
+
+
+
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}

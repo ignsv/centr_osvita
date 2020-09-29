@@ -1,0 +1,153 @@
+header {
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 23px 0 14px 0;
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: #fff;
+    top: -100vh;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 20;
+    transition: top .8s;
+
+
+    @media #{$lg-media} {
+      position: static;
+      width: auto;
+      height: auto;
+      flex-direction: row;
+      justify-content: end;
+      align-items: center;
+
+    }
+  }
+
+  &__socials {
+    max-width: 140px;
+    img {
+      max-width: 100%;
+    }
+
+    @media #{$lg-media} {
+      max-width: 200px;
+
+    }
+  }
+
+  &__links-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    z-index: 25;
+    display: inline-block;
+    border-radius: 10px;
+    overflow: hidden;
+
+    @media #{$lg-media} {
+      display: none;
+    }
+
+    span {
+      position: absolute;
+      left: 50%;
+      border-radius: 1.5px;
+      background-color: #151A6A;
+      width: 35px;
+      height: 3px;
+      display: inline-block;
+      transition-property: all;
+      transition-duration: 0.5s;
+      transform: translate(-50%, -50%);
+      &:nth-child(1) {
+        top: 25%;
+      }
+      &:nth-child(2) {
+        top: 50%;
+      }
+      &:nth-child(3) {
+        top: 75%;
+      }
+    }
+  }
+
+  &__links-status {
+    display: none;
+
+    &:checked ~ .head__links {
+      top: 0;
+    }
+
+    &:checked + .head__links-btn {
+
+      & span:nth-child(1) {
+        transform: rotate(-45deg);
+        top: 50%;
+        left: 18%;
+      }
+      & span:nth-child(2) {
+        left: 100px;
+      }
+      & span:nth-child(3) {
+        left: 18%;
+        top: 50%;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+
+}
+
+.menu {
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+
+    @media #{$lg-media} {
+      margin-bottom: 0;
+      flex-direction: row;
+    }
+
+    li {
+      list-style-type: none;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+
+      @media #{$lg-media} {
+        margin-bottom: 0;
+        margin-right: 50px;
+
+      }
+
+      a {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2B2B2B;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  &-selected {
+    a {
+      color: #11A4DA !important;
+    }
+  }
+}

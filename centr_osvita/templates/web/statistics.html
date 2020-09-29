@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}Статистика - ЦОТ{% endblock %}
+
+
+{% block content %}
+<main class="stat-page">
+    <div class="content">
+        <h2>Результати попередніх років</h2>
+        <a href="/{{ subject.slug }}" class="stat-page__link">{{ subject.name }}</a>
+    </div>
+    <div class="stat">
+        {% for statistic in subject.ordered_statistic_by_year %}
+        <section class="stat__year">
+            <div class="content">
+                <div class="year">
+                    <h3>{{ statistic.year.date}} рік</h3>
+                    <div class="year__stats">
+                        <div class="year__stat">
+                            <div class="year__stat-percent">
+                                {{ statistic.percent_a }}%
+                            </div>
+                            <div class="year__stat-prelabel">
+                                Учнів отримали оцінку
+                            </div>
+                            <div class="year__stat-label">
+                                Відмінно
+                            </div>
+                        </div>
+
+                        <div class="year__stat">
+                            <div class="year__stat-percent">
+                                {{ statistic.percent_b }}%
+                            </div>
+                            <div class="year__stat-prelabel">
+                                Учнів отримали оцінку
+                            </div>
+                            <div class="year__stat-label year__stat-label--b">
+                                Добре
+                            </div>
+                        </div>
+
+                        <div class="year__stat">
+                            <div class="year__stat-percent">
+                                {{ statistic.percent_c }}%
+                            </div>
+                            <div class="year__stat-prelabel">
+                                Учнів отримали оцінку
+                            </div>
+                            <div class="year__stat-label year__stat-label--c">
+                                Задовільно
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}
+
