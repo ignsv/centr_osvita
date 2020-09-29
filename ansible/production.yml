@@ -44,7 +44,7 @@
     shell: "docker pull {{ image }}:{{ tag }}"
 
   - name: build docker compose
-    shell: "{{ compose_bin.stdout }} -f develop.yml --project-name {{ project.name }} up -d --build"
+    shell: "{{ compose_bin.stdout }} -f production.yml --project-name {{ project.name }} up -d --build"
     args:
       chdir: "{{ project.dir }}"
 
