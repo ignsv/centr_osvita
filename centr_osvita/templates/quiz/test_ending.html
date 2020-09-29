@@ -7,10 +7,12 @@
 {% block content %}
 <main>
     <div class="container">
-        <div class="quiz-detail">
+        <div class="quiz-detail quiz-detail--end">
             <h1>Ви пройшли тест!</h1>
             <h4>Результат: {{ instance.current_mark }}/{{ instance.max_available_mark }}</h4>
-            <p>Для консультації звертайтеся за <a href="{% url 'common:home' %}#contacts">контактами</a>.</p>
+            <div>
+                <p class="quiz-detail__contact-link">Для консультації звертайтеся за <a href="{% url 'common:home' %}#contacts">контактами</a>.</p>
+            </div>
             <a href="{% url 'common:home' %}"
                class="btn btn-primary">
                 Повернутись на головну
